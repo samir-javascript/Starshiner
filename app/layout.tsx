@@ -1,8 +1,15 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Roboto } from "next/font/google";
 import "./globals.css";
-
-const inter = Inter({ subsets: ["latin"] });
+import {dark} from "@clerk/themes";
+import {
+  ClerkProvider,
+ 
+} from '@clerk/nextjs'
+const roboto = Roboto({
+  subsets: ["latin"],
+  weight: ["500", "700", "900", "400"]
+});
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -16,7 +23,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <ClerkProvider appearance={{
+         baseTheme: dark,
+         layout: {
+          logoImageUrl: "https://stcnt.starshiners.ro/img/logo-StarShinerS-2.svg",
+          socialButtonsVariant: "iconButton"
+        }
+      }} >
+      <body className={roboto.className}>{children}</body>
+      </ClerkProvider>
+      
     </html>
   );
 }

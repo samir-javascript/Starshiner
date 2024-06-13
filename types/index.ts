@@ -16,3 +16,15 @@ export interface UpdateUserParams {
     path: string;
     userData: Partial<IUser>
 }
+
+export interface CreateProductParams {
+     name: string;
+     description: string;
+     price: number;
+     prevPrice: number;
+     category: string;
+     path: string;
+     images: string;
+     colors: object[];
+     position:string;
+}

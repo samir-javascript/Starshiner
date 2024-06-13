@@ -1,3 +1,4 @@
+"use server"
 import { connectToDb } from "@/db";
 import { CreateUserParams, DeleteUserParams, UpdateUserParams } from "@/types";
 import User from "@/schemas/userModel";

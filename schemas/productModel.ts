@@ -1,34 +1,6 @@
 import mongoose, { Document, Schema, Model, model } from "mongoose";
 
-// Define the IProduct interface
-// export interface IProduct extends Document {
-//   name: string;
-//   description: string;
-//   images: string[];
-//   price: number;
-//   prevPrice: number;
-//   isNew: boolean;
-//   numReviews: number;
-//   rating: number;
-//   reviews: {
-//     user: mongoose.Schema.Types.ObjectId;
-//     title: string;
-//     name: string;
-//     rating: number;
-//     comment: string;
-//   }[];
-//   colors: {
-//     color: string;
-//     sizes: {
-//       size: string;
-//       stock: number;
-//     }[];
-//   }[];
-//   position: string;
-//   category: string;
-// }
 
-// Define the review schema
 const reviewSchema = new Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
@@ -73,6 +45,13 @@ const colorSchema = new Schema({
   },
   sizes: [sizeSchema], // Array of size schemas for each color
 });
+const imageSchema = new Schema({
+  url: {
+    type: String,
+    required: true,
+  },
+  colors: [colorSchema], // Array of color schemas for each image
+});
 
 // Define the product schema
 const productSchema = new Schema(
@@ -94,7 +73,7 @@ const productSchema = new Schema(
       type: Number,
       required: true,
     },
-    isNew: {
+    isNewProduct: {
       type: Boolean,
       default: false,
     },
@@ -112,12 +91,8 @@ const productSchema = new Schema(
       required: true,
     },
     reviews: [reviewSchema],
-    images: [
-      {
-        type: String,
-        required: true,
-      },
-    ],
+    images: [imageSchema], // Array of image schemas
+    
     category: {
       type: String,
       required: true,

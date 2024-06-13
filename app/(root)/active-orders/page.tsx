@@ -14,7 +14,7 @@ const page = () => {
         <div className='flex max-w-[1200px] mx-auto lg:flex-row flex-col gap-5 items-start'>
             <ProfileTabs />
             <div className='flex-1 flex flex-col gap-5'>
-              <div className='flex flex-col gap-1'>
+              <div className='flex flex-col px-3 gap-1'>
                  <ProfileTop title="Active Orders " text="Here you can check your orders status! Check on your package!" links={[
                     {
                         name: "Home",

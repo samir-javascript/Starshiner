@@ -13,7 +13,7 @@ const page = () => {
         <div className='flex max-w-[1200px] mx-auto lg:flex-row flex-col gap-5 items-start'>
             <ProfileTabs />
             <div className='flex-1 flex flex-col gap-5'>
-              <div className='flex flex-col gap-1'>
+              <div className='flex px-3 flex-col gap-1'>
                  <ProfileTop title="My favorite items " text="3 items" links={[
                     {
                         name: "Home",

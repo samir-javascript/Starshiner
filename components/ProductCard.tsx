@@ -3,7 +3,7 @@ import { FaTimes } from 'react-icons/fa'
 
 const ProductCard = ({isWishlist = false}) => {
   return (
-    <div className='flex flex-col md:w-[230px]  w-[190px] '>
+    <div className='flex flex-col md:w-[230px] max-sm:w-[161px] w-[190px] '>
         <div className='relative'>
         <img className='w-full'
          src={"https://photos-de.starshiners.ro/110390/709822-372x558-lo.jpg"}

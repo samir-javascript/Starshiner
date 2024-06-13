@@ -11,7 +11,7 @@ const ProfileTop = ({links,text,title}: {
     }[]
 }) => {
   return (
-    <div className='flex flex-col gap-1'>
+    <div className='flex flex-col  gap-1'>
          <div className="flex items-center gap-1"> 
             
          {links.map((link,i) =>  (

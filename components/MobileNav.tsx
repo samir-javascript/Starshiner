@@ -16,16 +16,16 @@ const MobileNav = () => {
               </div>
               <div className='flex items-center gap-2'>
                   <Link href="">
-                      <FaSearch color="white" size={26} />
+                      <FaSearch color="white" size={20} />
                   </Link>
                   <Link href="">
-                      <FaRegUser color="white" size={26} />
+                      <FaRegUser color="white" size={20} />
                   </Link>
                   <Link href="">
-                      <FaRegHeart color="white" size={26} />
+                      <FaRegHeart color="white" size={20} />
                   </Link>
                   <Link href="">
-                      <RiShoppingBag4Fill color="white" size={26} />
+                      <RiShoppingBag4Fill color="white" size={20} />
                   </Link>
               </div>
         </div>

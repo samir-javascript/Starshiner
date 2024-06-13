@@ -20,7 +20,7 @@ const page = () => {
   //      }
   // }
   return (
-    <section className="bg-[#eaecf0] py-3  w-full ">
+    <section className="bg-[#eaecf0] py-3 px-3  w-full ">
         <div className='flex max-w-[1200px] mx-auto lg:flex-row flex-col gap-5 items-start'>
            <ProfileTabs />
             <div className='flex-1 flex flex-col gap-5'>
@@ -40,7 +40,7 @@ const page = () => {
                   }
                  ]}
                 text="Welcome to StarShinerS! Here you can edit your personal information, personalize your profile and change your password!" />
-                 <div className="flex w-full flex-col gap-4">
+                 <div className="flex w-full  flex-col gap-4">
                  <Accordion  type="multiple" >
  
        <AccordionItem className="mb-4"  value={`item 1}`}>

@@ -31,7 +31,7 @@ const page = () => {
                  ]} />
                  
               </div>
-                 <div className='flex items-center flex-wrap  gap-4'>
+                 <div className='flex items-center justify-center flex-wrap  gap-4'>
                         {[0,1,2,3].map((_,i)=> (
                              <ProductCard key={i} isWishlist={true} />
                         ) )}

@@ -29,8 +29,9 @@ const productDetailsSliders = () => {
       <div className='md:hidden w-full'>
         <Swiper
           spaceBetween={0}
-          modules={[ Pagination, Scrollbar, A11y]}
+          modules={[ Pagination, Navigation, Scrollbar, A11y]}
           slidesPerView={1}
+          navigation
           loop={true}
           pagination={{ clickable: true }}
           autoplay={{ delay: 2500 }}

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
 import "./globals.css";
 import {dark} from "@clerk/themes";
+
 import {
   ClerkProvider,
  
@@ -31,9 +32,17 @@ export default function RootLayout({
           socialButtonsVariant: "iconButton"
         }
       }} >
-        <StoreProvider>
-             <body className={roboto.className}>{children}</body>
-        </StoreProvider>
+       
+         
+             <body className={roboto.className}> 
+             <StoreProvider>
+            
+                {children} 
+              
+              </StoreProvider>
+              </body>
+             
+        
      
       </ClerkProvider>
       

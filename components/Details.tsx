@@ -28,20 +28,21 @@ const Details = ({result}:any) => {
     }
     return [];
   };
-  useEffect(() => {
-    const savedCart = localStorage.getItem('startsCart');
-    if (savedCart) {
-      const parsedCart = JSON.parse(savedCart);
-      parsedCart.cartItems.forEach((item:ProductProps) => {
-        dispatch(addToCart(item));
-      });
-    }
-  }, [dispatch]);
+ 
   const sizes = getSizesForSelectedColor(selectedColor);
   const handleAddToCart = () => {
-      dispatch(addToCart({...parsedResult,qty}));
-      router.push("/cart")
-  }
+    dispatch(addToCart({ ...parsedResult, qty }));
+    router.push("/cart");
+  };
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const savedCart = localStorage.getItem("starsItems");
+      if (savedCart) {
+        dispatch({ type: 'cart/resetCart', payload: JSON.parse(savedCart) });
+      }
+    }
+  }, [dispatch]);
   return (
     <div className='flex lg:gap-7 gap-5 md:flex-row flex-col'>
           <div className='flex-1'>

@@ -1,9 +1,14 @@
-import { configureStore } from '@reduxjs/toolkit'
-import cartSliceReducer from './features/cartSlice'
+import { Reducer, UnknownAction, configureStore } from '@reduxjs/toolkit'
+import { CarFrontIcon } from 'lucide-react';
+ import dynamic from 'next/dynamic';
+import { ReactNode } from 'react';
+import cartSlice from './features/cartSlice';
+
 export const makeStore = () => {
   return configureStore({
     reducer: {
-       cart: cartSliceReducer
+      // @ts-ignore
+       cart: cartSlice
     }
   })
 }

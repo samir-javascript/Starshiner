@@ -1,11 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react'
 import '@uploadcare/blocks/web/lr-file-uploader-regular.min.css'; // Import Uploadcare CSS
 import * as LR from '@uploadcare/blocks';
-const UploadFiles = ({imageId,setImageId}: {
-  imageId: string;
-  setImageId: (v:string) => void;
-  // f: LR.OutputFileEntry<LR.OutputFileStatus>[];
-  // setF: (v:LR.OutputFileEntry<LR.OutputFileStatus>[])  => void;
+import { setFips } from 'crypto';
+const UploadFiles = ({setF}: {
+  
+ 
+  setF: (v:LR.OutputFileEntry<LR.OutputFileStatus>[])  => void;
 }) => {
   LR.registerBlocks(LR);
  
@@ -19,7 +19,8 @@ const UploadFiles = ({imageId,setImageId}: {
     
       if(file.length > 0) {
          
-          setImageId(file[0].cdnUrl || "")
+          //setImageId(file[0].cdnUrl || "")
+          setF(file) 
           ctxProviderRef.current?.uploadCollection.clearAll()
       }
      
@@ -36,7 +37,7 @@ const UploadFiles = ({imageId,setImageId}: {
   
   return (
          <>
-            <lr-config imgOnly multiple={false}
+            <lr-config imgOnly multiple={true}
              maxLocalFileSizeBytes={10000000} sourceList='local, url, camera, instagram, dropbox, gdrive'  ctx-name="my-uploader" pubkey={"9ac3da2d6690edb9c7fe"}></lr-config>
             <lr-file-uploader-regular class='my-config' ctx-name="my-uploader"></lr-file-uploader-regular> 
             <lr-upload-ctx-provider ctx-name='my-uploader' ref={ctxProviderRef} />
@@ -47,22 +48,3 @@ const UploadFiles = ({imageId,setImageId}: {
 export default UploadFiles
 
 
-// import React, { useEffect } from 'react';
-
-// const UploadFiles = ({ setImageUrl }) => {
-//   useEffect(() => {
-//     const handleUpload = (event) => {
-//       const url = event.detail.files[0].cdnUrl;
-//       setImageUrl(url);
-//     };
-
-//     window.addEventListener('uploadcare-upload-complete', handleUpload);
-//     return () => {
-//       window.removeEventListener('uploadcare-upload-complete', handleUpload);
-//     };
-//   }, [setImageUrl]);
-
-//   return <uc-uploader multiple="false"></uc-uploader>;
-// };
-
-// export default UploadFiles;

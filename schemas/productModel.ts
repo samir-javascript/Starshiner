@@ -46,14 +46,10 @@ const colorSchema = new Schema({
   sizes: [sizeSchema], // Array of size schemas for each color
 });
 const imageSchema = new Schema({
-  url: {
+  url: [{
     type: String,
     required: true,
-  },
-  // url:[ {
-  //   type: String,
-  //   required: true,
-  // }],
+  }],
   colors: [colorSchema], // Array of color schemas for each image
 });
 

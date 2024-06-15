@@ -15,7 +15,7 @@ const ProfileTabs = () => {
                   <div className='bg-gray-1 p-5 flex rounded-tr-[10px] rounded-tl-[10px] flex-col gap-3 border-b border-gray-300 '>
                       <h2 className='text-black font-semibold text-[18px] '>My account</h2>
                       <div className='flex items-center gap-2'>
-                        <UserButton />
+                        <UserButton afterSignOutUrl='/' />
                         <div className='flex flex-col'>
                         <p className='font-normal text-sm text-black-1 '>{user?.user?.fullName} </p>
                         <p className='font-normal text-sm text-black-1 '>{user?.user?.primaryEmailAddress?.emailAddress}  </p>
@@ -35,7 +35,7 @@ const ProfileTabs = () => {
                       })}
                       <Button asChild className='px-4 py-3 bg-white cursor-pointer rounded-br-[10px] rounded-bl-[10px] border-b flex items-center justify-between border-gray-300' >
                      
-                      <SignOutButton>
+                      <SignOutButton redirectUrl='/'>
                            <p className='uppercase font-bold text-[15px] text-black-1 '>LOGOUT </p>
                       </SignOutButton>
                       </Button>

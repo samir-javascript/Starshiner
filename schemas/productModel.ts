@@ -50,6 +50,10 @@ const imageSchema = new Schema({
     type: String,
     required: true,
   },
+  // url:[ {
+  //   type: String,
+  //   required: true,
+  // }],
   colors: [colorSchema], // Array of color schemas for each image
 });
 

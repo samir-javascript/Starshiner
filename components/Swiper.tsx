@@ -67,7 +67,7 @@ const MySwiper = () => {
          
             <div className='flex flex-col group gap-1.5 items-center justify-center'>
                 <img className='h-[184px] cursor-pointer group-hover:scale-[1.05] transition-all duration-300 rounded-[20px] object-cover'
-                 src='https://static.starshiners.ro/files/banners/slds/webp/collection_24_05_30__12_17_patratica.webp' />
+                 src='https://static.starshiners.ro/files/banners/dyn/webp/3793_107_1_7_1717684837.webp' />
                  <p className='text-black font-semibold text-base'>Sale</p>
             </div>
          

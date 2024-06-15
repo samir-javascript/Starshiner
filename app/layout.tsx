@@ -6,6 +6,7 @@ import {
   ClerkProvider,
  
 } from '@clerk/nextjs'
+import StoreProvider from "@/storeProvider";
 const roboto = Roboto({
   subsets: ["latin"],
   weight: ["500", "700", "900", "400"]
@@ -30,7 +31,10 @@ export default function RootLayout({
           socialButtonsVariant: "iconButton"
         }
       }} >
-      <body className={roboto.className}>{children}</body>
+        <StoreProvider>
+             <body className={roboto.className}>{children}</body>
+        </StoreProvider>
+     
       </ClerkProvider>
       
     </html>

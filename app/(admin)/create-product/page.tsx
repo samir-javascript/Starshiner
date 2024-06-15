@@ -242,6 +242,7 @@
  import { Button } from "@/components/ui/button";
  import * as LR from '@uploadcare/blocks';
  import dynamic from 'next/dynamic';
+import { usePathname } from "next/navigation";
 
  const NoSSR = dynamic(() => import('@/components/adminComponents/UploadFiles'), { ssr: false });
 
@@ -263,6 +264,7 @@
  const Page = () => {
    LR.registerBlocks(LR);
    const [images, setImages] = useState<ImageDetails[]>([]);
+   const pathname = usePathname()
    const [imageUrl, setImageUrl] = useState<string>('');
    const [color, setColor] = useState<string>('');
    const [size, setSize] = useState<string>('');
@@ -331,6 +333,7 @@
          body: JSON.stringify({
            name,
            description,
+           path: pathname,
            images,
            category,
            price,

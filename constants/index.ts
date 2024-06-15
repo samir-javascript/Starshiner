@@ -63,6 +63,47 @@ export const authoritySlides = [
   },
 
 ]
+export const homeCategories = [
+  {
+    id: "1",
+    img: "https://static.starshiners.ro/files/banners/dyn/webp/3802_106___1710166299.webp",
+    name: "dresses"
+},
+{
+    id: "2",
+    img: "https://static.starshiners.ro/files/banners/dyn/webp/3848_106_1_7_1710164900.webp",
+    name: "spring dresses"
+},
+{
+    id: "7",
+    img: "https://static.starshiners.ro/files/banners/dyn/webp/3779_106___1710164807.webp",
+    name: "Embroidered clothes"
+},
+{
+  id: "4",
+  img:"https://static.starshiners.ro/files/banners/dyn/webp/3782_106_1_8_1710164507.webp",
+  name: "starshiners "
+},
+
+{
+    id: "5",
+    name: "elegant dresses",
+    img: "https://static.starshiners.ro/files/banners/dyn/webp/3780_106___1710164712.webp"
+},
+{
+    id: "6",
+    name: "denim look",
+    img: "https://static.starshiners.ro/files/banners/dyn/webp/3847_106___1710164628.webp"
+},
+
+{
+  id: "3",
+  img: "https://static.starshiners.ro/files/banners/dyn/webp/3778_106___1710164766.webp",
+  name: "floral prints"
+},
+
+]
+// delete this when changing to dynamic rendering;
 export const categories = [
   {
       id: "1",

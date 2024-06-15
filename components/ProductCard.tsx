@@ -1,7 +1,7 @@
 import React from 'react'
-import { FaTimes } from 'react-icons/fa'
+import { FaRegHeart, FaTimes } from 'react-icons/fa'
 
-const ProductCard = ({isWishlist = false}) => {
+const ProductCard = ({isWishlist = false, isCategory = false}) => {
   return (
     <div className='flex flex-col md:w-[230px] max-sm:w-[161px] w-[190px] '>
         <div className='relative'>
@@ -10,6 +10,9 @@ const ProductCard = ({isWishlist = false}) => {
           alt={""}/>
          {isWishlist  &&  <div className='absolute cursor-pointer top-0 p-3 right-0'>
               <FaTimes className='hover:text-gray-400 text-gray-500'  />
+          </div>} 
+          {isCategory  &&  <div className='absolute cursor-pointer top-0 p-3 right-0'>
+              <FaRegHeart className='hover:text-gray-400 text-gray-500'  />
           </div>} 
         </div>
                             

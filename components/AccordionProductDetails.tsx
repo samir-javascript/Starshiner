@@ -10,7 +10,11 @@ import {
 import { GiFoundryBucket } from 'react-icons/gi'
 import Link from 'next/link'
 
-const AccordionProductDetails = () => {
+const AccordionProductDetails = ({name,description,image}: {
+    name:string;
+    description:string;
+    image:string;
+}) => {
   const categories = [
      "top shirts",
      "tinted tops",
@@ -32,13 +36,12 @@ const AccordionProductDetails = () => {
            <AccordionTrigger className='bg-white hover:no-underline px-3 font-bold'> item details</AccordionTrigger>
            <AccordionContent className='px-3 py-1.5'>
               <div className='flex flex-col'>
-                  <h2 className='text-[#000] text-[18px] mb-3 font-bold '>Black Tight Lycra Top with Low Neckline - StarShinerS</h2>
+                  <h2 className='text-[#000] text-[18px] mb-3 font-bold '>{name} </h2>
                   <div className='flex items-center gap-[2px] '>
                       <h3 className='text-[#000] text-[15px] font-bold'>Item code: </h3>
                       <p className='text-black-1 text-[15px] '>S-058597-1</p>
                   </div>
-                  <p className='text-black-1 text-[15px] leading-[1.5] mt-3 '>Black top made of thin lycra with good elasticity and a shiny appearance.
-                     The cut is tight, on the body. The neckline is dropped.</p>
+                  <p className='text-black-1 text-[15px] leading-[1.5] mt-3 '>{description}</p>
                      <p className='text-black-1 text-[15px] leading-[1.5] mt-3'>* The model wears size: S | Height: <span className='font-bold text-[#000] '> 172  </span>cm</p>
               </div>
            </AccordionContent> 
@@ -129,7 +132,7 @@ const AccordionProductDetails = () => {
               <div className='flex flex-col'>
                   <div className='flex items-center gap-3 w-full'>
                       <div>
-                          <img  className='w-[120px] object-cover ' src="https://photos-de.starshiners.ro/104410/696565-372x558-lo.jpg" alt="" />
+                          <img  className='w-[120px] object-cover ' src={image} alt={name} />
                       </div>
                       <div className='flex flex-col gap-1.5'>
                       <div className='flex items-center gap-[2px] '>

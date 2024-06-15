@@ -43,7 +43,7 @@ const page = () => {
                   </div>
                   <div className='flex-1 flex items-center w-full gap-2 flex-wrap lg:justify-start justify-center'>
                          {[0,1,2,3,4,5,6,7,8,9,10,11,22,33,55,99,41,25,999,52,2558,32,33,44,544].map((_,i) => (
-                             <ProductCard key={i} />
+                             <ProductCard isCategory  key={i} />
                          ) )}
                   </div>
               </div>

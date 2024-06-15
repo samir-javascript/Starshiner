@@ -1,3 +1,4 @@
+import { getProducts } from "@/actions/product.actions"
 import BrandStatement from "@/components/BrandStatement"
 import Footer from "@/components/Footer"
 import GridCategories from "@/components/GridCategories"
@@ -10,8 +11,16 @@ import UpNav from "@/components/UpNav"
 import WardrobeCategories from "@/components/WardrobeCategories"
 
 import { recommendedProducts } from "@/constants"
+import { connectToDb } from "@/db"
 
-export default function Home() {
+import Product from "@/schemas/productModel"
+
+export default async function Home() {
+  const result = await getProducts()
+  console.log(result, "result")
+  
+ 
+ 
   return (
     <div>
      

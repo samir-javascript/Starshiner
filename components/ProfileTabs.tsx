@@ -27,7 +27,7 @@ const ProfileTabs = () => {
                       {profileItems.map((item,index) => {
                          const isActive = pathname === item.href
                          return (
-                     <Link className={`${isActive ? "bg-[#eaecf0] " : "bg-white"} px-4 py-3  border-b flex items-center justify-between border-gray-300`} href={item.href} key={index}>
+                     <Link key={item.name + item.id} className={`${isActive ? "bg-[#eaecf0] " : "bg-white"} px-4 py-3  border-b flex items-center justify-between border-gray-300`} href={item.href} >
                                <p className='uppercase font-bold text-[15px] text-black-1 '>{item.name} </p>
                                <IoChevronForwardSharp color="gray" />
                           </Link>

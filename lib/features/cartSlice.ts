@@ -8,13 +8,13 @@ const loadStateFromLocalStorage = () => {
     const savedState = localStorage.getItem("starsItems");
     return savedState ? JSON.parse(savedState) : {
       cartItems: [],
-      shippingAddress: {},
+      shippingAddress: [],
       paymentMethod: ""
     };
   }
   return {
     cartItems: [],
-    shippingAddress: {},
+    shippingAddress: [],
     paymentMethod: ""
   };
 };

@@ -4,7 +4,7 @@
 
   @layer {
     .input-css {
-       @apply !py-3 !px-5 bg-gray-100 w-full  rounded-[15px]  outline-none border-gray-200 text-sm font-medium
+       @apply !py-3 !px-5 bg-gray-100 w-full  !rounded-[15px]  outline-none border-gray-200 text-sm font-medium
     }
     .label-css {
        @apply text-sm text-[#000] font-semibold

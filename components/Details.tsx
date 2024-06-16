@@ -1,5 +1,5 @@
 "use client"
-import { FaRegHeart, FaStar } from 'react-icons/fa'
+import { FaMinus, FaPlus, FaRegHeart, FaStar } from 'react-icons/fa'
 import ProductDetailsSlides from './productDetailsSliders'
 import AccordionProductDetails from './AccordionProductDetails';
 import { RiShoppingBasketFill } from 'react-icons/ri';
@@ -43,6 +43,13 @@ const Details = ({result}:any) => {
       }
     }
   }, [dispatch]);
+  const increase = () => {
+     setQty((prev:number) => prev + 1)
+  }
+  const decrease = () => {
+    if(qty === 1) return
+    setQty((prev:number) => prev - 1)
+ }
   return (
     <div className='flex lg:gap-7 gap-5 md:flex-row flex-col'>
           <div className='flex-1'>
@@ -65,10 +72,21 @@ const Details = ({result}:any) => {
                 </div>
               </div>
             </div>
-            <div className='flex flex-col gap-2 border-b border-gray-200 pb-3'>
+            <div className='flex border-b border-gray-200 pb-3 items-center justify-between '>
+           
+          <div className='flex flex-col gap-2 '>
+              
               <h2 className='text-[24px] font-bold text-[#000]'>{parsedResult.price},95 €</h2>
               <p className='text-black-1'>Shipping: 9,95 €</p>
             </div>
+            <div
+            
+            className='h-[70px] p-3 w-[80px] bg-white hover:shadow-2xl cursor-pointer shadow-lg rounded-[10px] flex items-center justify-center'
+          >
+            <FaRegHeart size={30} color='#E00697' />
+          </div>
+            </div>
+           
             <div className='flex flex-col border-b border-gray-200 pb-3 gap-3'>
             
             <div className="flex flex-col gap-5">
@@ -115,23 +133,25 @@ const Details = ({result}:any) => {
     </div>
       
       <div className='flex flex-col'>
-        <div className='flex items-center gap-2'>
-          <Button
-            className='flex hover:bg-green-1 items-center justify-center flex-col gap-1.5 h-[70px] w-full text-white border-2 border-[#45ab69] bg-[#45ab69] rounded-[15px]'
+        <div className='flex items-center justify-between gap-2'>
+          <Button 
+            className=' flex flex-1 hover:bg-green-1 items-center
+             justify-center flex-col gap-1.5 h-[50px] w-full
+              text-white border-2 border-[#45ab69] bg-[#45ab69] rounded-[15px]'
             type='button'
             onClick={handleAddToCart}
           >
             <div className='flex items-center gap-1'>
-              <RiShoppingBasketFill size={25} />
-              <p className='uppercase font-bold text-[22px]'>add to cart</p>
+              <RiShoppingBasketFill size={20} />
+              <p className='uppercase font-bold text-[18px]'>add to cart</p>
             </div>
             <p className='text-sm font-normal capitalize'>delivery in 10 days</p>
           </Button>
-          <div
-            className='h-[70px] p-3 w-[80px] bg-white hover:shadow-2xl cursor-pointer shadow-lg rounded-[10px] flex items-center justify-center'
-          >
-            <FaRegHeart size={30} color='#E00697' />
-          </div>
+         <div className="flex flex-[0.5] px-4  w-full h-[50px] rounded-[15px] items-center justify-between border">
+              <FaMinus onClick={decrease} cursor="pointer" color="green" />
+              <p className="text-sm font-semibold text-black-1 ">{qty} </p>
+              <FaPlus onClick={increase} cursor="pointer" color="green" />
+         </div>
         </div>
         <div className='flex mt-3 items-center gap-[3px]'>
           <MdRestartAlt size={20} color='gray' />

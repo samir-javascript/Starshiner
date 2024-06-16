@@ -49,10 +49,11 @@ import { usePathname } from "next/navigation";
   //    setImages([...images, { url: imgs, colors: [] }]);
   //    setF([])
   //  };
+ // f.map(entry => entry.cdnUrl || '')
   const addImage = () => {
     if (f && f.length > 0) {
       const newImages: ImageDetails = {
-        url: f.map(entry => entry.cdnUrl || ''), // Assuming cdnUrl is always available
+        url:f.map(entry => entry.cdnUrl || ''), // Assuming cdnUrl is always available
         colors: []
       };
       setImages([...images, newImages]);
@@ -60,43 +61,78 @@ import { usePathname } from "next/navigation";
     }
   };
 
-   const addColor = () => {
-     const updatedImages = images.map(img => {
-       if (img.url[0] === selectedImage) {
-         return {
-           ...img,
-           colors: [...img.colors, { color, sizes: [] }]
-         };
-       }
-       return img;
-     });
-     setImages(updatedImages);
-     setColor('');
-   };
-
-   const addSize = () => {
-     const updatedImages = images.map(img => {
-       if (img.url[0] === selectedImage) {
-         return {
-           ...img,
-           colors: img.colors.map(col => {
-             if (col.color === selectedColor) {
-               return {
-                 ...col,
-                 sizes: [...col.sizes, { size, stock }]
-               };
-             }
-             return col;
-           })
-         };
-       }
-       return img;
-     });
-     setImages(updatedImages);
-     setSize('');
-     setStock(0);
-   };
-
+  //  const addColor = () => {
+  //    const updatedImages = images.map(img => {
+  //      if (img.url.includes(selectedImage as string)) {
+  //        return {
+  //          ...img,
+  //          colors: [...img.colors, { color, sizes: [] }]
+  //        };
+  //      }
+  //      return img;
+  //    });
+  //    setImages(updatedImages);
+  //    setColor('');
+  //  };
+  const addColor = () => {
+    const updatedImages = images.map(img => {
+      if (img.url.some(url => url === selectedImage)) {
+        return {
+          ...img,
+          colors: [...img.colors, { color, sizes: [] }]
+        };
+      }
+      return img;
+    });
+    setImages(updatedImages);
+    setColor('');
+  };
+  
+  //  const addSize = () => {
+  //    const updatedImages = images.map(img => {
+  //      if (img.url.includes(selectedImage as string)) {
+  //        return {
+  //          ...img,
+  //          colors: img.colors.map(col => {
+  //            if (col.color === selectedColor) {
+  //              return {
+  //                ...col,
+  //                sizes: [...col.sizes, { size, stock }]
+  //              };
+  //            }
+  //            return col;
+  //          })
+  //        };
+  //      }
+  //      return img;
+  //    });
+  //    setImages(updatedImages);
+  //    setSize('');
+  //    setStock(0);
+  //  };
+  const addSize = () => {
+    const updatedImages = images.map(img => {
+      if (img.url.some(url => url === selectedImage)) {
+        return {
+          ...img,
+          colors: img.colors.map(col => {
+            if (col.color === selectedColor) {
+              return {
+                ...col,
+                sizes: [...col.sizes, { size, stock }]
+              };
+            }
+            return col;
+          })
+        };
+      }
+      return img;
+    });
+    setImages(updatedImages);
+    setSize('');
+    setStock(0);
+  };
+  
    const handleCreateProduct = async (e: FormEvent) => {
      e.preventDefault();
      setLoading(true);
@@ -170,12 +206,26 @@ console.log(f, "f hereeee")
 
            <div>
              <p className='text-sm font-semibold text-[#000] capitalize'>Select Image</p>
-             <select className='outline-none border border-gray-300 px-2.5 py-2 font-medium mb-2 rounded-[10px] bg-gray-200' onChange={(e) => setSelectedImage(e.target.value)} defaultValue="">
+             {/* <select className='outline-none border border-gray-300 px-2.5 py-2 font-medium mb-2 rounded-[10px] bg-gray-200' onChange={(e) => setSelectedImage(e.target.value)} defaultValue="">
                <option value="" disabled>Select image</option>
                {images.map((img, index) => (
-                 <option key={index} value={img.url}>{img.url}</option>
+                  <option key={index} value={img.url}>{img.url}</option>
                ))}
-             </select>
+               
+             </select> */}
+           <select
+  className='outline-none border border-gray-300 px-2.5 py-2 font-medium mb-2 rounded-[10px] bg-gray-200'
+  onChange={(e) => setSelectedImage(e.target.value)}
+  defaultValue=""
+>
+  <option value="" disabled>Select image</option>
+  {images.map((img, index) =>
+    img.url.map((url, urlIndex) => (
+      <option key={`${index}-${urlIndex}`} value={url}>{url}</option>
+    ))
+  )}
+</select>
+
            </div>
 
            {selectedImage && (
@@ -195,7 +245,7 @@ console.log(f, "f hereeee")
                  <p className='text-sm font-semibold text-[#000] capitalize'>Select Color</p>
                  <select className='outline-none border border-gray-300 px-2.5 py-2 font-medium mb-2 rounded-[10px] bg-gray-200' onChange={(e) => setSelectedColor(e.target.value)} defaultValue="">
                    <option value="" disabled>Select color</option>
-                   {images.find(img => img.url[0] === selectedImage)?.colors.map((col, index) => (
+                   {images.find(img => img.url.includes(selectedImage))?.colors.map((col, index) => (
                      <option key={index} value={col.color}>{col.color}</option>
                    ))}
                  </select>

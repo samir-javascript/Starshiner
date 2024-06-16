@@ -3,7 +3,9 @@ import React from 'react'
 import InputSearch from './Input'
 import { FaRegUser, FaRegHeart, FaShoppingBag } from "react-icons/fa";
 import Link from 'next/link';
+import { auth } from '@clerk/nextjs/server';
 const Nav = () => {
+  const {userId} = auth()
   return (
     <nav className="bg-primary-1 px-2 flex max-md:hidden w-full h-[60px] ">
         <div className='w-full max-w-[1200px] mx-auto h-full gap-7 flex items-center justify-between '>
@@ -13,7 +15,7 @@ const Nav = () => {
            
             <InputSearch />
             <div className='flex items-center gap-4'>
-                   <Link href="/client/profile/7878" className='flex items-center gap-1.5'>
+                   <Link href={`/client/profile/${userId}`} className='flex items-center gap-1.5'>
                         <FaRegUser  color="white" size={22}/>
                         <p className='text-white font-normal text-sm lg:flex hidden '>My account</p>  
                    </Link>

@@ -86,9 +86,10 @@ export interface IUser extends Document {
         ref: "Shipping"
      }],
      saved: [{
-        type: mongoose.Schema.Types.ObjectId,
+       type: mongoose.Schema.Types.ObjectId,
         ref: "Product"
      }]
+    
 
  })
  const User = mongoose.models.User || mongoose.model<IUser>('User', userModel)

@@ -11,12 +11,16 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { ProductProps } from '@/types';
 
-const Details = ({result}:any) => {
+const Details = ({result, userId}: {
+  result: string;
+  userId: string
+}) => {
   const [qty,setQty] = useState(1)
   const router = useRouter()
   
   const dispatch = useAppDispatch()
    const parsedResult = JSON.parse(result)
+   const parsedUserId = JSON.parse(userId)
    const [selectedColor, setSelectedColor] = useState(parsedResult.images[0].colors[0].color);
    const getSizesForSelectedColor = (selectedColor: string) => {
     for (let image of parsedResult.images) {
@@ -50,6 +54,23 @@ const Details = ({result}:any) => {
     if(qty === 1) return
     setQty((prev:number) => prev - 1)
  }
+  const handleToggleWishlist = async()=> {
+    try {
+       const response =  await fetch("/api/wishlist/toggleWishlist", {
+          method: "POST",
+          body: JSON.stringify({
+             userId: parsedUserId,
+             productId: parsedResult._id
+          })
+       })
+       if(!response.ok) {
+          throw new Error('Failed to complete this action')
+       }
+       // success toast;
+    } catch (error) {
+       console.log(error)
+    }
+  }
   return (
     <div className='flex lg:gap-7 gap-5 md:flex-row flex-col'>
           <div className='flex-1'>
@@ -79,12 +100,14 @@ const Details = ({result}:any) => {
               <h2 className='text-[24px] font-bold text-[#000]'>{parsedResult.price},95 €</h2>
               <p className='text-black-1'>Shipping: 9,95 €</p>
             </div>
+            {/* wishlist trigger */}
             <div
-            
+            onClick={handleToggleWishlist}
             className='h-[70px] p-3 w-[80px] bg-white hover:shadow-2xl cursor-pointer shadow-lg rounded-[10px] flex items-center justify-center'
           >
             <FaRegHeart size={30} color='#E00697' />
           </div>
+           {/* wishlist trigger */}
             </div>
            
             <div className='flex flex-col border-b border-gray-200 pb-3 gap-3'>

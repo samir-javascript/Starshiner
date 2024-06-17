@@ -1,13 +1,20 @@
+import { getCurrentUser, getMyWishlistItems } from '@/actions/user.actions'
 import Email from '@/components/Email'
 import ProductCard from '@/components/ProductCard'
 import ProfileTabs from '@/components/ProfileTabs'
 import ProfileTop from '@/components/ProfileTop'
+import { ProductProps } from '@/types'
+import { auth } from '@clerk/nextjs/server'
 
 import Link from 'next/link'
 import React from 'react'
 
 
-const page = () => {
+const page = async() => {
+  const { userId } = auth()
+  const currentUser = await getCurrentUser({clerkId: userId as string})
+  const items = await getMyWishlistItems({userId: currentUser._id})
+  console.log(items, "wishlist items")
   return (
     <section className="bg-white py-3 h-full w-full" >
         <div className='flex max-w-[1200px] mx-auto lg:flex-row flex-col gap-5 items-start'>
@@ -32,9 +39,12 @@ const page = () => {
                  
               </div>
                  <div className='flex items-center justify-center flex-wrap  gap-4'>
-                        {[0,1,2,3].map((_,i)=> (
-                             <ProductCard key={i} isWishlist={true} />
-                        ) )}
+                        {items.products.length > 0 ?  items.products.map((item:ProductProps,i:number)=> (
+                             <ProductCard  key={i} item={JSON.stringify(item)} 
+                             userId={JSON.stringify(currentUser._id)} isWishlist={true} />
+                        ) ): (
+                            <p>go back</p>
+                        )}
                  </div>
             </div>
         </div>

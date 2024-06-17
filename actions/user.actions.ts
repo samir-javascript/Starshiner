@@ -5,6 +5,7 @@ import User from "@/schemas/userModel";
 import Shipping from "@/schemas/shippingModel";
 import { revalidatePath } from "next/cache";
 import { cache } from "@/lib/cache";
+import Wishlist from "@/schemas/wishlistModel";
 
 export async function createUser (params:CreateUserParams) {
      const { clerkId, name, username, email, picture} = params;
@@ -98,3 +99,19 @@ export const getShippingById = async(params: {
    console.log(error, "error fetching shipping by ID")
  }
 }
+
+
+export const getMyWishlistItems = cache( async(params: {
+   userId: string
+}) => {
+     if(!params.userId) return;
+   try {
+      await connectToDb()
+      const wishlistItems = await Wishlist.findOne({user: params.userId})
+      .populate("products")
+      .exec()
+      return wishlistItems
+   } catch (error) {
+      console.log(error, "error getting wishlist items")
+   }
+}, [" getMyWishlistItems", "/", "/favourites"], {revalidate: 1000 * 60 * 60 * 24})

@@ -116,7 +116,7 @@ type shippingsProps = {
     }
     useEffect(() =>{
         if(parsedUser !== null) {
-            setFirstName(parsedUser?.fistName)
+            setFirstName(parsedUser?.firstName)
             setLastName(parsedUser.lastName)
             setPhoneNumber(parsedUser.phoneNumber)
             setCountry(parsedUser.country)

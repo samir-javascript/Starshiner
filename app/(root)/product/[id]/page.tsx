@@ -1,18 +1,19 @@
 import { getProductById } from '@/actions/product.actions';
-import AccordionProductDetails from '@/components/AccordionProductDetails';
+import { getCurrentUser } from '@/actions/user.actions';
+
 import Details from '@/components/Details';
 import Recommendation from '@/components/Recommendation';
-import ProductDetailsSlides from '@/components/productDetailsSliders';
+
 import { Button } from '@/components/ui/button';
 import { recommendedProducts } from '@/constants';
+import { auth } from '@clerk/nextjs/server';
 
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import React from 'react';
-import { FaRegHeart, FaStar } from 'react-icons/fa';
+import {  FaStar } from 'react-icons/fa';
 import { IoChevronForwardSharp } from "react-icons/io5";
-import { MdRestartAlt } from 'react-icons/md';
-import { RiShoppingBasketFill } from 'react-icons/ri';
+
 interface props {
   params: {
     id: string;
@@ -21,7 +22,8 @@ interface props {
 const Page = async({params}:props) => {
   const result = await getProductById({productId: params.id})
   if(result == null) return notFound()
-
+    const {userId} = auth()
+  const currentUser = await getCurrentUser({clerkId: userId as string})
   return (
     
     <div className='w-full bg-white py-4 h-full'>
@@ -40,7 +42,7 @@ const Page = async({params}:props) => {
           </Link>
         </div>
        
-        <Details result={JSON.stringify(result)} />
+        <Details userId={JSON.stringify(currentUser._id)} result={JSON.stringify(result)} />
        
       </div>
       <div className='mt-7'>

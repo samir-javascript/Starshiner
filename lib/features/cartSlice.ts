@@ -26,17 +26,19 @@ const cartSlice = createSlice({
   initialState,
   reducers: {
     addToCart: (state, action) => {
-      const item = action.payload;
-      const existItem = state.cartItems.find((x: ProductProps) => x._id === item._id);
-      if (existItem) {
-        existItem.qty += 1;
-      } else {
-        state.cartItems = [...state.cartItems, item];
-      }
-      return updateCart(state);
+       const {...item} = action.payload;
+       const existItem = state.cartItems.find(((x:any)  => x._id === item._id))
+       if(existItem) {
+         existItem.qty += item.qty
+       }else {
+         state.cartItems = [...state.cartItems,item]
+       }
+       return updateCart(state)
     },
+    // we need to update this;
     removeFromCart: (state, action) => {
-      state.cartItems = state.cartItems.filter((x: ProductProps) => x._id !== action.payload);
+      const { _id } = action.payload;
+      state.cartItems = state.cartItems.filter((x: ProductProps) => x._id !== _id);
       return updateCart(state);
     },
     decreaseQty: (state, action) => {

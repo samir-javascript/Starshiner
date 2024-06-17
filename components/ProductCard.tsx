@@ -5,11 +5,11 @@ import { FaRegHeart, FaTimes } from 'react-icons/fa'
 
 const ProductCard = ({isWishlist = false, item, userId, isCategory = false}: {
    item: string;
-   userId: string;
+   userId?: string;
    isCategory?: boolean;
    isWishlist?: boolean
 }) => {
-  const parsedUserId = JSON.parse(userId)
+  const parsedUserId = JSON.parse(userId as string)
   const parsedResult = JSON.parse(item)
   const handleToggleWishlist = async(e: React.MouseEvent<HTMLDivElement, MouseEvent>)=> {
     e.stopPropagation()

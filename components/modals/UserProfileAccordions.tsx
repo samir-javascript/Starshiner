@@ -1,6 +1,13 @@
 "use client"
-import React, {useState} from 'react'
+import React, {FormEvent, useEffect, useState} from 'react'
 import DeleteModal from "@/components/modals/DeleteModal"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
 import {
     Accordion,
     AccordionContent,
@@ -8,7 +15,7 @@ import {
     AccordionTrigger,
   } from "../../components/ui/accordion"
 import { Button } from "../../components/ui/button";
-import { FaEdit, FaTrash } from "react-icons/fa";
+import { FaCheck, FaEdit, FaTrash } from "react-icons/fa";
 import AddShippingModal from './../modals/AddShippingModal';
 import { usePathname, useRouter } from 'next/navigation';
 import Link from 'next/link';
@@ -24,10 +31,23 @@ type shippingsProps = {
      address: string;
  
 }
- const UserProfileAccordions = ({userId, shippings}: {
+ const UserProfileAccordions = ({userId, currentUser, shippings}: {
   userId: string;
+  currentUser: string;
   shippings: string
  }) => {
+  const parsedUser = JSON.parse(currentUser)
+  const [day, setDay] = useState<number>();
+  const [month, setMonth] = useState('');
+  const [year, setYear] = useState<number>();
+
+  const days = Array.from({ length: 31 }, (_, i) => i + 1);
+  const months = [
+      'January', 'February', 'March', 'April', 'May', 'June', 
+      'July', 'August', 'September', 'October', 'November', 'December'
+  ];
+  const currentYear = new Date().getFullYear();
+  const years = Array.from({ length: 125 }, (_, i) => currentYear - i); // last 125 years
   const parsedShippings = JSON.parse(shippings)
   const parsedUserId = JSON.parse(userId)
   const router = useRouter()
@@ -37,6 +57,12 @@ type shippingsProps = {
     const [itemId,setItemId] = useState('')
     const [openDeleteModal,setOpenDeleteModal] = useState(false)
     const pathname = usePathname()
+    const [isLoading,setIsLoading] = useState(false)
+    const [firstName,setFirstName] = useState('')
+    const [lastName,setLastName] = useState('')
+    const [phoneNumber,setPhoneNumber] = useState<number>()
+    const [country,setCountry] = useState("")
+    
     const handleDeleteShipping = async() => {
       setPending(true)
         try {
@@ -58,6 +84,47 @@ type shippingsProps = {
           setPending(false)
         }
     }
+
+    const handleUpdateUserInfo = async(e:FormEvent) =>  {
+      e.preventDefault()
+      setIsLoading(true)
+      try {
+         const response = await fetch("/api/users/updateInfo", {
+           method: "PUT",
+           body: JSON.stringify({
+              firstName,
+              lastName,
+              phoneNumber,
+              country,
+            
+              birthDay: {
+                day: day,
+                month: month,
+                year: year
+              }
+           })
+         })
+         if(!response.ok) {
+          throw new Error('Failed to update profile info')
+         }
+         // toast;
+      } catch (error) {
+         console.log(error)
+      }finally {
+        setIsLoading(false)
+      }
+    }
+    useEffect(() =>{
+        if(parsedUser !== null) {
+            setFirstName(parsedUser?.fistName)
+            setLastName(parsedUser.lastName)
+            setPhoneNumber(parsedUser.phoneNumber)
+            setCountry(parsedUser.country)
+            setDay(Number(parsedUser.birthDay.day))
+            setMonth(parsedUser.birthDay.month)
+            setYear(Number(parsedUser.birthDay.year))
+        }
+    }, [])
   return (
     <>
     <Accordion  type="multiple" >
@@ -65,23 +132,105 @@ type shippingsProps = {
     <AccordionItem className="mb-4"  value={`item 1}`}>
     <AccordionTrigger  className='bg-white shadow-md px-3 py-4 rounded-tr-[17px] rounded-tl-[17px] font-bold'>Personal data </AccordionTrigger>
     <AccordionContent className='px-3 flex rounded-br-[17px] rounded-bl-[17px] flex-col gap-3 py-4 bg-white'>
-          <form className="flex flex-col gap-5">
+          <form onSubmit={handleUpdateUserInfo} className="flex flex-col gap-5">
                <div className="flex flex-col gap-2 max-w-[600px] ">
                   <label className="font-medium text-black text-sm" htmlFor="firstName">First Name</label>
-                   <input placeholder="Joe" className="outline-none border-[2px] border-gray-1 rounded-[10px] px-4 py-3 " id="firstName" type="text" />
+                   <input placeholder="Enter yout first Name" 
+                    value={firstName}
+                    onChange={(e) => setFirstName(e.target.value)}
+                    id="firstName" type="text" 
+                     className="outline-none border-[2px] border-gray-1 rounded-[10px] px-4 py-3 "
+                    />
+                   
+                   
                </div>
                <div className="flex flex-col gap-2 max-w-[600px]">
                   <label className="font-medium text-black text-sm" htmlFor="lastName">Last Name</label>
-                   <input placeholder="Doe"  className="outline-none border-[2px] border-gray-1 rounded-[10px] px-4 py-3 " id="lastName" type="text" />
+                   <input placeholder="Enter your last Name"  
+                    value={lastName}
+                    onChange={(e) => setLastName(e.target.value)}
+                    className="outline-none border-[2px] border-gray-1 rounded-[10px] px-4 py-3 " id="lastName" type="text" />
                </div>
                <div className="flex flex-col gap-2 max-w-[600px]">
-                  <label className="font-medium text-black text-sm" htmlFor="Phone">Phone</label>
-                   <input placeholder="Enter your Phone Number"  className="outline-none border-[2px] border-gray-1 rounded-[10px] px-4 py-3 " id="Phone" type="number" />
+                  <label className="font-medium text-black text-sm"  
+
+                   htmlFor="Phone">Phone</label>
+                   <input placeholder="Enter your Phone Number"
+                    value={phoneNumber}
+                    onChange={(e) => setPhoneNumber(Number(e.target.value))}
+                     className="outline-none border-[2px] border-gray-1 rounded-[10px] px-4 py-3 " id="Phone" type="number" />
                </div>
+               <div className="flex flex-col gap-2 max-w-[600px]">
+                  <label className="font-medium text-black text-sm" htmlFor="country">Country</label>
+                   <input placeholder="where do you live"
+                    value={country}
+                    onChange={(e) => setCountry(e.target.value)}
+                     className="outline-none border-[2px] border-gray-1 rounded-[10px] px-4 py-3 " id="country" type="text" />
+               </div>
+               <div>
+               <label className="font-medium  mb-5 text-black text-sm" htmlFor="country">BirthDay</label>
+               <div className="flex items-center max-w-[600px]  gap-5">
+                   <div>
+                   <label className="flex-1 font-medium text-black text-sm w-full">
+                Day:
+                <Select onValueChange={(value:any) => setDay(value)}>
+                    <SelectTrigger className="max-w-full focus-visible:ring-offset-0 focus-visible:ring-offset-transparent w-[150px] focus-visible: flex-1 text-[#000]">
+                        <SelectValue placeholder="Select day" />
+                    </SelectTrigger>
+                    <SelectContent className="bg-[#fff] flex-1 text-black-1">
+                        {days.map((d) => (
+                            <SelectItem className="hover:bg-gray-100" key={d} value={d.toString()}>{d}</SelectItem>
+                        ))}
+                    </SelectContent>
+                </Select>
+            </label>
+                   </div>
               
-               <Button className="bg-[#11a545] w-fit px-5 min-w-[150px] py-4 text-white rounded-[15px] " type="submit">
-                   Save Changes
-               </Button>
+              
+         <div>
+         <label className="flex-1 font-medium text-black text-sm w-full">
+                Month:
+                <Select onValueChange={(value:string) => setMonth(value)}>
+                    <SelectTrigger className="max-w-full focus-visible:ring-offset-0 focus-visible:ring-offset-transparent w-[150px] focus-visible: flex-1 text-[#000]">
+                        <SelectValue placeholder="Select month" />
+                    </SelectTrigger>
+                    <SelectContent className="bg-white flex-1 text-black-1">
+                        {months.map((m, idx) => (
+                            <SelectItem className="hover:bg-gray-100" key={m} value={(idx + 1).toString()}>{m}</SelectItem>
+                        ))}
+                    </SelectContent>
+                </Select>
+            </label>
+         </div>
+           
+           <div>
+           <label className="flex-1 font-medium text-black text-sm w-full ">
+                Year:
+                <Select onValueChange={(value:any) => setYear(value)}>
+                    <SelectTrigger className="max-w-full focus-visible:ring-offset-0 focus-visible:ring-offset-transparent w-[150px] focus-visible: flex-1 text-[#000]">
+                        <SelectValue placeholder="Select year" />
+                    </SelectTrigger>
+                    <SelectContent className="bg-white flex-1 text-black-1">
+                        {years.map((y) => (
+                            <SelectItem className="hover:bg-gray-100" key={y} value={y.toString()}>{y}</SelectItem>
+                        ))}
+                    </SelectContent>
+                </Select>
+            </label>
+           </div>
+           
+
+           </div>
+               </div>
+             
+           
+           <Button className='bg-green-1 shadow-xl mt-4 hover:opacity-[0.8] text-base font-medium  text-white w-[300px] h-[45px] flex items-center justify-center gap-2 rounded-[15px] ' type="submit">
+               {isLoading ? "Loading..." : <>
+                  
+                   <p className="tracking-widest">Save Changes</p>
+                </>}
+           </Button>
+            
           </form>
     </AccordionContent>
   </AccordionItem>

@@ -2,8 +2,9 @@ import { connectToDb } from "../../../../db";
 import { revalidatePath } from "next/cache";
 import { NextResponse } from "next/server";
 import Shipping from "../../../../schemas/shippingModel";
-
+import { auth } from "@clerk/nextjs/server"
 export async function PUT(req:Request) {
+   const { userId } = auth()
     const {firstName,lastName,address,city,country,zipCode,phoneNumber,path,shippingId} = await req.json()
    try {
      await connectToDb()
@@ -19,6 +20,7 @@ export async function PUT(req:Request) {
      shipping.address = address;
      shipping.zipCode = zipCode;
      await shipping.save()
+     revalidatePath(`/client/profile/${userId}`)
      revalidatePath(path)
      return NextResponse.json({shipping, message: "shipping address has been updated"})
    } catch (error) {

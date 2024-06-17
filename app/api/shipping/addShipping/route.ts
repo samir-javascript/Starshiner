@@ -3,8 +3,9 @@ import { revalidatePath } from "next/cache";
 import { NextResponse } from "next/server";
 import User from "../../../../schemas/userModel";
 import Shipping from "../../../../schemas/shippingModel";
-
+import {auth} from "@clerk/nextjs/server"
 export async function POST(req: Request) {
+    const { userId:clerkId } = auth()
     try {
         const { userId, lastName, path, firstName, address, country, city, zipCode, phoneNumber } = await req.json();
 
@@ -31,9 +32,9 @@ export async function POST(req: Request) {
                 $push: { shippingAddresses: newShipping._id }
             });
         }
-
+        revalidatePath(`/client/profile/${clerkId}`);
         revalidatePath(path);
-        revalidatePath(`/client/profile/${user.clerkId}`);
+       
 
         return NextResponse.json({newShipping,  message: "New address has been added" });
 

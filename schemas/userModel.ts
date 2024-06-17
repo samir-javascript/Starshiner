@@ -2,6 +2,8 @@ import mongoose, { Document } from "mongoose";
 
 export interface IUser extends Document {
     clerkId: string;
+    firstName?: string;
+    lastName?: string;
     isAdmin: boolean;
     name: string;
     username:string;

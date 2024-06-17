@@ -4,8 +4,9 @@ import { NextResponse } from "next/server";
 import User from "../../../../schemas/userModel";
 import Shipping from "../../../../schemas/shippingModel";
 import { isValidObjectId } from "mongoose";
-
+import {auth} from "@clerk/nextjs/server"
 export async function DELETE(req: Request) {
+    const { userId:clerkId } = auth()
     const { shippingId, userId ,path} = await req.json();
     try {
        
@@ -24,6 +25,7 @@ export async function DELETE(req: Request) {
         await User.findByIdAndUpdate(user._id, {
             $pull: { shippingAddresses : shipping._id}
         })
+        revalidatePath(`/client/profile/${clerkId}`)
         revalidatePath(path)
         
         

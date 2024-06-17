@@ -54,6 +54,12 @@ export interface IUser extends Document {
      country: {
         type: String
      },
+     firstName: {
+      type: String
+     },
+     lastName: {
+        type: String,
+     },
      isSubscribed: {
         type: Boolean,
         default: false

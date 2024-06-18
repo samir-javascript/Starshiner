@@ -1,5 +1,5 @@
 "use client"
-import { FaMinus, FaPlus, FaRegHeart, FaStar } from 'react-icons/fa'
+import { FaHeart, FaMinus, FaPlus, FaRegHeart, FaStar } from 'react-icons/fa'
 import ProductDetailsSlides from './productDetailsSliders'
 import AccordionProductDetails from './AccordionProductDetails';
 import { RiShoppingBasketFill } from 'react-icons/ri';
@@ -10,18 +10,20 @@ import { useAppDispatch } from '@/lib/hooks';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { ProductProps } from '@/types';
+import SizesModal from './modals/SizesModal';
 
-const Details = ({result, userId}: {
+const Details = ({result, currentUser}: {
   result: string;
-  userId: string
+  currentUser: string
 }) => {
   const [qty,setQty] = useState(1)
   const router = useRouter()
-  
+  const [openSizeModal,setOpenSizeModal] = useState(false)
   const dispatch = useAppDispatch()
    const parsedResult = JSON.parse(result)
-   const parsedUserId = JSON.parse(userId)
+   const parsedUser = JSON.parse(currentUser)
    const [selectedColor, setSelectedColor] = useState(parsedResult.images[0].colors[0].color);
+   const [selectedSize,setSelectedSize] = useState('')
    const getSizesForSelectedColor = (selectedColor: string) => {
     for (let image of parsedResult.images) {
       for (let color of image.colors) {
@@ -35,7 +37,14 @@ const Details = ({result, userId}: {
  
   const sizes = getSizesForSelectedColor(selectedColor);
   const handleAddToCart = () => {
-    dispatch(addToCart({ ...parsedResult, qty }));
+    if(!selectedSize)  {
+      setOpenSizeModal(true)
+      return
+    }
+    dispatch(addToCart({ ...parsedResult, qty , selectedColor, selectedSize}));
+    if(openSizeModal) {
+      setOpenSizeModal(false)
+    }
     router.push("/cart");
   };
 
@@ -59,7 +68,7 @@ const Details = ({result, userId}: {
        const response =  await fetch("/api/wishlist/toggleWishlist", {
           method: "POST",
           body: JSON.stringify({
-             userId: parsedUserId,
+             userId: parsedUser._id,
              productId: parsedResult._id
           })
        })
@@ -105,7 +114,10 @@ const Details = ({result, userId}: {
             onClick={handleToggleWishlist}
             className='h-[70px] p-3 w-[80px] bg-white hover:shadow-2xl cursor-pointer shadow-lg rounded-[10px] flex items-center justify-center'
           >
-            <FaRegHeart size={30} color='#E00697' />
+             {parsedUser?.saved?.includes(parsedResult._id) ? (
+               <FaHeart size={30} color='#E00697' />
+             ) : ( <FaRegHeart size={30} color='#E00697' />)}
+           
           </div>
            {/* wishlist trigger */}
             </div>
@@ -121,7 +133,10 @@ const Details = ({result, userId}: {
                         <div
                           key={index}
                           className="border-2 border-gray-300 flex items-center justify-center rounded-full w-[40px] h-[40px] p-[2px]"
-                          onClick={() => setSelectedColor(color.color)}
+                          onClick={() => {
+                            setSelectedColor(color.color)
+                            setSelectedSize('')
+                          }}
                         >
                           <div
                             style={{ backgroundColor: color.color }}
@@ -135,12 +150,17 @@ const Details = ({result, userId}: {
       <div>
         <h3 className='font-normal text-base mb-2 '>CHOOSE A SIZE</h3>
         <div className="flex items-center gap-3 flex-wrap">
-        {sizes.map((size: any, index: number) => (
-                  <div
+        {sizes.map((size: {
+           size: string;
+           stock: number
+        }, index: number) => (
+                  <button
+                 onClick={() => setSelectedSize(size.size)}
                     key={index}
+                    disabled={size.stock === 0}
                     className={`${
-                      size.stock === 0 ? 'bg-gray-100 line-through' : ''
-                    } border border-gray-300 cursor-pointer hover:border-black-1 rounded-[10px] w-[80px] flex items-center justify-center px-3 py-3`}
+                      size.stock === 0 ? 'bg-gray-100 line-through select-none cursor-default  ' : ''
+                    } ${selectedSize === size.size ? "!border-2 !border-green-1" : ""} outline-none border border-gray-300 cursor-pointer hover:border-black-1 rounded-[10px] w-[80px] flex items-center justify-center px-3 py-3`}
                   >
                     <p
                       className={`${
@@ -149,7 +169,7 @@ const Details = ({result, userId}: {
                     >
                       {size.size}
                     </p>
-                  </div>
+                  </button>
                 ))}
         </div>
       </div>
@@ -191,7 +211,7 @@ const Details = ({result, userId}: {
       </div>
     </div>
 
-
+           <SizesModal selectedSize={selectedSize} setSelectedSize={setSelectedSize} handleClick={handleAddToCart} open={openSizeModal} setOpen={setOpenSizeModal} sizes={sizes} />
             <AccordionProductDetails name={parsedResult.name} description={parsedResult.description} image={parsedResult.images[0].url}  />
           </div>
         </div>

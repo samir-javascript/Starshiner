@@ -2,8 +2,15 @@
 
 import { createSlice } from '@reduxjs/toolkit';
 import { ProductProps } from '@/types';
-
-const loadStateFromLocalStorage = () => {
+interface CartState {
+  cartItems: ProductProps[];
+  shippingAddress: any[];
+  paymentMethod: string;
+  itemsPrice?: number;
+  shippingPrice?: number;
+  totalPrice?: number;
+}
+const loadStateFromLocalStorage = ():CartState => {
   if (typeof window !== 'undefined') {
     const savedState = localStorage.getItem("starsItems");
     return savedState ? JSON.parse(savedState) : {
@@ -26,39 +33,71 @@ const cartSlice = createSlice({
   initialState,
   reducers: {
     addToCart: (state, action) => {
-       const {...item} = action.payload;
-       const existItem = state.cartItems.find(((x:any)  => x._id === item._id))
-       if(existItem) {
-         existItem.qty += item.qty
-       }else {
-         state.cartItems = [...state.cartItems,item]
-       }
-       return updateCart(state)
+      const {...item} = action.payload;
+       console.log(item, "item item from state")
+       const existsItem = state.cartItems.find((x)=> x.selectedColor === item.selectedColor && x.selectedSize === item.selectedSize && x._id ===  item._id)
+      if(existsItem) {
+          existsItem.qty += item.qty;
+      }else {
+        state.cartItems = [...state.cartItems, item]
+      }
+      return updateCart(state)
+       
     },
     // we need to update this;
     removeFromCart: (state, action) => {
-      const { _id } = action.payload;
-      state.cartItems = state.cartItems.filter((x: ProductProps) => x._id !== _id);
+      const { _id , selectedColor, selectedSize} = action.payload;
+      state.cartItems = state.cartItems.filter(
+        (x: any) =>
+          !(x._id === _id && x.selectedColor === selectedColor && x.selectedSize === selectedSize)
+      );
       return updateCart(state);
     },
     decreaseQty: (state, action) => {
-      const item = action.payload;
-      const existItem = state.cartItems.find((x: ProductProps) => x._id === item._id);
+      const { _id, selectedColor, selectedSize } = action.payload;
+    
+      // Find the item that matches _id, selectedColor, and selectedSize
+      const existItem = state.cartItems.find(
+        (x: any) =>
+          x._id === _id &&
+          x.selectedColor === selectedColor &&
+          x.selectedSize === selectedSize
+      );
+    
       if (existItem && existItem.qty > 1) {
-        state.cartItems = state.cartItems.map((x: ProductProps) =>
-          x._id === existItem._id ? { ...x, qty: x.qty - 1 } : x
+        // Update the quantity
+        state.cartItems = state.cartItems.map((x: any) =>
+          x._id === existItem._id && x.selectedColor === selectedColor && x.selectedSize === selectedSize
+            ? { ...x, qty: x.qty - 1 }
+            : x
         );
       }
+    
+      // Update the cart state
       return updateCart(state);
     },
+    
     increaseQty: (state, action) => {
-      const item = action.payload;
-      const existItem = state.cartItems.find((x: ProductProps) => x._id === item._id);
+      const { _id, selectedColor, selectedSize } = action.payload;
+    
+      // Find the item that matches _id, selectedColor, and selectedSize
+      const existItem = state.cartItems.find(
+        (x: any) =>
+          x._id === _id &&
+          x.selectedColor === selectedColor &&
+          x.selectedSize === selectedSize
+      );
+    
       if (existItem) {
-        state.cartItems = state.cartItems.map((x: ProductProps) =>
-          x._id === existItem._id ? { ...x, qty: x.qty + 1 } : x
+        // Update the quantity
+        state.cartItems = state.cartItems.map((x: any) =>
+          x._id === existItem._id && x.selectedColor === selectedColor && x.selectedSize === selectedSize
+            ? { ...x, qty: x.qty + 1 }
+            : x
         );
       }
+    
+      // Update the cart state
       return updateCart(state);
     },
     resetCart: (state) => {

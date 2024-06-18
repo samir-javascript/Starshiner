@@ -190,6 +190,10 @@ const AddShippingModal = ({open,setOpen,_id,type}: {
             </FormItem>
           )}
         />
+        <div className="flex items-center gap-1">
+            <input className="!outline-none focus:border-none" type="checkbox" />
+            <p className="font-medium text-[14px] text-black-1">Make this address my default address</p>
+        </div>
         <Button className="flex rounded-[15px] h-[45px]  hover:opacity-[0.8] items-center justify-center
          gap-2 w-full bg-green-1 shadow-lg text-white " type="submit">
           {loading ? "Loading..." : <> 

@@ -6,7 +6,7 @@ import ProfileTop from '@/components/ProfileTop'
 import { ProductProps } from '@/types'
 import { auth } from '@clerk/nextjs/server'
 
-import Link from 'next/link'
+
 import React from 'react'
 
 
@@ -41,7 +41,7 @@ const page = async() => {
                  <div className='flex items-center justify-center flex-wrap  gap-4'>
                         {items?.products?.length > 0 ?  items?.products?.map((item:ProductProps,i:number)=> (
                              <ProductCard  key={i} item={JSON.stringify(item)} 
-                             userId={JSON.stringify(currentUser._id)} isWishlist={true} />
+                             currentUser={JSON.stringify(currentUser)} isWishlist={true} />
                         ) ): (
                             <p>go back</p>
                         )}

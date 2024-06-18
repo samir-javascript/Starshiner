@@ -22,6 +22,7 @@ export async function getProductById(params: {productId:string}) {
    await connectToDb()
        try {
          const product = await Product.findById(params.productId)
+         .populate('reviews.user')
          if(!product) return notFound()
          return product
        } catch (error) {

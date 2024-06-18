@@ -8,6 +8,8 @@ export interface ProductProps {
     _id: string;
     name: string;
     price: number;
+    selectedColor: string;
+    selectedSize: string;
     prevPrice: number;
     qty: number;
     description: string;
@@ -20,6 +22,14 @@ export interface ProductProps {
     images: object[];
     createdAt: Date;
 
+}
+export interface ReviewProps {
+    user: any;
+    _id: string;
+    name: string;
+    comment: string;
+    title: string;
+    rating: number
 }
 export interface CreateUserParams {
     clerkId: string;

@@ -18,10 +18,13 @@ import { z } from "zod"
 import { usePathname, useRouter } from "next/navigation"
 import { useAppDispatch } from "../../lib/hooks"
 import { Button } from "../ui/button"
-  const EditShipping = ({shipping}:  {
-    shipping: string
+  const EditShipping = ({shipping,type,userId}:  {
+    shipping?: string;
+    type: string;
+    userId?: string;
   }) => {
-    const parsedShipping = JSON.parse(shipping)
+    const parsedShipping = shipping && JSON.parse(shipping as string)
+    const parsedUserId = JSON.parse(userId as string)
     const [loading,setLoading] = useState(false)
    const pathname = usePathname()
    const dispatch = useAppDispatch()
@@ -29,18 +32,19 @@ import { Button } from "../ui/button"
    const form = useForm<z.infer<typeof ShippingAddressValidationSchema>>({
     resolver: zodResolver(ShippingAddressValidationSchema),
     defaultValues: {
-      firstName: parsedShipping.firstName || "",
-      lastName: parsedShipping.lastName || "",
-      address: parsedShipping.address || "",
-      phoneNumber: parsedShipping.phoneNumber || "",
-      country: parsedShipping.country || "",
-      city: parsedShipping.city || "",
-      zipCode: parsedShipping.zipCode || ""
+      firstName: parsedShipping?.firstName || "",
+      lastName: parsedShipping?.lastName || "",
+      address: parsedShipping?.address || "",
+      phoneNumber: parsedShipping?.phoneNumber || "",
+      country: parsedShipping?.country || "",
+      city: parsedShipping?.city || "",
+      zipCode: parsedShipping?.zipCode || ""
     },
   })
   async function onSubmit(values: z.infer<typeof ShippingAddressValidationSchema>) {
     setLoading(true)
-     try {
+    if(type === "edit") {
+      try {
         const response = await fetch("/api/shipping/updateShipping", {
           method: "PUT",
           body: JSON.stringify({
@@ -68,6 +72,36 @@ import { Button } from "../ui/button"
      }finally {
       setLoading(false)
      }
+    }else if(type === "create")  {
+      try {
+        const response = await fetch("/api/shipping/addShipping", {
+          method: "POST",
+          body: JSON.stringify({
+             userId: parsedUserId,
+             address: values.address,
+             firstName: values.firstName,
+             lastName: values.lastName,
+             phoneNumber: values.phoneNumber,
+             city: values.city,
+             zipCode: values.zipCode,
+             country: values.country,
+             path: pathname
+          })
+        })
+        if(!response.ok) {
+            throw new Error('something bad happened')
+        }
+        form.reset()
+       
+        // success toast
+        // save shipping addresses in localstorage 
+     } catch (error) {
+        console.log(error)
+     }finally {
+      setLoading(false)
+     }
+    }
+    
     }
   return (
     <Form {...form}>
@@ -79,7 +113,7 @@ import { Button } from "../ui/button"
           <FormItem>
             <FormLabel>FirstName</FormLabel>
             <FormControl>
-              <Input className="input-css py-4" placeholder="shadcn" {...field} />
+              <Input className="input-css py-4" placeholder="Enter your first Name" {...field} />
             </FormControl>
             
             <FormMessage className="text-red-500" />
@@ -93,7 +127,7 @@ import { Button } from "../ui/button"
           <FormItem>
             <FormLabel>LastName</FormLabel>
             <FormControl>
-              <Input className="input-css py-4" placeholder="shadcn" {...field} />
+              <Input className="input-css py-4" placeholder="Enter your last Name" {...field} />
             </FormControl>
             
             <FormMessage className="text-red-500" />
@@ -107,7 +141,7 @@ import { Button } from "../ui/button"
           <FormItem>
             <FormLabel>Phone</FormLabel>
             <FormControl>
-              <Input className="input-css py-4" placeholder="shadcn" {...field} />
+              <Input className="input-css py-4" placeholder="Enter your Phone Number" {...field} />
             </FormControl>
             
             <FormMessage className="text-red-500" />
@@ -121,7 +155,7 @@ import { Button } from "../ui/button"
           <FormItem>
             <FormLabel>Country</FormLabel>
             <FormControl>
-              <Input className="input-css py-4" placeholder="shadcn" {...field} />
+              <Input className="input-css py-4" placeholder="Where do you live ?" {...field} />
             </FormControl>
             
             <FormMessage className="text-red-500" />
@@ -135,7 +169,7 @@ import { Button } from "../ui/button"
           <FormItem>
             <FormLabel>City</FormLabel>
             <FormControl>
-              <Input className="input-css py-4" placeholder="shadcn" {...field} />
+              <Input className="input-css py-4" placeholder="In Which city do you live ?" {...field} />
             </FormControl>
             
             <FormMessage className="text-red-500" />
@@ -149,7 +183,7 @@ import { Button } from "../ui/button"
           <FormItem>
             <FormLabel>Address</FormLabel>
             <FormControl>
-              <Input className="input-css py-4" placeholder="shadcn" {...field} />
+              <Input className="input-css py-4" placeholder="Enter your address" {...field} />
             </FormControl>
             
             <FormMessage className="text-red-500" />
@@ -163,7 +197,7 @@ import { Button } from "../ui/button"
           <FormItem>
             <FormLabel>ZipCode</FormLabel>
             <FormControl>
-              <Input className="input-css py-4" placeholder="shadcn" {...field} />
+              <Input className="input-css py-4" placeholder="Zip code" {...field} />
             </FormControl>
             
             <FormMessage className="text-red-500" />

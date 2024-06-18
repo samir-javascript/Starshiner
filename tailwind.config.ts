@@ -7,6 +7,9 @@ const config = {
     './components/**/*.{ts,tsx}',
     './app/**/*.{ts,tsx}',
     './src/**/*.{ts,tsx}',
+    "./node_modules/flowbite-react/lib/**/*.js",
+    "./pages/**/*.{ts,tsx}",
+    "./public/**/*.html",
 	],
   prefix: "",
   theme: {
@@ -61,7 +64,10 @@ const config = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [
+    require('tailwindcss-animate'), // Correctly requiring the plugin
+    require('flowbite/plugin') // Correctly requiring the plugin
+  ],
 } satisfies Config
 
 export default config

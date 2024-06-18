@@ -36,7 +36,7 @@ const page = async({params}: {
                  
               </div>
                <div className='lg:max-w-[550px] '>
-                   <EditShipping shipping={JSON.stringify(shipping)} />
+                   <EditShipping type="edit" shipping={JSON.stringify(shipping)} />
                </div>
             </div>
         </div>

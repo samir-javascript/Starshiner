@@ -1,12 +1,16 @@
+import { getCurrentUser } from '@/actions/user.actions'
 import FilterColumn from '@/components/FilterColumn'
 import MobileFilter from '@/components/MobileFilter'
 import ProductCard from '@/components/ProductCard'
+import { auth } from '@clerk/nextjs/server'
 import Link from 'next/link'
 import React from 'react'
 import { FaSortAmountDown } from 'react-icons/fa'
 import { IoChevronForwardOutline, IoFilter } from 'react-icons/io5'
 
-const page = () => {
+const page = async() => {
+   const {userId} = auth()
+   const currentUser = await getCurrentUser({clerkId: userId as string})
   return (
     <div className="w-full bg-white lg:py-7">
         <div className='lg:max-w-[1200px] w-full mx-auto  lg:px-3 flex-col flex'>
@@ -43,7 +47,7 @@ const page = () => {
                   </div>
                   <div className='flex-1 flex items-center w-full gap-2 flex-wrap lg:justify-start justify-center'>
                          {[0,1,2,3,4,5,6,7,8,9,10,11,22,33,55,99,41,25,999,52,2558,32,33,44,544].map((_,i) => (
-                             <ProductCard item=""  isCategory  key={i} />
+                             <ProductCard item="" currentUser={JSON.stringify(currentUser)}  isCategory  key={i} />
                          ) )}
                   </div>
               </div>

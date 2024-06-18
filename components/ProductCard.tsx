@@ -1,15 +1,15 @@
 "use client"
 import Link from 'next/link';
 import React from 'react'
-import { FaRegHeart, FaTimes } from 'react-icons/fa'
+import { FaHeart, FaRegHeart, FaTimes } from 'react-icons/fa'
 
-const ProductCard = ({isWishlist = false, item, userId, isCategory = false}: {
+const ProductCard = ({isWishlist = false, item, currentUser, isCategory = false}: {
    item: string;
-   userId?: string;
+   currentUser?: string;
    isCategory?: boolean;
    isWishlist?: boolean
 }) => {
-  const parsedUserId = JSON.parse(userId as string)
+  const parsedUser = JSON.parse(currentUser as string)
   const parsedResult = JSON.parse(item)
   const handleToggleWishlist = async(e: React.MouseEvent<HTMLDivElement, MouseEvent>)=> {
     e.stopPropagation()
@@ -17,7 +17,7 @@ const ProductCard = ({isWishlist = false, item, userId, isCategory = false}: {
        const response =  await fetch("/api/wishlist/toggleWishlist", {
           method: "POST",
           body: JSON.stringify({
-             userId: parsedUserId,
+             userId: parsedUser._id,
              productId: parsedResult._id
           })
        })
@@ -39,7 +39,12 @@ const ProductCard = ({isWishlist = false, item, userId, isCategory = false}: {
               <FaTimes className='hover:text-gray-400 text-gray-500'  />
           </div>} 
           {isCategory  &&  <div className='absolute cursor-pointer top-0 p-3 right-0'>
-              <FaRegHeart className='hover:text-gray-400 text-gray-500'  />
+             {parsedUser?.saved?.includes(parsedResult._id) ? (
+                 <FaHeart color='#d90fc1'  />
+             ) : (
+                 <FaRegHeart className='hover:text-gray-400 text-gray-500'  />
+             ) }
+            
           </div>} 
         </div>
                             

@@ -7,6 +7,7 @@ const reviewSchema = new Schema({
     ref: "User",
     required: true,
   },
+
   title: {
     type: String,
     required: true,
@@ -20,6 +21,24 @@ const reviewSchema = new Schema({
     required: true,
   },
   comment: {
+    type: String,
+    required: true,
+  },
+});
+const questionSchema = new Schema({
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
+  },
+  
+ 
+  name: {
+    type: String,
+    required: true,
+  },
+ 
+  question: {
     type: String,
     required: true,
   },
@@ -90,6 +109,7 @@ const productSchema = new Schema(
       required: true,
     },
     reviews: [reviewSchema],
+    questions: [questionSchema],
     images: [imageSchema], // Array of image schemas
     
     category: {

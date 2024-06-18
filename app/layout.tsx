@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
 import "./globals.css";
 import {dark} from "@clerk/themes";
-
+import { Toaster } from "@/components/ui/toaster"
 import {
   ClerkProvider,
  
@@ -38,7 +38,7 @@ export default function RootLayout({
              <StoreProvider>
             
                 {children} 
-              
+                <Toaster />
               </StoreProvider>
               </body>
              

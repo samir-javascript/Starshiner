@@ -16,9 +16,13 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion"
 import CustomCheckbox from '@/components/CustomCheckbox';
-const page = () => {
+import EditShipping from '@/components/modals/EditShipping';
+import { auth } from '@clerk/nextjs/server';
+import { getCurrentUser } from '@/actions/user.actions';
+const page = async() => {
   const isEmpty = false 
-  
+  const {userId} = auth()
+  const currentUser = await getCurrentUser({clerkId:userId as string})
   return (
     <section  className='h-full bg-[#eaecf0]  w-full '>
      <nav className='bg-light-1 w-full mx-auto px-3 shadow-md py-4 flex items-center justify-center '>
@@ -66,7 +70,7 @@ const page = () => {
 </Accordion>
    <div className='bg-white shadow-md flex flex-col gap-2 rounded-[17px] p-5 '>
         <h2 className='font-bold text-[#000] text-[20px] '>Where to deliver?</h2>
-         <div className='bg-gray-1 px-3 py-5 rounded-[10px]  '>
+         {/* <div className='bg-gray-1 px-3 py-5 rounded-[10px]  '>
                <div className='flex items-center justify-between'>
                 <div className='flex items-center gap-1'>
                 <CiLocationOn color="gray" size={18} />
@@ -75,6 +79,9 @@ const page = () => {
                 </div>
                    <IoChevronForwardSharp className='font-bold' color="gray" />
                </div>
+         </div> */}
+         <div>
+            <EditShipping type="create" userId={JSON.stringify(currentUser._id)} />
          </div>
          <div className='flex  text-[#000] hover:text-gray-400 transition-all duration-300 mt-3 cursor-pointer items-center gap-2'>
               <MdPublishedWithChanges color="gray" size={20} />

@@ -14,7 +14,7 @@ const CartShipping = ({ currentUser }: { currentUser: string }) => {
     const { selectedShippingAddress, shippingAddress } = useAppSelector((state: any) => state.cart);
 
     return (
-        Object.keys(selectedShippingAddress.length === 0) && shippingAddress.length === 0 ? (
+        Object.keys(selectedShippingAddress?.length === 0) && shippingAddress.length === 0 ? (
             <div>
                 <EditShipping type="create" userId={parsedUser._id} />
             </div>

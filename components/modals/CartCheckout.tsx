@@ -10,7 +10,7 @@ const CartCheckout = () => {
 
 
     const {cartItems, totalPrice, shippingPrice} = useAppSelector((state:any) => state.cart)
-  
+  if(!cartItems || !totalPrice || !shippingPrice) return ;
     const total = cartItems.reduce((acc:number,item:ProductProps) => acc + item.price * item.qty, 0)
     
       const formattedTotal =  new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(
@@ -19,7 +19,7 @@ const CartCheckout = () => {
       const formattedTotalPrice =  new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(
         totalPrice,
       )
-
+  
   return (
     <div className=' sticky w-full lg:w-[350px] h-fit right-0 top-0 bg-white rounded-[15px] shadow-md flex flex-col p-5 '>
                        <h2 className='font-bold text-[#000] text-[20px] '>Order summary</h2>

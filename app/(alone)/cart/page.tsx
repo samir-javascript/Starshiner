@@ -16,8 +16,8 @@ import {
 import { auth } from '@clerk/nextjs/server';
 import { getCurrentUser } from '@/actions/user.actions';
 
-//const CartCheckout = dynamic(() => import("@/components/modals/CartCheckout"),  {ssr: false})
-import CartCheckout from '@/components/modals/CartCheckout';
+const CartCheckout = dynamic(() => import("@/components/modals/CartCheckout"),  {ssr: false})
+//import CartCheckout from '@/components/modals/CartCheckout';
 //const CartShipping = dynamic(() => import("@/components/modals/CartShipping"),  {ssr: false})
 import CartShipping from '@/components/modals/CartShipping';
 const EmptyCart = dynamic(() => import("@/components/EmptyCart"),  {ssr: false})

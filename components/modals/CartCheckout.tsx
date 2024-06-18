@@ -10,7 +10,7 @@ const CartCheckout = () => {
 
 
     const {cartItems, totalPrice, shippingPrice} = useAppSelector((state:any) => state.cart)
-  if(!cartItems || !totalPrice || !shippingPrice) return ;
+  //if(!cartItems || !totalPrice || !shippingPrice) return ;
     const total = cartItems.reduce((acc:number,item:ProductProps) => acc + item.price * item.qty, 0)
     
       const formattedTotal =  new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(

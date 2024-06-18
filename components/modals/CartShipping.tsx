@@ -7,16 +7,17 @@ import { FaLocationDot } from "react-icons/fa6";
 import ShippingCartModal from './ShippingCartModal';
 import { useState } from 'react';
 
-const CartShipping = ({ currentUser }: { currentUser: string }) => {
-    const parsedUser = JSON.parse(currentUser);
+const CartShipping = ({ currentUser }: { currentUser: any }) => {
+ 
     const [open, setOpen] = useState(false);
+    const parsedUser = JSON.parse(currentUser);
     const dispatch = useAppDispatch();
     const { selectedShippingAddress, shippingAddress } = useAppSelector((state: any) => state.cart);
 
     return (
         Object.keys(selectedShippingAddress?.length === 0) && shippingAddress.length === 0 ? (
             <div>
-                <EditShipping type="create" userId={parsedUser._id} />
+                <EditShipping type="create" userId={JSON.stringify(parsedUser._id)} />
             </div>
         ) : (
             <div className='flex flex-col'>

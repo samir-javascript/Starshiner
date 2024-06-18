@@ -41,7 +41,7 @@ const page = async() => {
                   <Accordion  type="single" collapsible>
  
        
-     <CartItems />
+     {/* <CartItems /> */}
 
  
 </Accordion>

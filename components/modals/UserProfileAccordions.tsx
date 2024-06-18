@@ -241,12 +241,15 @@ type shippingsProps = {
        {parsedShippings.length > 0 ? parsedShippings.map((item:shippingsProps) => (
 
         <article key={item._id} className="flex items-center border-b py-2.5 border-gray-200 justify-between">
-          <div className="flex items-center gap-1 text-base font-normal text-black-1">
-            <p className="font-bold text-[#000] ">{item.lastName} {item.firstName} - </p>
+          <div className="flex items-center gap-1 ">
+            <p className="font-bold  text-[#000] "> {item.lastName} {item.firstName} - <span className='text-base font-normal text-black-1'>
             {item.zipCode}, {item.address}, {item.phoneNumber}, {item.city}, {item.country}
-            <img src="https://stcnt.starshiners.ro/img/flags_16/ro.gif" alt="flag" />
+              </span> </p>
+          
+           
+           
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex md:flex-row flex-col items-center gap-2">
             <Link href={`/client/address/edit/${item._id}`}>
               <FaEdit  color="green" size={16} />
             </Link>
@@ -260,7 +263,7 @@ type shippingsProps = {
         </article>
       )): (
          <div>
-            no shipping address
+            <p className='text-red-400 font-medium text-[15px] '>You don`t have a delivery address saved yet!</p>
          </div>
       )}
        </div>

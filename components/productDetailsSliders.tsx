@@ -29,7 +29,7 @@ const ProductDetailsSlides = ({ images, selectedColor }: { images: ImageDetails[
   );
 
   const imagesToDisplay = filteredImages.length > 0 ? filteredImages : images;
-
+ 
   return (
     <div className='flex items-start w-full gap-4'>
       <div className='md:flex items-center hidden flex-col border-2 border-gray-200 rounded-[10px]'>

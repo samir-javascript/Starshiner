@@ -17,6 +17,7 @@ import { FaCheck, FaTimes } from 'react-icons/fa';
 import { Button } from '../ui/button';
 import { RiShoppingBasketFill } from "react-icons/ri";
 import { IoChevronForwardSharp } from 'react-icons/io5';
+import { useRouter } from 'next/navigation';
 type CommentProps = {
   open: boolean;
   setOpen: (v:boolean) => void;
@@ -28,6 +29,7 @@ type CommentProps = {
 }
 const CommentModal = ({open,setOpen,productImage, productId, userId}: CommentProps) => {
   const [comment,setComment] = useState('')
+  const router = useRouter()
   const [rating,setRating] = useState<number>()
   const [title,setTitle] = useState('')
   const [pending,setPending] = useState(false)
@@ -48,9 +50,12 @@ const CommentModal = ({open,setOpen,productImage, productId, userId}: CommentPro
          setTitle('')
          setRating(0)
          setComment('')
+         router.refresh()
          // success toast notification
       } catch (error) {
         console.log(error)
+      }finally {
+        setPending(false)
       }
   }
   const ratingValues = [

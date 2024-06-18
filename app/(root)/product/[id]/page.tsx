@@ -4,9 +4,7 @@ import { getCurrentUser } from '@/actions/user.actions';
 import Details from '@/components/Details';
 import Rating from '@/components/Rating';
 import Recommendation from '@/components/Recommendation';
-import CommentModal from '@/components/modals/CommentModal';
 
-import { Button } from '@/components/ui/button';
 import { recommendedProducts } from '@/constants';
 import { ReviewProps } from '@/types';
 import { auth } from '@clerk/nextjs/server';
@@ -15,7 +13,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import React from 'react';
-import {  FaStar } from 'react-icons/fa';
+
 import { IoChevronForwardSharp } from "react-icons/io5";
 
 interface props {
@@ -60,7 +58,7 @@ const Page = async({params}:props) => {
              <h3 className="text-[#000] font-bold text-[20px]  ">Customers Reviews for this Product</h3>
               <div>
                   {result?.reviews.length > 0 ? result?.reviews.map((review:ReviewProps) => (
-                      <div className={`border-b border-gray-200 pb-3 max-w-[600px] `} key={review._id}>
+                      <div className={`border-b border-gray-200 py-3 max-w-[600px] `} key={review._id}>
                            <div className='flex items-center gap-2'>
                                 <Image alt={review.title} width={32} height={32} 
                                  className='rounded-full object-cover'

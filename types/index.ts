@@ -9,6 +9,7 @@ export interface ProductProps {
     name: string;
     price: number;
     selectedColor: string;
+    filteredImages: any;
     selectedSize: string;
     prevPrice: number;
     qty: number;

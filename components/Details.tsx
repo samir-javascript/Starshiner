@@ -9,9 +9,22 @@ import { addToCart } from '@/lib/features/cartSlice';
 import { useAppDispatch } from '@/lib/hooks';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { ProductProps } from '@/types';
-import SizesModal from './modals/SizesModal';
 
+import SizesModal from './modals/SizesModal';
+interface Size {
+  size: string;
+  stock: number;
+}
+
+interface Color {
+  color: string;
+  sizes: Size[];
+}
+
+interface ImageDetails {
+  url: string[];
+  colors: Color[];
+}
 const Details = ({result, currentUser}: {
   result: string;
   currentUser: string
@@ -41,7 +54,10 @@ const Details = ({result, currentUser}: {
       setOpenSizeModal(true)
       return
     }
-    dispatch(addToCart({ ...parsedResult, qty , selectedColor, selectedSize}));
+    const filteredImages = parsedResult.images.filter((item:ImageDetails) =>
+      item.colors.some((color) => color.color === selectedColor)
+    );
+    dispatch(addToCart({ ...parsedResult, qty , selectedColor, filteredImages, selectedSize}));
     if(openSizeModal) {
       setOpenSizeModal(false)
     }
@@ -75,6 +91,7 @@ const Details = ({result, currentUser}: {
        if(!response.ok) {
           throw new Error('Failed to complete this action')
        }
+       router.refresh()
        // success toast;
     } catch (error) {
        console.log(error)

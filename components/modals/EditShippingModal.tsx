@@ -1,103 +1,107 @@
 "use client"
 import React, { useState } from "react"
-import { ShippingAddressValidationSchema} from "@/lib/FormValidation"
-import { useAppDispatch, useAppSelector } from "@/lib/hooks"
 import {
+    Form,
+    FormControl,
+   
+    FormField,
+    FormItem,
+    FormLabel,
+    FormMessage,
+  } from "../../components/ui/form" 
+  import {
     Dialog,
     DialogContent,
     DialogHeader,
     DialogTitle,
   } from "../../components/ui/dialog"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { Input } from "@/components/ui/input"
+  import { ShippingAddressValidationSchema} from "../../lib/FormValidation"
+  import { zodResolver } from "@hookform/resolvers/zod"
+import { Input } from "../../components/ui/input"
 import { useForm } from "react-hook-form"
-import { z } from "zod"
-import { Button } from "@/components/ui/button"
-import {
-  Form,
-  FormControl,
- 
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form"
 import { FaCheck } from "react-icons/fa"
+import { z } from "zod"
 import { usePathname, useRouter } from "next/navigation"
+import { useAppDispatch } from "../../lib/hooks"
+import { Button } from "../ui/button"
 import { setSelectedShippingAddress } from "@/lib/features/cartSlice"
+  const EditShippingModal = ({shipping,open,setOpen}:  {
+    shipping: {
+       firstName: string;
+       _id: string;
+       lastName:string;
+       phoneNumber: string;
+       address: string;
+       country: string;
 
-
-
-const AddShippingModal = ({open,setOpen,_id,type}: {
+       city: string;
+       zipCode: string;
+    }
     open: boolean;
-    type:string;
-   _id: string;
-    setOpen: (v:boolean)=> void
-}) => {
-   // 1. Define your form.
-   const [loading,setLoading] = useState(false)
-   const { selectedShippingAddress, shippingAddress } = useAppSelector((state:any)=> state.cart)
-   const router = useRouter()
-   const [checked,setChecked] = useState(false)
+    setOpen: (v:boolean) => void;
+  
+  }) => {
+   
+   
+    const [loading,setLoading] = useState(false)
    const pathname = usePathname()
    const dispatch = useAppDispatch()
+   const router = useRouter()
    const form = useForm<z.infer<typeof ShippingAddressValidationSchema>>({
     resolver: zodResolver(ShippingAddressValidationSchema),
     defaultValues: {
-      firstName: "",
-      lastName: "",
-      address: "",
-      phoneNumber:"",
-      country: "",
-      city: "",
-      zipCode: ""
+      firstName: shipping?.firstName || "",
+      lastName: shipping?.lastName || "",
+      address: shipping?.address || "",
+      phoneNumber: shipping?.phoneNumber  || "",
+      country: shipping?.country || "",
+      city: shipping?.city || "",
+      zipCode: shipping?.zipCode || ""
     },
   })
- 
-  // 2. Define a submit handler.
- async function onSubmit(values: z.infer<typeof ShippingAddressValidationSchema>) {
-  setLoading(true)
-   try {
-      const response = await fetch("/api/shipping/addShipping", {
-        method: "POST",
-        body: JSON.stringify({
-           userId: _id,
-           address: values.address,
-           firstName: values.firstName,
-           lastName: values.lastName,
-           phoneNumber: values.phoneNumber,
-           city: values.city,
-           zipCode: values.zipCode,
-           country: values.country,
-           path: pathname
+  async function onSubmit(values: z.infer<typeof ShippingAddressValidationSchema>) {
+    setLoading(true)
+   
+      try {
+        const response = await fetch("/api/shipping/updateShipping", {
+          method: "PUT",
+          body: JSON.stringify({
+             shippingId: shipping._id,
+             address:  values.address,
+             firstName: values.firstName,
+             lastName: values.lastName,
+             phoneNumber: values.phoneNumber,
+             city: values.city,
+             zipCode: values.zipCode,
+             country: values.country,
+             path: pathname
+          })
         })
-      })
-      if(!response.ok) {
-          throw new Error('something bad happened')
-      }
-      const {newShipping} = await response.json()
-      if(checked || shippingAddress.length === 0) {
-        dispatch(setSelectedShippingAddress(newShipping))
-      }
+        if(!response.ok) {
+            throw new Error('something bad happened')
+        }
+        const { shipping:result } = await response.json()
+        dispatch(setSelectedShippingAddress(result))
+
+        setOpen(false)
+        router.refresh()
       
-      form.reset()
-      setOpen(false)
-      router.refresh()
-      // success toast
-      // save shipping addresses in localstorage 
-   } catch (error) {
-      console.log(error)
-   }finally {
-    setLoading(false)
-   }
-  }
- console.log(checked, "ccherf")
+        // success toast
+        // save shipping addresses in localstorage 
+     } catch (error) {
+        console.log(error)
+     }finally {
+      setLoading(false)
+     }
+   
+    
+    }
   return (
     <Dialog  open={open} onOpenChange={() => setOpen(false)} >
     
     <DialogContent className="bg-white h-[90%] !p-0 !m-0 !rounded-[15px]  ">
       <DialogHeader>
-        <DialogTitle className="text-[20px] p-5 ">Add another address</DialogTitle>
+        <DialogTitle className="text-[20px] p-5 ">Edit the address</DialogTitle>
       </DialogHeader>
       <div className=" flex flex-col overflow-y-scroll h-[85%] ">
       <Form {...form}>
@@ -200,10 +204,7 @@ const AddShippingModal = ({open,setOpen,_id,type}: {
             </FormItem>
           )}
         />
-        <div className="flex items-center gap-1">
-            <input checked={checked}  onChange={(e) => setChecked(e.target.checked)} className="!outline-none focus:border-none" type="checkbox" />
-            <p className="font-medium text-[14px] text-black-1">Make this address my default address</p>
-        </div>
+       
         <Button className="flex rounded-[15px] h-[45px]  hover:opacity-[0.8] items-center justify-center
          gap-2 w-full bg-green-1 shadow-lg text-white " type="submit">
           {loading ? "Loading..." : <> 
@@ -216,8 +217,7 @@ const AddShippingModal = ({open,setOpen,_id,type}: {
       </div>
     </DialogContent>
   </Dialog>
-  
   )
 }
 
-export default AddShippingModal
+export default EditShippingModal

@@ -93,7 +93,7 @@ const Rating = ({userId, productId}: {
            
       </div> 
       <CommentModal productId={parsedProductID}  userId={parsedUserID} open={open} setOpen={setOpen} />
-      <QuestionModal open={openQuestionModal} setOpen={setOpenQuestionModal} />
+      <QuestionModal productId={parsedProductID} userId={parsedUserID} open={openQuestionModal} setOpen={setOpenQuestionModal} />
   </>
   )
 }

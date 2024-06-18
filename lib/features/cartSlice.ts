@@ -6,6 +6,7 @@ interface CartState {
   cartItems: ProductProps[];
   shippingAddress: any[];
   paymentMethod: string;
+  selectedShippingAddress: {}
   itemsPrice?: number;
   shippingPrice?: number;
   totalPrice?: number;
@@ -16,12 +17,14 @@ const loadStateFromLocalStorage = ():CartState => {
     return savedState ? JSON.parse(savedState) : {
       cartItems: [],
       shippingAddress: [],
+      selectedShippingAddress: {},
       paymentMethod: ""
     };
   }
   return {
     cartItems: [],
     shippingAddress: [],
+    selectedShippingAddress: {},
     paymentMethod: ""
   };
 };
@@ -58,7 +61,7 @@ const cartSlice = createSlice({
     
       // Find the item that matches _id, selectedColor, and selectedSize
       const existItem = state.cartItems.find(
-        (x: any) =>
+        (x: ProductProps) =>
           x._id === _id &&
           x.selectedColor === selectedColor &&
           x.selectedSize === selectedSize
@@ -104,6 +107,14 @@ const cartSlice = createSlice({
       state = initialState;
       return state;
     },
+    setSelectedShippingAddress: (state,action) => {
+          state.selectedShippingAddress = action.payload;
+          return updateCart(state)
+    },
+    saveShippingAddress: (state,action) => {
+        state.shippingAddress = action.payload;
+        return updateCart(state)
+    },
     clearCart: (state) => {
       state.cartItems = [];
       return updateCart(state);
@@ -111,7 +122,7 @@ const cartSlice = createSlice({
   },
 });
 
-export const { clearCart, addToCart, removeFromCart, resetCart, increaseQty, decreaseQty } = cartSlice.actions;
+export const { clearCart, addToCart, setSelectedShippingAddress,saveShippingAddress, removeFromCart, resetCart, increaseQty, decreaseQty } = cartSlice.actions;
 export default cartSlice.reducer;
 
 export const addDecimals = (num: number) => {

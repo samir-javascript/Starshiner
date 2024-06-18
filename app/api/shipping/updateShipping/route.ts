@@ -4,6 +4,7 @@ import { NextResponse } from "next/server";
 import Shipping from "../../../../schemas/shippingModel";
 import { auth } from "@clerk/nextjs/server"
 export async function PUT(req:Request) {
+   // add user id check;
    const { userId } = auth()
     const {firstName,lastName,address,city,country,zipCode,phoneNumber,path,shippingId} = await req.json()
    try {

@@ -30,7 +30,7 @@ const CartCheckout = () => {
                            </div>
                            <div className='flex items-center w-full justify-between'>
                                <p className='text-[#111] font-normal text-base '>Shipping cost:</p>
-                               <h3 className='font-semibold text-green-600 text-[17px] '>{shippingPrice === 0 ? "FREE" : (shippingPrice)} £</h3>
+                               <h3 className='font-semibold text-green-600 text-[17px] '>{shippingPrice} £</h3>
                            </div>
                        </div>
                        <div className='flex flex-col py-3 border-b border-gray-200 '>

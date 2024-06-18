@@ -24,8 +24,8 @@ const CartShipping = ({currentUser}: {
                 <div className="flex items-center border-b py-2.5 border-gray-200 justify-between">
                    <article className='flex items-start'>
                    <FaLocationDot color="gray" size={16} className='mr-1 mt-[4px] ' />
-                   <p className="font-bold  text-[#000] "> {selectedShippingAddress.lastName} {selectedShippingAddress.firstName} - <span className='text-base font-normal text-black-1'>
-            {selectedShippingAddress.zipCode}, {selectedShippingAddress.address}, {selectedShippingAddress.phoneNumber}, {selectedShippingAddress.city}, {selectedShippingAddress.country}
+                   <p className="font-bold  text-[#000] "> {selectedShippingAddress?.lastName} {selectedShippingAddress?.firstName} - <span className='text-base font-normal text-black-1'>
+            {selectedShippingAddress?.zipCode}, {selectedShippingAddress?.address}, {selectedShippingAddress?.phoneNumber}, {selectedShippingAddress?.city}, {selectedShippingAddress?.country}
               </span> </p>
                    </article>
                  

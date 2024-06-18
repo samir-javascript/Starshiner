@@ -15,7 +15,7 @@ const CartItems = () => {
     const { cartItems  } = useAppSelector((state:any) => state?.cart)
     const [open,setOpen] = useState(false)
     const dispatch = useAppDispatch()
-    if(cartItems.length === 0) return null 
+   
     const handleDeleteItemFromCart = ((_id: string,color:string,size:string) => {
        dispatch(removeFromCart({
         _id : _id, selectedColor: color, selectedSize: size
@@ -33,6 +33,8 @@ const CartItems = () => {
        _id: item._id, selectedColor: item.selectedColor, selectedSize: item.selectedSize
       }))
    }
+
+   if(!cartItems) return;
   return (
     <>
     <AccordionItem  value={`item 1`}>

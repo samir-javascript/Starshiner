@@ -21,7 +21,8 @@ import CartCheckout from '@/components/modals/CartCheckout';
 //const CartShipping = dynamic(() => import("@/components/modals/CartShipping"),  {ssr: false})
 import CartShipping from '@/components/modals/CartShipping';
 const EmptyCart = dynamic(() => import("@/components/EmptyCart"),  {ssr: false})
-const CartItems = dynamic(() => import("@/components/modals/CartItems"),  {ssr: false})
+// const CartItems = dynamic(() => import("@/components/modals/CartItems"),  {ssr: false})
+import CartItems from '@/components/modals/CartItems';
 const page = async() => {
  
   const isEmpty = false
@@ -43,7 +44,7 @@ const page = async() => {
                   <Accordion  type="single" collapsible>
  
        
-     {/* <CartItems /> */}
+     <CartItems />
 
  
 </Accordion>

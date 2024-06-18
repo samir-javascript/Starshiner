@@ -48,7 +48,8 @@ const page = async() => {
    <div className='bg-white shadow-md flex flex-col gap-2 rounded-[17px] p-5 '>
         <h2 className='font-bold text-[#000] text-[20px] '>Where to deliver?</h2>
        
-        <CartShipping currentUser={JSON.stringify(currentUser)} />
+        {/* <CartShipping currentUser={JSON.stringify(currentUser)} /> */}
+        some
    </div>
 
      <div className='bg-white shadow-md flex flex-col gap-2 rounded-[17px] p-5 '>

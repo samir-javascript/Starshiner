@@ -83,7 +83,7 @@ const page = async() => {
          </div>
      </div>
                   </div>
-                  <CartCheckout />
+                  {/* <CartCheckout /> */}
          </div>
    
     </section>

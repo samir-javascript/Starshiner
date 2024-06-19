@@ -12,37 +12,9 @@ export const POST = async(req:NextRequest) => {
          req.headers.get("stripe-signature") as string, 
          process.env.STRIPE_WEBHOOK_SECRET as string)
 
-         if(event.type === "charge.succeeded") {
+         if(event.type === "checkout.session.completed") {
             const charge = event.data.object; 
-            const productId = charge.metadata.productId;
-            const email = charge.billing_details.email;
-            const orderRef = charge.metadata.orderRef;
-            
-            //const deliveryShippingAddress = charge.metadata.shippingAddress;
-            const pricePaid = charge.amount;
-            const product  = await Product.findById(productId)
-            if(!product || !email) {
-                return NextResponse.json({message: "bad ass request", status: 400})
-            } else {
-                // create a new order;
-                const order = await OrderModel.findOne({orderRef:orderRef})
-                if(order) {
-                    order.isPaid = true;
-                    order.totalAmount = pricePaid;
-                    order.paymentStatus = charge.status;
-                    order.userEmailIssued = email
-                    order.paidAt = Date.now;
-                    await order.save()
-                }
-                // create  a new user if he was not registered before placing order;
-                // send email order confirmation
-                await resend.emails.send({
-                    from : process.env.EMAIL_SENDER as string,
-                    to: email,
-                    subject: "Order confirmation",
-                    react: <ConfirmationEmail />
-                })
-            }
+           console.log(charge, "hy we did it soufiannnnnnnnnnnnnnne")
          }
      } catch (error) {
         console.log(error)

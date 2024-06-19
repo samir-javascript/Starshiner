@@ -9,12 +9,15 @@ import { FaLock, FaRegClock } from "react-icons/fa";
 import {
     Accordion,
   } from "@/components/ui/accordion"
+import { useState } from "react";
 const CartComponent = ({currentUser}: {
     currentUser:string;
 }) => {
     const parsedUser = JSON.parse(currentUser)
     const { cartItems } = useAppSelector((state:any) => state.cart)
+    const [paymentMethod,setPaymentMethod] = useState("Stripe")
     if(!cartItems) return;
+    console.log(paymentMethod, "payment method")
   return (
     <>
     {cartItems?.length > 0 && (
@@ -57,7 +60,7 @@ const CartComponent = ({currentUser}: {
 </div>
 </div>
 <div className='flex items-start border-b border-gray-200 pb-3 pt-2 gap-3 w-full'>
-<input type="checkbox" className='mt-[3px] ' /> 
+<input checked={paymentMethod === "Stripe"} onChange={(e) => setPaymentMethod("Stripe")} value={paymentMethod} type="checkbox" className='mt-[3px] ' /> 
 <div className='flex flex-col gap-1'>
   <h3 className='font-bold text-[15px] text-[#000] '>Online via Stripe</h3>
   <p className='text-sm font-medium text-gray-500 '>We take your security very seriously, therefore your details are safe with us.</p>
@@ -65,7 +68,7 @@ const CartComponent = ({currentUser}: {
 </div>
 </div>
 <div className='flex items-start pt-2 gap-3 w-full'>
-<input type="checkbox" className='mt-[3px] ' /> 
+<input checked={paymentMethod === "cash on delivery"} onChange={(e) => setPaymentMethod("cash on delivery")} value={paymentMethod} type="checkbox" className='mt-[3px] ' /> 
 <div className='flex flex-col gap-1'>
   <h3 className='font-bold text-[15px] text-[#000] capitalize '>cash on delivery</h3>
   <p className='text-sm font-medium text-gray-500 max-w-[600px] '>

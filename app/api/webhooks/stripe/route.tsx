@@ -21,13 +21,7 @@ export const POST = async(req:NextRequest) => {
             console.log(referenceId, "mol chi referenceId")
             const cart = await Cart.findOne({ referenceId });
 
-            if (!cart) {
-                console.log(`⚠️  Cart not found for reference ID: ${referenceId}`);
-                return NextResponse.json({ error: 'Cart not found.' }, { status: 404 });
-            }
-
-            // Process the order using cart data
-            // Example: fulfillOrder(cart);
+           
             console.log('Cart data:', cart);
         
          }else {

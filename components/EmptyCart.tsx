@@ -1,14 +1,14 @@
-"use client"
+
 import React from 'react'
 import { FaCheck } from 'react-icons/fa'
 import { Button } from './ui/button'
 import Image from 'next/image'
-import { useAppSelector } from '@/lib/hooks'
+
 
 const EmptyCart = () => {
-  const { cartItems  } = useAppSelector((state:any) => state?.cart)
+ 
   
-  if(cartItems.length > 0) return null
+ 
   return (
     <div className='flex items-center py-7 my-10 bg-white rounded-[20px] shadow-md p-5 w-full lg:max-w-[1000px] mx-auto  justify-center'>
   <div className='flex flex-col gap-3 items-center justify-center text-center'>

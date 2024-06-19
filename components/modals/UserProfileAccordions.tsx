@@ -169,15 +169,15 @@ type shippingsProps = {
                </div>
                <div>
                <label className="font-medium  mb-5 text-black text-sm" htmlFor="country">BirthDay</label>
-               <div className="flex items-center max-w-[600px]  gap-5">
-                   <div>
-                   <label className="flex-1 font-medium text-black text-sm w-full">
+               <div className="flex items-center mt-4 max-w-[600px]  gap-5">
+                   <div className="">
+                   <label className="lg:flex-1 font-medium text-black text-sm lg:w-full">
                 Day:
                 <Select onValueChange={(value:any) => setDay(value)}>
-                    <SelectTrigger className="max-w-full focus-visible:ring-offset-0 focus-visible:ring-offset-transparent w-[150px] focus-visible: flex-1 text-[#000]">
+                    <SelectTrigger className="max-w-full focus-visible:ring-offset-0 focus-visible:ring-offset-transparent lg:w-[150px] focus-visible: lg:flex-1 text-[#000]">
                         <SelectValue placeholder="Select day" />
                     </SelectTrigger>
-                    <SelectContent className="bg-[#fff] flex-1 text-black-1">
+                    <SelectContent className="bg-[#fff] lg:flex-1 text-black-1">
                         {days.map((d) => (
                             <SelectItem className="hover:bg-gray-100" key={d} value={d.toString()}>{d}</SelectItem>
                         ))}
@@ -188,13 +188,13 @@ type shippingsProps = {
               
               
          <div>
-         <label className="flex-1 font-medium text-black text-sm w-full">
+         <label className="lg:flex-1 font-medium text-black text-sm lg:w-full">
                 Month:
                 <Select onValueChange={(value:string) => setMonth(value)}>
-                    <SelectTrigger className="max-w-full focus-visible:ring-offset-0 focus-visible:ring-offset-transparent w-[150px] focus-visible: flex-1 text-[#000]">
+                    <SelectTrigger className="max-w-full focus-visible:ring-offset-0 focus-visible:ring-offset-transparent lg:w-[150px]  lg:flex-1 text-[#000]">
                         <SelectValue placeholder="Select month" />
                     </SelectTrigger>
-                    <SelectContent className="bg-white flex-1 text-black-1">
+                    <SelectContent className="bg-white lg:flex-1 text-black-1">
                         {months.map((m, idx) => (
                             <SelectItem className="hover:bg-gray-100" key={m} value={(idx + 1).toString()}>{m}</SelectItem>
                         ))}
@@ -204,13 +204,13 @@ type shippingsProps = {
          </div>
            
            <div>
-           <label className="flex-1 font-medium text-black text-sm w-full ">
+           <label className="lg:flex-1 font-medium text-black text-sm lg:w-full ">
                 Year:
                 <Select onValueChange={(value:any) => setYear(value)}>
-                    <SelectTrigger className="max-w-full focus-visible:ring-offset-0 focus-visible:ring-offset-transparent w-[150px] focus-visible: flex-1 text-[#000]">
+                    <SelectTrigger className="max-w-full focus-visible:ring-offset-0 focus-visible:ring-offset-transparent lg:w-[150px] focus-visible: lg:flex-1 text-[#000]">
                         <SelectValue placeholder="Select year" />
                     </SelectTrigger>
-                    <SelectContent className="bg-white flex-1 text-black-1">
+                    <SelectContent className="bg-white lg:flex-1 text-black-1">
                         {years.map((y) => (
                             <SelectItem className="hover:bg-gray-100" key={y} value={y.toString()}>{y}</SelectItem>
                         ))}

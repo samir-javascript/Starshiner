@@ -21,7 +21,7 @@ const page = async() => {
             <ProfileTabs />
             <div className='flex-1 flex flex-col gap-5'>
               <div className='flex px-3 flex-col gap-1'>
-                 <ProfileTop title="My favorite items " text="3 items" links={[
+                 <ProfileTop title="My favorite items " text={`${items?.products?.length} items`} links={[
                     {
                         name: "Home",
                         href: "/"

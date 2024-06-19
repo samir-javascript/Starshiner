@@ -10,14 +10,14 @@ import { useState } from 'react';
 const CartShipping = ({ currentUser }: { currentUser: any }) => {
  
     const [open, setOpen] = useState(false);
-    const parsedUser = JSON.parse(currentUser);
+   
     const dispatch = useAppDispatch();
     const { selectedShippingAddress, shippingAddress } = useAppSelector((state: any) => state.cart);
 
     return (
         !selectedShippingAddress && shippingAddress.length === 0 ? (
             <div>
-                <EditShipping type="create" userId={JSON.stringify(parsedUser._id)} />
+                <EditShipping type="create" userId={JSON.stringify(currentUser._id)} />
             </div>
         ) : (
             <div className='flex flex-col'>
@@ -40,7 +40,7 @@ const CartShipping = ({ currentUser }: { currentUser: any }) => {
                     <MdPublishedWithChanges color="gray" size={20} />
                     <p className='uppercase font-bold text-[15px]'>change the address</p>
                 </div>
-                <ShippingCartModal _id={parsedUser._id} open={open} setOpen={setOpen} />
+                <ShippingCartModal _id={currentUser._id} open={open} setOpen={setOpen} />
             </div>
         )
     );

@@ -18,7 +18,7 @@ const CartItems = () => {
    
     const handleDeleteItemFromCart = ((_id: string,color:string,size:string) => {
        dispatch(removeFromCart({
-        _id : _id, selectedColor: color, selectedSize: size
+        _id, selectedColor: color, selectedSize: size
        }))
        setOpen(false)
     })
@@ -34,7 +34,7 @@ const CartItems = () => {
       }))
    }
 
-   if(!cartItems) return;
+  
   return (
     <>
     <AccordionItem  value={`item 1`}>
@@ -56,7 +56,7 @@ const CartItems = () => {
                        <p className='text-base text-black-1'>Size: <span className="font-bold text-[#000] ">{item.selectedSize}</span> ( {item.qty} Pcs )</p>
                    </div>
               </div>
-              <FaTrash style={{ marginLeft: 10 }} className="cursor-pointer lg:hidden "  size={18} color="red" />
+              <FaTrash  onClick={() => setOpen(true)} style={{ marginLeft: 10 }} className="cursor-pointer lg:hidden "  size={18} color="red" />
               <div className='lg:flex hidden flex-col gap-2 items-end '>
                 
                  <FaTrash  cursor="pointer" onClick={() => setOpen(true)} size={18} color="red" />

@@ -18,6 +18,7 @@ export const POST = async(req:NextRequest) => {
          if(event.type === "checkout.session.completed") {
             const charge = event.data.object; 
             const referenceId = charge?.metadata?.referenceId;
+            console.log(referenceId, "mol chi referenceId")
             const cart = await Cart.findOne({ referenceId });
 
             if (!cart) {

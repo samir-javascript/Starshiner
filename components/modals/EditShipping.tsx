@@ -24,8 +24,10 @@ import { Button } from "../ui/button"
     userId?: string;
   }) => {
 
-    const parsedShipping =  type === "edit" ? JSON.parse(shipping as string) : null
-    const parsedUserId = JSON.parse(userId as string)
+    const parsedShipping =  type === "edit" && shipping ? JSON.parse(shipping) : null;
+
+    const parsedUserId = userId ? JSON.parse(userId) : null;
+
     const [loading,setLoading] = useState(false)
    const pathname = usePathname()
    const dispatch = useAppDispatch()

@@ -3,8 +3,9 @@ import dynamic from 'next/dynamic';
 import React  from 'react'
 import { auth } from '@clerk/nextjs/server';
 import { getCurrentUser } from '@/actions/user.actions';
+import CartComponent from '@/components/cart/CartComponent';
 
-const CartComponent = dynamic(() => import("@/components/cart/CartComponent"),  {ssr: false, loading: ()=> <p>Loading...</p> })
+//const CartComponent = dynamic(() => import("@/components/cart/CartComponent"),  {ssr: false, loading: ()=> <p>Loading...</p> })
 const page = async() => {
  
   

@@ -42,13 +42,11 @@ const CartItems = () => {
          <p>My Cart ({(cartItems.length && cartItems?.length)} items) </p>
     </AccordionTrigger>
     <AccordionContent  className='bg-white px-3 py-4 rounded-br-[15px] rounded-bl-[15px] '>
-      {cartItems.map((item:ProductProps) => (
+      {cartItems.map((item:any) => (
         <div className="flex flex-col border-b gap-3 border-gray-300 pb-3 " key={item._id}>
  <div  className='flex  items-center justify-between w-full'>
            <div className='flex items-center gap-2'>
-           <DeleteItemFromCartModal handleClick={() => handleDeleteItemFromCart(item._id, item.selectedColor,item.selectedSize)} open={open} setOpen={setOpen}
-            title={item.name} qty={item.qty} image={item.filteredImages[0].url[0]} 
-            selectedSize={item.selectedSize} />
+           
                  <img className='lg:w-[90px] w-[70px]  object-cover '
                   src={item.filteredImages[0].url[0]} alt={item.name} />
                    <div className='flex flex-col'>
@@ -88,6 +86,9 @@ const CartItems = () => {
                   <p className="text-gray-400 line-through text-sm ">{item.prevPrice},95 £ </p>
                   </div>
            </div>
+           <DeleteItemFromCartModal handleClick={() => handleDeleteItemFromCart(item._id, item.selectedColor,item.selectedSize)} open={open} setOpen={setOpen}
+            title={item.name} qty={item.qty} image={item.filteredImages[0].url[0]} 
+            selectedSize={item.selectedSize} />
         </div>
           
       ))}

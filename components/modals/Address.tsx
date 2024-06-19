@@ -19,21 +19,21 @@ const Address = ({addresses, userId}: {
        <div className='flex lg:items-center w-full lg:justify-between gap-3 lg:flex-row flex-col max-lg:gap-4 '>
        <div>
            <h3 className='font-medium text-[#111] text-base '>Adresse de facturation par défaut</h3>
-           <p className='text-black-1 text-sm font-normal '>Mr {selectedShippingAddress?.firstName} {selectedShippingAddress?.lastName}</p>
-           <p className='text-black-1 text-sm font-normal '>{selectedShippingAddress.address} </p>
-           <p className='text-black-1 text-sm font-normal '>{selectedShippingAddress.city} , {selectedShippingAddress.zipCode} {selectedShippingAddress.country}</p>
-           <p className='text-black-1 text-sm font-normal '>{selectedShippingAddress.phoneNumber} </p>
+           <p className='text-black-1 text-sm font-normal '>Mr {selectedShippingAddress?.firstName || parsedAddresses[0].firstName} {selectedShippingAddress?.lastName || parsedAddresses[0].lastName}</p>
+           <p className='text-black-1 text-sm font-normal '>{selectedShippingAddress.address || parsedAddresses[0].address} </p>
+           <p className='text-black-1 text-sm font-normal '>{selectedShippingAddress.city || parsedAddresses[0].city} , {selectedShippingAddress.zipCode || parsedAddresses[0].zipCode} {selectedShippingAddress.country || parsedAddresses[0].country}</p>
+           <p className='text-black-1 text-sm font-normal '>{selectedShippingAddress.phoneNumber || parsedAddresses[0].phoneNumber} </p>
            <Button onClick={() => setOpen(true)} className='w-fit mt-3 p-0 underline text-[#00afaa] ' type="button">
            Modifier L’adresse De Facturation
            </Button>
        </div>
        <ShippingModalOptions userId={parsedUserId}  addresses={parsedAddresses} open={open} setOpen={setOpen} selectedShippingAddress={selectedShippingAddress} />
        <div>
-           <h3 className='font-medium text-[#111] text-base '>Adresse de facturation par défaut</h3>
-           <p className='text-black-1 text-sm font-normal '>Mr {selectedShippingAddress?.firstName} {selectedShippingAddress?.lastName}</p>
-           <p className='text-black-1 text-sm font-normal '>{selectedShippingAddress.address} </p>
-           <p className='text-black-1 text-sm font-normal '>{selectedShippingAddress.city} , {selectedShippingAddress.zipCode} {selectedShippingAddress.country} </p>
-           <p className='text-black-1 text-sm font-normal '>{selectedShippingAddress.phoneNumber} </p>
+       <h3 className='font-medium text-[#111] text-base '>Adresse de facturation par défaut</h3>
+           <p className='text-black-1 text-sm font-normal '>Mr {selectedShippingAddress?.firstName || parsedAddresses[0].firstName} {selectedShippingAddress?.lastName || parsedAddresses[0].lastName}</p>
+           <p className='text-black-1 text-sm font-normal '>{selectedShippingAddress.address || parsedAddresses[0].address} </p>
+           <p className='text-black-1 text-sm font-normal '>{selectedShippingAddress.city || parsedAddresses[0].city} , {selectedShippingAddress.zipCode || parsedAddresses[0].zipCode} {selectedShippingAddress.country || parsedAddresses[0].country}</p>
+           <p className='text-black-1 text-sm font-normal '>{selectedShippingAddress.phoneNumber || parsedAddresses[0].phoneNumber} </p>
            <Button  onClick={() => setOpen(true)} className='w-fit mt-3 p-0 underline text-[#00afaa] ' type="button">
            Modifier L’adresse De Livraison
            </Button>

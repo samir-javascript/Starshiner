@@ -1,9 +1,12 @@
 import ConfirmationEmail from "@/components/emails/ConfirmationEmail";
-import OrderModel from "@/schemas/orderModel";
+
 import Product from "@/schemas/productModel";
+import OrderModel from "@/schemas/orderModel";
+import { connectToDb } from "@/db";
 import { NextRequest, NextResponse } from "next/server";
 import { Resend} from "resend"
 import Stripe from "stripe"
+import { Cart } from "@/schemas/cartModel";
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string)
 const resend = new Resend(process.env.RESEND_API_KEY as string)
 export const POST = async(req:NextRequest) => {
@@ -14,8 +17,18 @@ export const POST = async(req:NextRequest) => {
 
          if(event.type === "checkout.session.completed") {
             const charge = event.data.object; 
-           console.log(charge, "hy we did it soufiannnnnnnnnnnnnnne")
-           return NextResponse.json({charge, message:"yeeeeeeeeh"})
+            const referenceId = charge?.metadata?.referenceId;
+            const cart = await Cart.findOne({ referenceId });
+
+            if (!cart) {
+                console.log(`⚠️  Cart not found for reference ID: ${referenceId}`);
+                return NextResponse.json({ error: 'Cart not found.' }, { status: 404 });
+            }
+
+            // Process the order using cart data
+            // Example: fulfillOrder(cart);
+            console.log('Cart data:', cart);
+        
          }else {
            
             return NextResponse.json({error: "shit it doesn't work"})
@@ -23,6 +36,7 @@ export const POST = async(req:NextRequest) => {
        
      } catch (error) {
         console.log(error)
-        return NextResponse.json({error: "error soufiane", status: 500})
+        return NextResponse.json({error: `${error} error soufiane`, status: 500})
      }
 }
+

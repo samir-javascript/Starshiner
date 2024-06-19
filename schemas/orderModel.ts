@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 const OrderSchema = new mongoose.Schema({
-    userId: { type: String, required: true , ref: "User"},
+    userId: { type: mongoose.Schema.Types.ObjectId, required: true , ref: "User"},
     // stripeCustomerId: { type: String},
     // paymentIntent: { type: String,  },
     totalAmount: { type: Number,  },

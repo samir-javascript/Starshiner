@@ -15,10 +15,14 @@ export const POST = async(req:NextRequest) => {
          if(event.type === "checkout.session.completed") {
             const charge = event.data.object; 
            console.log(charge, "hy we did it soufiannnnnnnnnnnnnnne")
+           return NextResponse.json({charge, message:"yeeeeeeeeh"})
          }else {
-            throw new Error("sorry mother fucker")
+           
+            return NextResponse.json({error: "shit it doesn't work"})
          }
+       
      } catch (error) {
         console.log(error)
+        return NextResponse.json({error: "error soufiane", status: 500})
      }
 }

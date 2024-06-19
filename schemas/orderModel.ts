@@ -25,10 +25,7 @@ const OrderSchema = new mongoose.Schema({
          type: Boolean,
          default: false
     },
-    userEmailIssued: {
-        type: String,
-        required: true
-    },
+    
     paidAt: {
         type: Date,
     },

@@ -75,7 +75,7 @@ const CartItems = () => {
               <FaTrash onClick={() => {
                                     setSelectedProduct(item);
                                     setOpen(true);
-                                }} />
+                                }} color="red" size={18} cursor="pointer" />
                  <div className="flex  justify-between items-center border border-gray-200 px-2 rounded-[10px] py-1.5">
                             <FaMinus onClick={() => handleDecreaseQty(item)} style={{ marginRight: 10 }}   className={`${item.qty === 1 ? "select-none cursor-default " : "cursor-pointer"}`} size={18} color="#00afaa" />
                             <div className="border-r border-l border-gray-100 px-7">

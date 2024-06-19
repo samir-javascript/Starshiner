@@ -23,7 +23,8 @@ import { Button } from "../ui/button"
     type: string;
     userId?: string;
   }) => {
-    const parsedShipping = shipping && JSON.parse(shipping as string)
+
+    const parsedShipping = typeof shipping === "string" && JSON.parse(shipping as string)
     const parsedUserId = JSON.parse(userId as string)
     const [loading,setLoading] = useState(false)
    const pathname = usePathname()

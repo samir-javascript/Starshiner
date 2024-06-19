@@ -3,6 +3,7 @@ import React from 'react'
 import { FaCheck } from 'react-icons/fa'
 import { Button } from './ui/button'
 import Image from 'next/image'
+import Link from 'next/link'
 
 
 const EmptyCart = () => {
@@ -17,10 +18,13 @@ const EmptyCart = () => {
          src="https://stcnt.starshiners.ro/img/fllrsp/empty-cart.png"
           alt="empty cart" />
           <p className='text-[20px] text-[#000] font-bold '>Your cart is empty.</p>
+          <Link href="/">
           <Button className='bg-[#11a545] gap-2 shadow-lg py-4 min-w-[300px] h-[45px] uppercase text-white max-w-[600px] w-full rounded-[15px] flex items-center justify-center ' type="button">
                <FaCheck />
                <p className='font-semibold'>continue shopping</p>
           </Button>
+          </Link>
+         
   </div>
 </div>
   )

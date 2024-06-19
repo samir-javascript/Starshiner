@@ -13,15 +13,21 @@ import { useState } from "react"
 
 const CartItems = () => {
     const { cartItems  } = useAppSelector((state:any) => state?.cart)
+    const [productId,setProductId] = useState('')
     const [open,setOpen] = useState(false)
+    const [selectedProduct, setSelectedProduct] = useState<ProductProps | null>(null);
     const dispatch = useAppDispatch()
    
-    const handleDeleteItemFromCart = ((_id: string,color:string,size:string) => {
-       dispatch(removeFromCart({
-        _id, selectedColor: color, selectedSize: size
-       }))
-       setOpen(false)
-    })
+    const handleDeleteItemFromCart = () => {
+      if (selectedProduct) {
+          dispatch(removeFromCart({
+              _id: selectedProduct._id,
+              selectedColor: selectedProduct.selectedColor,
+              selectedSize: selectedProduct.selectedSize,
+          }));
+          setOpen(false);
+      }
+  };
     const handleDecreaseQty = (item:ProductProps) => {
       if(item.qty === 1) return;
        dispatch(decreaseQty({
@@ -34,7 +40,7 @@ const CartItems = () => {
       }))
    }
 
-  
+  console.log(productId, "product ID")
   return (
     <>
     <AccordionItem  value={`item 1`}>
@@ -54,10 +60,22 @@ const CartItems = () => {
                        <p className='text-base text-black-1'>Size: <span className="font-bold text-[#000] ">{item.selectedSize}</span> ( {item.qty} Pcs )</p>
                    </div>
               </div>
-              <FaTrash  onClick={() => setOpen(true)} style={{ marginLeft: 10 }} className="cursor-pointer lg:hidden "  size={18} color="red" />
+              <FaTrash
+  onClick={() => {
+    setSelectedProduct(item);
+    setOpen(true);
+  }}
+  style={{ marginLeft: 10 }}
+  className="cursor-pointer lg:hidden"
+  size={18}
+  color="red"
+/>
               <div className='lg:flex hidden flex-col gap-2 items-end '>
                 
-                 <FaTrash  cursor="pointer" onClick={() => setOpen(true)} size={18} color="red" />
+              <FaTrash onClick={() => {
+                                    setSelectedProduct(item);
+                                    setOpen(true);
+                                }} />
                  <div className="flex  justify-between items-center border border-gray-200 px-2 rounded-[10px] py-1.5">
                             <FaMinus onClick={() => handleDecreaseQty(item)} style={{ marginRight: 10 }}   className={`${item.qty === 1 ? "select-none cursor-default " : "cursor-pointer"}`} size={18} color="#00afaa" />
                             <div className="border-r border-l border-gray-100 px-7">
@@ -86,9 +104,15 @@ const CartItems = () => {
                   <p className="text-gray-400 line-through text-sm ">{item.prevPrice},95 £ </p>
                   </div>
            </div>
-           <DeleteItemFromCartModal handleClick={() => handleDeleteItemFromCart(item._id, item.selectedColor,item.selectedSize)} open={open} setOpen={setOpen}
-            title={item.name} qty={item.qty} image={item.filteredImages[0].url[0]} 
-            selectedSize={item.selectedSize} />
+           <DeleteItemFromCartModal
+  handleClick={handleDeleteItemFromCart}
+  open={open}
+  setOpen={setOpen}
+  title={selectedProduct?.name || ''}
+  qty={selectedProduct?.qty || 0}
+  image={selectedProduct?.filteredImages[0]?.url[0] || ''}
+  selectedSize={selectedProduct?.selectedSize || ''}
+/>
         </div>
           
       ))}

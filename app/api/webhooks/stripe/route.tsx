@@ -116,13 +116,15 @@ export const POST = async (req: NextRequest) => {
       // }
 
       // Send a confirmation email
-      await resend.emails.send({
+     const { error } =  await resend.emails.send({
         from: 'soufianehmamou92@gmail.com',
         to: "soufianeowner@gmail.com",
         subject: 'Order Confirmation',
         react: <ConfirmationEmail />
       });
-
+        if(error) {
+           return NextResponse.json({error: error, status: 400})
+        }
       return NextResponse.json({ message: "Webhook processed successfully" });
     } else {
       console.warn('Unhandled event type:', event.type);

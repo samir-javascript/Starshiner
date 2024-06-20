@@ -44,6 +44,7 @@ const OrderSchema = new mongoose.Schema({
     },
   
     paymentStatus: { type: String },
+    paymentIntent: { type: String} ,
     deliveryStatus: {
         type: String,
         enum: ['delivered', 'ordered', 'shipped'],
@@ -52,9 +53,12 @@ const OrderSchema = new mongoose.Schema({
         {
             name: { type: String },
             price: { type: Number },
-            quantity: { type: Number },
+            qty: { type: Number },
+            selectedColor: { type: String},
+            filteredImages: { type: Array },
+            selectedSize: { type: String},
             images: [ {type: Object,}] ,
-
+            
             product: {
                 type: mongoose.Schema.Types.ObjectId,
                 required: true,

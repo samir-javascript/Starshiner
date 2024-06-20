@@ -58,6 +58,7 @@ export const POST = async (req: NextRequest) => {
           _id: undefined
         })),
         deliveryStatus: "ordered",
+        paymentIntent: charge.payment_intent,
         paymentStatus: "success",
         itemsPrice: cart.totalAmount,
         totalAmount: cart.totalAmount,

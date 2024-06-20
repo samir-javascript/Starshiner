@@ -100,7 +100,7 @@ export const POST = async (req: NextRequest) => {
         paymentStatus: "success",
         itemsPrice: cart.totalAmount,
         totalAmount: cart.totalAmount,
-        user: "6669b1033dac730f7752fa88",
+        userId: "6669b1033dac730f7752fa88",
         paymentMethode: "Stripe",
         isPaid: true, 
         paidAt: Date.now(),

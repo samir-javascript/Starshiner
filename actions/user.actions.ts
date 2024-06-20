@@ -6,6 +6,7 @@ import Shipping from "@/schemas/shippingModel";
 import { revalidatePath } from "next/cache";
 import { cache } from "@/lib/cache";
 import Wishlist from "@/schemas/wishlistModel";
+import OrderModel from "@/schemas/orderModel";
 
 export async function createUser (params:CreateUserParams) {
      const { clerkId, name, username, email, picture} = params;
@@ -115,3 +116,18 @@ export const getMyWishlistItems = cache( async(params: {
       console.log(error, "error getting wishlist items")
    }
 }, [" getMyWishlistItems", "/", "/favourites"], {revalidate: 1000 * 60 * 60 * 24})
+
+export const getMyOrders = cache (async(params: {
+   userId:string
+})=> {
+  try {
+     await connectToDb() 
+     const ClientOrders = await OrderModel.find({userId:params.userId})
+     .populate("userId")
+     .populate('orderItems.product')
+     .exec()
+    return ClientOrders
+  } catch (error) {
+     console.log(error, "failed to get client orders")
+  }
+}, ["/active-orders", "/ordersList", "getMyOrders"], {revalidate: 1000 * 60 * 60 * 24})

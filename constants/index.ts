@@ -1,4 +1,4 @@
-
+import { FaShopify } from "react-icons/fa6";
 export const TopNavItems = [
   {
     id: "1",
@@ -583,22 +583,26 @@ export const footerItems = [
 export const profileItems = [
   {
     id: "1",
+    icon: "/icons/settings.png",
     name: "account settings",
     href: "/client/profile/7878"
   },
   {
     id: "2454",
     name: "MY orders",
+    icon: "/icons/shopify.svg",
     href: "/active-orders"
   },
   {
     id: "878899",
     name: "favourites",
+    icon: "/icons/heart.png",
     href: "/favourites"
   },
   {
     id: "989999999999",
     name: "Customer address",
+    icon: "/icons/location.png",
     href: "/client/address"
   }
 ]

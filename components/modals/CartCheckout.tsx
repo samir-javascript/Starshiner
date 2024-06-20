@@ -1,53 +1,86 @@
-
 "use client"
-
-import { useAppSelector } from "@/lib/hooks"
+import { useAppDispatch, useAppSelector } from "@/lib/hooks"
 import { ProductProps } from "@/types"
 import { Button } from "../ui/button"
 import { FaCheck } from "react-icons/fa"
 import { useState } from "react"
 import { useAuth } from "@clerk/nextjs"
+import { clearCart  } from "@/lib/features/cartSlice"
+import { useRouter } from "next/navigation"
 
 const CartCheckout = () => {
     const [loading, setLoading] = useState(false)
+    const router = useRouter()
     const { userId } = useAuth()
     const { cartItems, totalPrice, shippingPrice, selectedShippingAddress } = useAppSelector((state: any) => state.cart)
-
+    const { paymentMethod } = useAppSelector((state:any) => state.cart)
     // Calculate the total shopping price
     const total = cartItems.reduce((acc: number, item: ProductProps) => acc + item.price * item.qty, 0)
 
     // Format the total and total price
     const formattedTotal = new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(total)
     const formattedTotalPrice = new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(totalPrice)
-
+    const dispatch = useAppDispatch()
     // Place order function
     const placeOrder = async () => {
-        setLoading(true)
-        try {
-            // First, store the cart details and get the reference ID
-            const storeResponse = await fetch('/api/save', {
+       
+        if(paymentMethod === "Stripe") {
+            setLoading(true)
+            try {
+                // First, store the cart details and get the reference ID
+                const storeResponse = await fetch('/api/save', {
+                    method: "POST",
+                    body: JSON.stringify({
+                        cartItems: cartItems,
+                        totalAmount: totalPrice,
+                        shippingAmount: shippingPrice,
+                        shippingAddress: selectedShippingAddress
+                    })
+                });
+                const { referenceId } = await storeResponse.json();
+    
+                // Use the reference ID to create a Stripe order
+                const response = await fetch('/api/AddStripeOrder', {
+                    method: "POST",
+                    body: JSON.stringify({ referenceId , clerkId:userId })
+                });
+                const { url } = await response.json();
+                window.location.href = url;
+                dispatch(clearCart())
+            } catch (error) {
+                console.log(error);
+            } finally {
+                setLoading(false);
+            }
+        }else {
+            setLoading(true)
+           try {
+            const res = await fetch('/api/CODoRDER', {
                 method: "POST",
                 body: JSON.stringify({
                     cartItems: cartItems,
-                    totalAmount: totalPrice,
-                    shippingAmount: shippingPrice,
-                    shippingAddress: selectedShippingAddress
+                    totalAmount:totalPrice,
+                   shippingAmount: shippingPrice,
+                   shippingAddress: selectedShippingAddress,
+                   itemsPrice: total
                 })
-            });
-            const { referenceId } = await storeResponse.json();
-
-            // Use the reference ID to create a Stripe order
-            const response = await fetch('/api/AddStripeOrder', {
-                method: "POST",
-                body: JSON.stringify({ referenceId , clerkId:userId })
-            });
-            const { url } = await response.json();
-            window.location.href = url;
-        } catch (error) {
-            console.log(error);
-        } finally {
-            setLoading(false);
+            })
+            if(!res.ok) {
+                throw new Error('Failed to create an order')
+               
+            }
+            // toast
+             // clear cart
+             router.replace('/success/COD')
+             dispatch(clearCart())
+             
+           } catch (error) {
+              console.log(error)
+           }finally {
+             setLoading(false)
+           }
         }
+       
     }
 
     return (

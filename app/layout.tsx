@@ -7,6 +7,7 @@ import {
   ClerkProvider,
  
 } from '@clerk/nextjs'
+import { SpeedInsights } from "@vercel/speed-insights/next"
 import StoreProvider from "@/storeProvider";
 const roboto = Roboto({
   subsets: ["latin"],
@@ -38,6 +39,7 @@ export default function RootLayout({
              <StoreProvider>
             
                 {children} 
+                <SpeedInsights /> 
                 <Toaster />
               </StoreProvider>
               </body>

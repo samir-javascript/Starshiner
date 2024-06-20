@@ -1,3 +1,4 @@
+import User from "@/schemas/userModel";
 import crypto from "crypto"
 import { NextResponse } from "next/server";
 export const PATCH = async(req:Request) => {
@@ -7,6 +8,7 @@ export const PATCH = async(req:Request) => {
     }
    try {
     const emailHash = crypto.createHash('md5').update(email.toLowerCase()).digest('hex');
+    const user = await User.findOne({email})
     const response = await fetch(`https://${process.env.MAILCHIMP_SERVER_PREFIX}.api.mailchimp.com/3.0/lists/${process.env.MAILCHIMP_AUDIENCE_ID}/members/${emailHash}`, {
         method: 'PATCH',
         headers: {
@@ -20,6 +22,11 @@ export const PATCH = async(req:Request) => {
       
         return NextResponse.json({error: "There was an error unsubscribing from the newsletter. Please try again later."})
       }
+      if(user) {
+        user.isSubscribed = false;
+        await user.save()
+      }
+     
       return NextResponse.json({message: "Successfully unsubscribed!"})
      
    } catch (error) {

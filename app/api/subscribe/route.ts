@@ -1,3 +1,4 @@
+import User from "@/schemas/userModel";
 import { NextResponse } from "next/server";
 
 export const POST = async(req:Request) =>  {
@@ -6,6 +7,8 @@ export const POST = async(req:Request) =>  {
         throw new Error('Email is required')
     }
     try {
+      const user = await User.findOne({email})
+       
         const data = {
             email_address: email,
             status: 'subscribed',
@@ -22,6 +25,11 @@ export const POST = async(req:Request) =>  {
           if (response.status >= 400) {
             return NextResponse.json({error: "There was an error subscribing to the newsletter. Please try again later."})
           }
+          if(user) {
+            user.isSubscribed = true
+            await user.save()
+          }
+          
          return NextResponse.json({message: "Successfully subscribed!"})
         
         

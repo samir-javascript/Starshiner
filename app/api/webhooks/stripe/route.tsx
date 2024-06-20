@@ -9,6 +9,7 @@ import { Resend } from "resend";
 import Stripe from "stripe";
 import { Cart } from "@/schemas/cartModel";
 import Email from "@/components/Email";
+import { revalidatePath } from "next/cache";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string );
 const resend = new Resend(process.env.RESEND_API_KEY as string);
@@ -77,7 +78,9 @@ export const POST = async (req: NextRequest) => {
       //   await Product.updateOne({ _id: item._id }, { $inc: { stock: -item.qty } });
       // }
 
-      // Send a confirmation email
+      // Send a confirmation email [we need to verify domain name]
+      revalidatePath("/active-orders")
+      revalidatePath("/ordersList")
      const { error } =  await resend.emails.send({
         from: 'soufianehmamou92@gmail.com',
         to: "soufianeowner@gmail.com",

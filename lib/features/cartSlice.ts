@@ -118,11 +118,15 @@ const cartSlice = createSlice({
     clearCart: (state) => {
       state.cartItems = [];
       return updateCart(state);
+    },
+    savePaymentMethod: (state,action) => {
+      state.paymentMethod = action.payload;
+      return updateCart(state)
     }
   },
 });
 
-export const { clearCart, addToCart, setSelectedShippingAddress,saveShippingAddress, removeFromCart, resetCart, increaseQty, decreaseQty } = cartSlice.actions;
+export const { clearCart, addToCart, savePaymentMethod, setSelectedShippingAddress,saveShippingAddress, removeFromCart, resetCart, increaseQty, decreaseQty } = cartSlice.actions;
 export default cartSlice.reducer;
 
 export const addDecimals = (num: number) => {

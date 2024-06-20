@@ -115,7 +115,7 @@ export async function POST(req: Request) {
                 referenceId: referenceId, // Ensure the reference ID is concise
                 totalAmount: totalAmount.toString(),
                 shippingAmount: shippingAmount.toString(),
-                userId: user._id,
+                userId: user._id.toString(),
                 shippingAddress: JSON.stringify(shippingAddress)
             },
             payment_method_types: ['card'],

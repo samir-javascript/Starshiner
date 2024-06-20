@@ -12,7 +12,9 @@ import React from 'react'
 
 const page = async() => {
   const { userId } = auth()
-  const currentUser = await getCurrentUser({clerkId: userId as string})
+  if(!userId) return;
+  const currentUser = await getCurrentUser({clerkId: userId})
+
   const items = await getMyWishlistItems({userId: currentUser._id})
   console.log(items, "wishlist items")
   return (

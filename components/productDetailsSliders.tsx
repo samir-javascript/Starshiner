@@ -49,8 +49,8 @@ const ProductDetailsSlides = ({ images, selectedColor }: { images: ImageDetails[
       <div className='md:block hidden w-full'>
         <img
           className='md:border-2 w-full object-cover border-gray-300 md:rounded-[15px]'
-          //src={imagesToDisplay[0].url[0]}
-          src="https://photos.starshiners.com/110404/ivory-women-s-shirt-guipure-loose-fit-asymmetrical-with-raised-flowers-S061567-1-710062.jpg" 
+          src={imagesToDisplay[0].url[0]}
+         
           alt=""
         />
       </div>

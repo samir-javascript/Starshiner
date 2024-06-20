@@ -80,7 +80,7 @@ export const POST = async (req: NextRequest) => {
       const referenceId = "66730ddefb48785b66c9cb81";
       console.log(referenceId, "Received referenceId");
 
-      const cart = await Cart.findOne({ referenceId });
+      const cart = await Cart.findOne({ referenceId: "878e73c8-3427-49da-9727-d5d05b6dd218" });
       if (!cart) {
         console.error('Cart not found for referenceId:', referenceId);
         return NextResponse.json({ error: "Cart not found" }, { status: 404 });

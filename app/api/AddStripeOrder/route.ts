@@ -69,6 +69,7 @@ import { NextResponse } from "next/server";
 import Stripe from "stripe";
 import { connectToDb } from "@/db";
 import { Cart } from "@/schemas/cartModel";
+import User from "@/schemas/userModel";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
 
@@ -76,10 +77,11 @@ export async function POST(req: Request) {
     try {
         await connectToDb(); // Ensure the database is connected
 
-        const { referenceId } = await req.json();
+        const { referenceId , clerkId } = await req.json();
 
         // Retrieve cart details from MongoDB using the reference ID
         const cart = await Cart.findOne({ referenceId });
+        const user = await User.findOne({clerkId: clerkId})
 
         if (!cart) {
             return NextResponse.json({ error: "Cart not found" }, { status: 404 });
@@ -103,18 +105,19 @@ export async function POST(req: Request) {
             phone: "0609547692", // Consider using real customer data if available
             email: "soufianehmamou92@gmail.com",
             name: "soufiane hmamou",
-            metadata: {
-                referenceId: referenceId, // Ensure the reference ID is concise
-                totalAmount: totalAmount.toString(),
-                shippingAmount: shippingAmount.toString(),
-                shippingAddress: JSON.stringify(shippingAddress)
-            }
         });
 
         const checkoutSession = await stripe.checkout.sessions.create({
             line_items,
             mode: "payment",
             customer: customer.id,
+            metadata: {
+                referenceId: referenceId, // Ensure the reference ID is concise
+                totalAmount: totalAmount.toString(),
+                shippingAmount: shippingAmount.toString(),
+                userId: user._id,
+                shippingAddress: JSON.stringify(shippingAddress)
+            },
             payment_method_types: ['card'],
             success_url: `${process.env.BASE_URL}/success`,
             cancel_url: `${process.env.BASE_URL}/cancel`,

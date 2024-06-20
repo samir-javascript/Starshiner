@@ -16,7 +16,7 @@ export async function POST(req:Request) {
     const { cartItems , totalAmount, itemsPrice, shippingAddress, shippingAmount } = await req.json()
     try {
         await connectToDb()
-        const currentUser = await User.findOne({clerkId:"user_2hmcJlC54zpRCPcQXOwgzpcVjtL"})
+        const currentUser = await User.findOne({clerkId: userId})
         if(!currentUser) {
             throw new Error('Invalid request: User not found')
         }

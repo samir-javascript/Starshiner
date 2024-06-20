@@ -10,7 +10,8 @@ import React from 'react'
 
 const page = async() => {
     const { userId  } = auth()
-    const currentUser = await getCurrentUser({clerkId: "user_2hmcJlC54zpRCPcQXOwgzpcVjtL"})
+    // active orders;
+    const currentUser = await getCurrentUser({clerkId: userId as string})
     const orders = await getMyOrders({userId: currentUser._id})
     console.log(orders, "client orders")
   return (
@@ -52,7 +53,9 @@ const page = async() => {
      <img className='w-[70px] max-md:w-[90px]  object-contain  ' src={x.filteredImages[0].url[0]} alt="" />
  </div>
  <div className='flex flex-col gap-1'>
-     <p className='text-black-1 text-sm font-normal'>Order: #{order._id} from {order.createdAt.substring(0,10)}</p>
+ <p className='text-black-1 text-sm font-normal'>
+    Order: #{order._id} from {new Date(order.createdAt).toISOString().substring(0, 10)}
+</p>
      <p className='text-black-1 text-sm font-normal'>{order.paymentMethode}™: {order.totalAmount} €</p>
      <p className='text-black-1 text-sm font-normal'>({x.qty} {x.qty > 1 ? "items" : "item"})</p>
      {/* <p className='text-red-500 text-sm font-normal'>Payment not completed! - Your package will be shipped after you pay online with the credit card.

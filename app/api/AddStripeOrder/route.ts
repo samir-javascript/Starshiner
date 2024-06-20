@@ -81,7 +81,7 @@ export async function POST(req: Request) {
 
         // Retrieve cart details from MongoDB using the reference ID
         const cart = await Cart.findOne({ referenceId });
-        const user = await User.findOne({clerkId: clerkId})
+        const user = await User.findOne({clerkId: "6669b1033dac730f7752fa88"})
 
         if (!cart) {
             return NextResponse.json({ error: "Cart not found" }, { status: 404 });

@@ -71,7 +71,7 @@ export const POST = async (req: NextRequest) => {
        
       });
       await order.save();
-
+      await Cart.findByIdAndDelete(cart._id)
       // Update product stock based on cart items
       // for (const item of cart.cartItems) {
       //   await Product.updateOne({ _id: item._id }, { $inc: { stock: -item.qty } });

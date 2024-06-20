@@ -64,7 +64,7 @@ export const getCurrentUser =  async(params:{clerkId:string})=> {
  
    try {
       await connectToDb()
-      const user = await User.findOne({clerkId:"user_2hmcJlC54zpRCPcQXOwgzpcVjtL"})
+      const user = await User.findOne({clerkId: params.clerkId})
       if(!user) {
          throw new Error('User not found')
       }

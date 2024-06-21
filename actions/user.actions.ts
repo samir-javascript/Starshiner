@@ -130,4 +130,15 @@ export const getMyOrders = cache (async(params: {
   } catch (error) {
      console.log(error, "failed to get client orders")
   }
-}, ["/active-orders", "/ordersList", "getMyOrders"], {revalidate: 1000 * 60 * 60 * 24})
+}, ["/active-orders", "/ordersList", "getMyOrders"], {revalidate: 1000 * 60 * 60 * 24}) 
+
+export const getAllUsers = cache( async()=> {
+  try {
+    await connectToDb()
+    const users = await User.find({isAdmin: false})
+    return users;
+  } catch (error) {
+     console.log(error, "error getting all users")
+  }
+}, ['getAllUsers', "/usersList"], {revalidate: 1000 * 60 * 60 * 24})
+

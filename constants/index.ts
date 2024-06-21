@@ -1,4 +1,4 @@
-import { FaShopify } from "react-icons/fa6";
+
 export const TopNavItems = [
   {
     id: "1",
@@ -585,7 +585,7 @@ export const profileItems = [
     id: "1",
     icon: "/icons/settings.png",
     name: "account settings",
-    href: "/client/profile/7878"
+    href: `/client/profile`
   },
   {
     id: "2454",
@@ -605,4 +605,133 @@ export const profileItems = [
     icon: "/icons/location.png",
     href: "/client/address"
   }
+]
+
+
+export const typesDropdown = [
+ " Elegant dresses",
+  "Gowns",
+ " Day dresses",
+ " Office dresses",
+  "Floral print dresses",
+  "Plus Size Dresses",
+ " Evening dresses",
+ " Polka dot dresses",
+  "Pleated dresses",
+ " Casual dresses",
+  "Bodycon Dresses",
+  "Flowy dresses",
+ " Long sleeve dresses",
+  "Blazer Dresses",
+"  Luxurious dresses",
+]
+
+export const lengthDropdown = [
+  "Short dresses",
+"Midi dresses",
+"Long dresses",
+"Maxi dresses"
+]
+export const materialDropdown = [
+"Leather dresses",
+"Velvet dresses",
+"Knitwear dresses" ,
+"Sequin dresses",
+"Taffeta dresses ",
+"Lace dresses" ,
+"Tulle dresses" ,
+"Fabric dresses ",
+"Satin dresses"
+]
+
+export const eventsDropdown = [
+ " Bridal dresses",
+"Civil wedding dresses",
+"Wedding dresses",
+"Bridesmaid Dresses",
+"Prom dresses",
+"Godmother dresses",
+"Christmas Dresses",
+"New Year`s Eve Dresses"
+]
+export const seasonalDropdown = [
+  "Winter dresses",
+"Fall dresses",
+"Spring dresses",
+"Summer dresses"
+]
+
+
+export const colorsDropdown = [
+  "Blue",
+"Red",
+"Green",
+"Black",
+"Pink",
+"White",
+"Turquoise",
+"Yellow",
+"Purple",
+"Burgundy",
+"Beige"
+]
+
+export const shirtsandtshirts = [
+  "Women's blouses",
+  "Elegant Blouses",
+  "Women's shirts",
+  "Women's sweaters",
+  "Women's t-shirts",
+  "Women's bodies",
+ " Women's tops",
+ " Lady Sets"
+]
+export const coats =[
+  "Women's coats",
+"Women's jackets",
+"Winter jackets",
+"Long jackets",
+"Women's overcoats"
+]
+
+export const jeans = [
+ " Women's trousers",
+"Flared trousers",
+"Elegant trousers",
+"High waisted trousers",
+"Women's jeans",
+"Skinny Jeans",
+"High waisted jeans",
+"Women's leggings",
+"Women's sport trousers",
+"Women's jumpsuits",
+"Elegant jumpsuits",
+"Summer jumpsuits"
+]
+
+export const skirts = [
+ " Pencil skirts",
+"Cloche skirts",
+"Midi skirts",
+"Office Skirts",
+"Casual skirts",
+"Elegant skirts",
+"Short skirts"
+]
+
+export const salesAndOffers = [
+  "New Sales",
+"Women clothing under 25 euro",
+"OUTLET"
+]
+
+export const arrivals = [
+ " Knitted clothes",
+"Leather clothes",
+"Custom made prints",
+"I love DENIM",
+"Floral prints",
+"Embroided clothes 2024",
+"Back in stock",
+"Maternity clothes"
 ]

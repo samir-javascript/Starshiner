@@ -5,6 +5,7 @@ import { CreateProductParams, UpdateProductParams } from "@/types";
 import { revalidatePath } from "next/cache";
 import { cache } from "@/lib/cache";
 import { notFound } from "next/navigation";
+import OrderModel from "@/schemas/orderModel";
 
 
 
@@ -76,5 +77,19 @@ export async function deleteProduct(params: {
     
    } catch (error) {
       console.log(error)
+   }
+}
+
+
+export const getAllOrders = async()=>  {
+   try {
+      const orders = await OrderModel.find({})
+      .populate('userId')
+      .populate("orderItems.product")
+      .sort({createdAt: -1})
+      .exec()
+      return orders
+   } catch (error) {
+       console.log(error, "error getting all orders")
    }
 }

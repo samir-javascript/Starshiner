@@ -10,15 +10,18 @@ import SwiperCore, { Navigation, Pagination, Scrollbar, A11y } from 'swiper/modu
 
 const MySwiper = () => {
   return (
-    <div className="max-w-[1200px]  mx-auto flex md:flex-row flex-col  gap-3 md:mt-10  mb-5">
+    <div className="max-w-[1200px] md:px-3  mx-auto flex md:flex-row flex-col  gap-3 md:mt-4  mb-5">
       <Swiper 
       className='flex-1 w-full h-full'
         spaceBetween={50}
         modules={[Navigation, Pagination, Scrollbar, A11y]}
         slidesPerView={1}
+        loop={true}
+
         navigation
         pagination={{ clickable: true }}
-        autoplay={{ delay: 2500 }}
+        //autoplay={{ delay: 2500 }}
+        autoplay={true}
         scrollbar={{ draggable: true }}
         onSwiper={(swiper) => console.log(swiper)}
         onSlideChange={() => console.log('swipe')}

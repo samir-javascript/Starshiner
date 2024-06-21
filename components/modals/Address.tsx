@@ -3,12 +3,14 @@ import { useAppSelector } from '@/lib/hooks'
 import { Button } from '../ui/button'
 import ShippingModalOptions from './ShippingModalOptions'
 import { useState } from 'react'
+import AddShippingModal from './AddShippingModal'
 
 const Address = ({addresses, userId}: {
     addresses:string;
     userId:string;
 }) => {
     const [open,setOpen] = useState(false)
+    const [openCreateModal,setOpenCreateModal] = useState(false)
     const parsedUserId = JSON.parse(userId)
     const { selectedShippingAddress } = useAppSelector((state:any) => state.cart)
     const parsedAddresses =  JSON.parse(addresses)
@@ -34,7 +36,7 @@ const Address = ({addresses, userId}: {
            <p className='text-black-1 text-sm font-normal '>{selectedShippingAddress.address || parsedAddresses[0].address} </p>
            <p className='text-black-1 text-sm font-normal '>{selectedShippingAddress.city || parsedAddresses[0].city} , {selectedShippingAddress.zipCode || parsedAddresses[0].zipCode} {selectedShippingAddress.country || parsedAddresses[0].country}</p>
            <p className='text-black-1 text-sm font-normal '>{selectedShippingAddress.phoneNumber || parsedAddresses[0].phoneNumber} </p>
-           <Button  onClick={() => setOpen(true)} className='w-fit mt-3 p-0 underline text-[#00afaa] ' type="button">
+           <Button  onClick={() => setOpenCreateModal(true)} className='w-fit mt-3 p-0 underline text-[#00afaa] ' type="button">
            Modifier L’adresse De Livraison
            </Button>
        </div>
@@ -44,20 +46,20 @@ const Address = ({addresses, userId}: {
       <div>
           <h3 className='font-medium text-[#111] text-base '>Adresse de facturation par défaut</h3>
           <p className='text-black-1 text-sm font-normal '>Vous n'avez pas specifie d'address de facturation par default</p>
-          <Button className='w-fit mt-3 p-0 underline text-[#00afaa] ' type="button">
+          <Button onClick={() => setOpenCreateModal(true)} className='w-fit mt-3 p-0 underline text-[#00afaa] ' type="button">
               Ajouter L’adresse De Facturation
           </Button>
       </div>
       <div>
           <h3 className='font-medium text-[#111] text-base '>Adresse de livraison par défaut</h3>
           <p className='text-black-1 text-sm font-normal '>Vous n'avez pas specifie d'address de livraison par default</p>
-          <Button className='w-fit mt-3 p-0 underline text-[#00afaa] ' type="button">
+          <Button onClick={() => setOpen(true)} className='w-fit mt-3 p-0 underline text-[#00afaa] ' type="button">
              Ajouter L’adresse De livraison
           </Button>
       </div>
   </div>
     )}
-  
+  <AddShippingModal _id={parsedUserId} type='create' open={openCreateModal} setOpen={setOpenCreateModal} />
 
 </div>
   )

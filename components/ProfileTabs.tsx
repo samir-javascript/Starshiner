@@ -28,6 +28,9 @@ const ProfileTabs = () => {
                   <div className='flex flex-col '>
                       {profileItems.map((item,index) => {
                          const isActive = pathname === item.href
+                         if(item.href.includes("/client/profile")) {
+                            item.href =  `/client/profile/${user.user?.id}`
+                         }
                          return (
                      <Link key={item.name + item.id} className={`${isActive ? "bg-[#eaecf0] " : "bg-white"} px-4 py-3  hover:bg-[#eaecf0] transition-all duration-300 border-b flex items-center justify-between border-gray-300`} href={item.href} >
                           <div className='flex items-center gap-1.5'>

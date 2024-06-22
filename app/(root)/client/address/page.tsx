@@ -15,7 +15,7 @@ const page = async() => {
    
     const { userId} = auth()
     const currentUser = await getCurrentUser({clerkId:userId as string})
-    const shippingAddresses = await getMyShippingAddreses({userId:currentUser._id})
+    const shippingAddresses = await getMyShippingAddreses({userId:currentUser?._id})
   return (
     <section className="bg-[#eaecf0] py-3 h-full w-full" >
         <div className='flex max-w-[1200px] mx-auto lg:flex-row flex-col gap-5 items-start'>
@@ -39,7 +39,7 @@ const page = async() => {
                  ]} />
                  
               </div>
-               <Address userId={JSON.stringify(currentUser._id)} addresses={JSON.stringify(shippingAddresses)} />
+               <Address userId={JSON.stringify(currentUser?._id)} addresses={JSON.stringify(shippingAddresses)} />
             </div>
         </div>
     </section>

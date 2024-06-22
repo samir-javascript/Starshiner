@@ -10,7 +10,7 @@ const page = async({params}: {
   }
 }) => {
    const currentUser = await getCurrentUser({clerkId:params.id!})
-   const shippingAddresses = await getMyShippingAddreses({userId:currentUser._id})
+   const shippingAddresses = await getMyShippingAddreses({userId:currentUser?._id})
 
   return (
     <section className="bg-[#eaecf0] py-3 px-3  w-full ">

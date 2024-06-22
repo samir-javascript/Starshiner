@@ -12,7 +12,7 @@ const page = async() => {
     const { userId  } = auth()
     // active orders;
     const currentUser = await getCurrentUser({clerkId: userId as string})
-    const orders = await getMyOrders({userId: currentUser._id})
+    const orders = await getMyOrders({userId: currentUser?._id})
     console.log(orders, "client orders")
   return (
     <section className="bg-white py-3 h-full w-full" >

@@ -15,7 +15,7 @@ const page = async() => {
   if(!userId) return;
   const currentUser = await getCurrentUser({clerkId: userId})
 
-  const items = await getMyWishlistItems({userId: currentUser._id})
+  const items = await getMyWishlistItems({userId: currentUser?._id})
   console.log(items, "wishlist items")
   return (
     <section className="bg-white py-3 h-full w-full" >

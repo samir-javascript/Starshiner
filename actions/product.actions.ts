@@ -43,7 +43,7 @@ export async function getProductById(params: {productId:string}) {
 
 
 
-export const getAllOrders = async()=>  {
+export const getAllOrders = cache (async()=>  {
    await connectToDb()
    try {
       const orders = await OrderModel.find({})
@@ -55,4 +55,4 @@ export const getAllOrders = async()=>  {
    } catch (error) {
        console.log(error, "error getting all orders")
    }
-}
+}, ["getAllOrders", "/ordersList"], {revalidate: 1000 * 60 * 60 * 24})

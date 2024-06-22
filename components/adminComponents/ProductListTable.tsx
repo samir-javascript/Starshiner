@@ -1,88 +1,86 @@
-import {
-    Table,
-    TableBody,
-    TableCaption,
-    TableCell,
-    TableFooter,
-    TableHead,
-    TableHeader,
-    TableRow,
-  } from "@/components/ui/table"
-  
-  const invoices = [
-    {
-      invoice: "INV001",
-      paymentStatus: "Paid",
-      totalAmount: "$250.00",
-      paymentMethod: "Credit Card",
-    },
-    {
-      invoice: "INV002",
-      paymentStatus: "Pending",
-      totalAmount: "$150.00",
-      paymentMethod: "PayPal",
-    },
-    {
-      invoice: "INV003",
-      paymentStatus: "Unpaid",
-      totalAmount: "$350.00",
-      paymentMethod: "Bank Transfer",
-    },
-    {
-      invoice: "INV004",
-      paymentStatus: "Paid",
-      totalAmount: "$450.00",
-      paymentMethod: "Credit Card",
-    },
-    {
-      invoice: "INV005",
-      paymentStatus: "Paid",
-      totalAmount: "$550.00",
-      paymentMethod: "PayPal",
-    },
-    {
-      invoice: "INV006",
-      paymentStatus: "Pending",
-      totalAmount: "$200.00",
-      paymentMethod: "Bank Transfer",
-    },
-    {
-      invoice: "INV007",
-      paymentStatus: "Unpaid",
-      totalAmount: "$300.00",
-      paymentMethod: "Credit Card",
-    },
-  ]
-  
-  export function ProductsListTable() {
-    return (
-      <Table className="mt-5">
-        <TableCaption>A list of products.</TableCaption>
-        <TableHeader>
-          <TableRow>
-            <TableHead className="w-[100px]">Product Name</TableHead>
-            <TableHead>Product Price</TableHead>
-            <TableHead>product Category</TableHead>
-            <TableHead className="text-right">Amount</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {invoices.map((invoice) => (
-            <TableRow key={invoice.invoice}>
-              <TableCell className="font-medium">{invoice.invoice}</TableCell>
-              <TableCell>{invoice.paymentStatus}</TableCell>
-              <TableCell>{invoice.paymentMethod}</TableCell>
-              <TableCell className="text-right">{invoice.totalAmount}</TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-        <TableFooter>
-          <TableRow>
-            <TableCell colSpan={3}>Total</TableCell>
-            <TableCell className="text-right">$2,500.00</TableCell>
-          </TableRow>
-        </TableFooter>
-      </Table>
-    )
-  }
-  
+"use client"
+
+import { usePathname, useRouter } from "next/navigation"
+import { FaEdit, FaTrash } from "react-icons/fa"
+
+const ProductListTable = ({products}: {
+    products: string
+}) => {
+    const pathname = usePathname()
+    const router = useRouter()
+    const parsedProducts = JSON.parse(products)
+    const handleDeleteProduct = async(productId:string) => {
+        if(window.confirm("are you sure you want to delete this product!")) {
+            try {
+                const response = await fetch('/api/products/deleteProduct', {
+                    method: "DELETE",
+                    body: JSON.stringify({
+                        productId,
+                        path: pathname
+                    })
+                })
+                if(!response.ok) {
+                   alert('failed to delete this product') 
+                   return
+                }
+                router.refresh()
+                // toast
+            } catch (error) {
+                console.log(error)
+            }
+        }
+       
+    }
+  return (
+    <>
+        <table className='mt-4'>
+                        <thead style={{borderCollapse: "inherit"}} className='bg-light-2'>
+                             <tr>
+                             <th className='p-2 border'>Image</th>
+                                 <th className='p-2 border'>Name</th>
+                                 <th className='p-2 border'
+                                 >
+                                 Category</th>
+                                 <th className='p-2 border'>
+                                 Price</th>
+                                 <th className='p-2 border'>
+                                 Actions</th>
+                             </tr>
+                        </thead>
+                        <tbody className='w-full text-center'>
+                             {parsedProducts.map((item: {
+                                _id: string;
+                                name: string;
+                                price: number;
+                                category: string;
+                                images: {
+                                    url: string[]
+                                }[]
+                             }) => (
+                                <tr key={item._id} className=' border'>
+                                <td className='p-3 border flex items-center justify-center'> 
+                                     <img className='w-[80px] object-contain rounded-[10px] ' src={item.images[0].url[0]} alt={item.name} />
+                                 </td>
+                                <td className='p-3 border lg:max-w-[300px] '>
+                                    <p className="text-base text-[#222] font-medium "> {item.name}</p>
+                                </td>
+                               
+                                <td className='p-3 border'> <p className="text-base text-[#222] font-medium "> {item.category}</p> </td>
+                                <td className='p-3 border  '> <p className="text-base text-[#222] font-medium ">{item.price} £</p>  </td>
+                                <td className="">
+                                     <div className="flex  w-full items-center gap-1">
+                                         <FaEdit className="mx-auto cursor-pointer" color="green" />
+                                         <FaTrash onClick={() => handleDeleteProduct(item._id)} className="mx-auto cursor-pointer" color="red" />
+                                     </div>
+                                </td>
+                            </tr>
+                             ))}
+                            
+                           
+                        </tbody>
+                     </table>
+    </>
+  )
+}
+
+export default ProductListTable

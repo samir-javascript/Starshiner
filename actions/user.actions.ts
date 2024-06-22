@@ -36,9 +36,12 @@ export async function deleteUser(params:DeleteUserParams) {
       // delete his shipping addresses;
       await Shipping.findOneAndDelete({user: user._id})
       // delete his orders;
+      await OrderModel.deleteMany({userId: user._id})
       // delete his saved posts;
+      await Wishlist.deleteMany({user:user._id})
       // delete his comments;
       await User.findByIdAndDelete(user._id)
+      revalidatePath("/usersList")
    } catch (error) {
       console.log(error, "failed to delete user")
    }
@@ -132,11 +135,23 @@ export const getMyOrders = cache (async(params: {
   }
 }, ["/active-orders", "/ordersList", "getMyOrders"], {revalidate: 1000 * 60 * 60 * 24}) 
 
-export const getAllUsers = cache( async()=> {
+
+// with pagination;
+export const getAllUsers = cache( async(params: {
+   page: number
+})=> {
   try {
+   const pageSize = 10;
+   const { page } = params;
+   const skipAmount = pageSize * ( page - 1)
     await connectToDb()
     const users = await User.find({isAdmin: false})
-    return users;
+    .limit(pageSize)
+    .skip(skipAmount)
+    return  {
+      users, page, pages: Math.ceil(users.length / pageSize)
+    }
+   
   } catch (error) {
      console.log(error, "error getting all users")
   }

@@ -11,6 +11,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 
 import SizesModal from './modals/SizesModal';
+import CrossSellModal from './modals/CrossSellModal';
 interface Size {
   size: string;
   stock: number;
@@ -30,6 +31,14 @@ const Details = ({result, currentUser}: {
   currentUser: string
 }) => {
   const [qty,setQty] = useState(1)
+  const [open,setOpen] = useState(false)
+  const [product, setProduct] = useState({
+    image: "" || null,
+    name: "",
+    size: "",
+    price: 0,
+    qty: 0
+  });
   const router = useRouter()
   const [openSizeModal,setOpenSizeModal] = useState(false)
   const dispatch = useAppDispatch()
@@ -61,7 +70,14 @@ const Details = ({result, currentUser}: {
     if(openSizeModal) {
       setOpenSizeModal(false)
     }
-    router.push("/cart");
+    setProduct({
+      image: filteredImages[0].url[0],
+      name: parsedResult.name,
+      size: selectedSize,
+      price: parsedResult.price,
+      qty: qty,
+    })
+    setOpen(true)
   };
 
   useEffect(() => {
@@ -231,6 +247,7 @@ const Details = ({result, currentUser}: {
            <SizesModal selectedSize={selectedSize} setSelectedSize={setSelectedSize} handleClick={handleAddToCart} open={openSizeModal} setOpen={setOpenSizeModal} sizes={sizes} />
             <AccordionProductDetails name={parsedResult.name} description={parsedResult.description} image={parsedResult.images[0].url}  />
           </div>
+          <CrossSellModal open={open} setOpen={setOpen} product={product} />
         </div>
   )
 }

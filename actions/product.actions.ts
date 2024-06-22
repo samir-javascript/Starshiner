@@ -9,11 +9,21 @@ import OrderModel from "@/schemas/orderModel";
 
 
 
-export const getProducts =  cache (async()=> {
+export const getProducts =  cache (async(params: {
+   page: number
+})=> {
    await connectToDb()
+   const pageSize = 16;
+   const { page } = params;
+   const skipAmount = pageSize * (page - 1)
    try {
       const products = await Product.find({})
-      return products;
+      .limit(pageSize)
+      .skip(skipAmount)
+      return {
+         products, page, pages: Math.ceil(products.length / pageSize)
+        
+      }
    } catch (error) {
       console.log(error)
    }
@@ -30,55 +40,7 @@ export async function getProductById(params: {productId:string}) {
          console.log(error)
        }
 }
-export async function updateProduct(params:UpdateProductParams) {
-   const {path,productId,name, category, description,price,prevPrice,images,position} = params;
-  
-   try {
-      await connectToDb()
-      const product = await Product.findById(productId)
-      if(!product) {
-         throw new Error('Product not found')
-      }else {
-         product.name = name;
-         product.description = description;
-         product.images = images;
-         product.price = price;
-         product.prevPrice = prevPrice;
-         product.position = position;
-         product.category = category;
-      }
-      revalidatePath(path)
-      revalidatePath('/')
-     
-       
-   } catch (error) {
-       console.log(error, "error while updating product")
-   }
-}
 
-export async function deleteProduct(params: {
-   productId: string,
-   path:string
-}) {
-   try {
-      await connectToDb()
-      const product = await Product.findById(params.productId)
-      if(product) {
-          await Product.findByIdAndDelete(product._id)
-          revalidatePath(params.path)
-          revalidatePath('/')
-          return {
-            message: "product has been deleted successfuly"
-          }
-        
-      }else {
-         throw new Error('Product not found')
-      }
-    
-   } catch (error) {
-      console.log(error)
-   }
-}
 
 
 export const getAllOrders = async()=>  {

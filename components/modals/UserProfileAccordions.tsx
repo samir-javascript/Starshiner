@@ -116,13 +116,13 @@ type shippingsProps = {
     }
     useEffect(() =>{
         if(parsedUser !== null) {
-            setFirstName(parsedUser?.firstName)
-            setLastName(parsedUser.lastName)
-            setPhoneNumber(parsedUser.phoneNumber)
-            setCountry(parsedUser.country)
-            setDay(Number(parsedUser.birthDay.day))
-            setMonth(parsedUser.birthDay.month)
-            setYear(Number(parsedUser.birthDay.year))
+            setFirstName(parsedUser?.firstName || "")
+            setLastName(parsedUser?.lastName || "")
+            setPhoneNumber(parsedUser?.phoneNumber ||"")
+            setCountry(parsedUser?.country || "")
+            setDay(Number(parsedUser?.birthDay?.day) || 0)
+            setMonth(parsedUser?.birthDay?.month || "")
+            setYear(Number(parsedUser?.birthDay?.year) ||0)
         }
     }, [])
   return (

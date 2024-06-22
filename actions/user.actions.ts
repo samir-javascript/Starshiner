@@ -81,9 +81,7 @@ export const getMyShippingAddreses = cache (async(params: {
     userId: string;
 })=> {
    try {
-     if(!params.userId) {
-        throw new Error('Invalid request!')
-     }
+     if(!params.userId) return
      await connectToDb()
      const shippings = await Shipping.find({user:params.userId})
      return shippings

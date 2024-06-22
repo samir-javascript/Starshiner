@@ -44,6 +44,7 @@ export async function getProductById(params: {productId:string}) {
 
 
 export const getAllOrders = async()=>  {
+   await connectToDb()
    try {
       const orders = await OrderModel.find({})
       .populate('userId')

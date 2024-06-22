@@ -4,6 +4,7 @@ import InputSearch from './Input'
 import { FaRegUser, FaRegHeart, FaShoppingBag } from "react-icons/fa";
 import Link from 'next/link';
 import { auth } from '@clerk/nextjs/server';
+import { UserButton } from '@clerk/nextjs';
 const Nav = () => {
   const {userId} = auth()
   return (
@@ -16,7 +17,7 @@ const Nav = () => {
             <InputSearch />
             <div className='flex items-center gap-4'>
                    <Link href={`/client/profile/${userId}`} className='flex items-center gap-1.5'>
-                        <FaRegUser  color="white" size={22}/>
+                        <UserButton />
                         <p className='text-white font-normal text-sm lg:flex hidden '>My account</p>  
                    </Link>
                    <Link href="/my-favourites_items" className='flex items-center gap-1.5'>

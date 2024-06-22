@@ -2,6 +2,8 @@
 import { OrderItem } from '@/types'
 import React from 'react'
 import { FaCheck, FaEdit, FaTimes, FaTrash } from 'react-icons/fa'
+import { Button } from '../ui/button'
+import Link from 'next/link'
 
 const OrdersTableList = ({orders}: {orders:string}) => {
     const parsedOrders = JSON.parse(orders)
@@ -28,6 +30,10 @@ const OrdersTableList = ({orders}: {orders:string}) => {
                             Payment Method</th>
                             <th className='p-2 border'>
                             isPaid</th>
+                            <th className='p-2 border'>
+                            Delete</th>
+                            <th className='p-2 border'>
+                           View</th>
                          </tr>
                     </thead>
                     <tbody className='w-full text-center'>
@@ -55,11 +61,21 @@ const OrdersTableList = ({orders}: {orders:string}) => {
                                  )}
                           </td>
                             <td className="">
-                                 <div className="flex  w-full items-center gap-1">
-                                     <FaEdit className="mx-auto cursor-pointer" color="green" />
+                                
+                                    
                                      <FaTrash  onClick={() => {}} className="mx-auto cursor-pointer" color="red" />
-                                 </div>
+                                 
                             </td>
+                            <td className="">
+                                
+                                <Link href="/"> 
+                                <Button className='bg-green-1  text-white rounded-[10px] ' type="button">
+                                   Details
+                                </Button>
+                                </Link>
+                               
+                            
+                       </td>
                         </tr>
                          ))}
                         

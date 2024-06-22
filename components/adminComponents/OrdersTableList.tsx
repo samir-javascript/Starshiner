@@ -39,7 +39,7 @@ const OrdersTableList = ({orders}: {orders:string}) => {
                     <tbody className='w-full text-center'>
                          {parsedOrders.map((item: OrderItem) => (
                             <tr key={item._id} className=' border'>
-                            <td className='p-3 border flex items-center justify-center'> 
+                            <td className='p-3 border '> 
                             <p className="text-base text-[#222] font-medium "> {item._id}</p>
                              </td>
                             <td className='p-3 border lg:max-w-[300px] '>

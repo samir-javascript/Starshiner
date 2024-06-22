@@ -4,6 +4,27 @@ export interface DeleteUserParams {
     clerkId: string;
 }
 
+export interface OrderItem {
+    _id: string;
+    shippingAddress: {
+        city: string
+        country: string
+        zipCode: string
+        firstName: string
+        lastName: string
+        address: string
+       
+        phoneNumber: string
+    }
+    userId: {
+        email: string
+        username:string
+    }
+    totalAmount: number;
+    deliveryStatus: string
+    paymentMethode: string
+   isPaid: boolean
+}
 export interface ProductProps {
     _id: string;
     name: string;

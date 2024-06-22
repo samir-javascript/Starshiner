@@ -62,7 +62,7 @@ const MySwiper = () => {
       </Swiper>
       <div>
         <p className="md:hidden block mx-3 font-semibold mb-3 text-black-1 text-base ">Online Clothing store</p>
-      <div className='flex md:flex-col mx-auto items-center justify-center flex-row gap-3  '>
+      <div className='flex md:flex-col mx-auto items-center justify-center flex-row gap-3  max-sm:px-3 '>
         <div className='flex flex-col gap-1.5 group items-center justify-center'>
             <img className='rounded-[20px] cursor-pointer group-hover:scale-[1.05] transition-all duration-300 h-[184px] object-cover' alt=''  src="https://static.starshiners.ro/files/banners/slds/webp/collection_24_05_30__12_17_patratica.webp"/>
             <p className='text-black font-semibold text-base'>New Collection</p>

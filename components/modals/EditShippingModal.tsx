@@ -99,7 +99,7 @@ import { setSelectedShippingAddress } from "@/lib/features/cartSlice"
   return (
     <Dialog  open={open} onOpenChange={() => setOpen(false)} >
     
-    <DialogContent className="bg-white h-[90%] !p-0 !m-0 !rounded-[15px]  ">
+    <DialogContent className="bg-white h-[90%] max-sm:w-[95%] mx-auto  !p-0 !m-0 !rounded-[15px]  ">
       <DialogHeader>
         <DialogTitle className="text-[20px] p-5 ">Edit the address</DialogTitle>
       </DialogHeader>

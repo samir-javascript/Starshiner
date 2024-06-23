@@ -9,7 +9,7 @@ import { useAppDispatch, useAppSelector } from "@/lib/hooks"
 import { ProductProps } from "@/types"
 import { FaMinus, FaPlus, FaTrash } from "react-icons/fa"
 import DeleteItemFromCartModal from "./DeleteItemFromCartModal"
-import { useState } from "react"
+import { FormHTMLAttributes, useRef, useState } from "react"
 
 const CartItems = () => {
     const { cartItems  } = useAppSelector((state:any) => state?.cart)
@@ -39,8 +39,20 @@ const CartItems = () => {
        _id: item._id, selectedColor: item.selectedColor, selectedSize: item.selectedSize
       }))
    }
-
+  // const createProductAction = async(formData:FormData) => {
+  //     "use server" 
+  //     try {
+  //        const res  = await createProduct({
+  //         name: formData.get('title')
+  //         title: formData.get('descri')
+  //        })
+  //     } catch (error) {
+  //        console.log(error)
+  //     }
+  // }
   console.log(productId, "product ID")
+  const formRef = useRef<HTMLFormElement>(null)
+  
   return (
     <>
     <AccordionItem  value={`item 1`}>
@@ -71,7 +83,13 @@ const CartItems = () => {
   color="red"
 />
               <div className='lg:flex hidden flex-col gap-2 items-end '>
-                
+                {/* <form ref={formRef} action={createProductAction}>
+                   <input type="text" name="description" />
+                   <input type="text" name="title" />
+                   <textarea name="message" id=""></textarea>
+                </form>
+                // react suspense for loading parts // useOptimistic hook  */}
+
               <FaTrash onClick={() => {
                                     setSelectedProduct(item);
                                     setOpen(true);

@@ -7,7 +7,7 @@ import { Button } from './ui/button';
 import { MdRestartAlt } from 'react-icons/md';
 import { addToCart } from '@/lib/features/cartSlice';
 import { useAppDispatch } from '@/lib/hooks';
-import { useEffect, useState } from 'react';
+import { useEffect, useOptimistic, useState } from 'react';
 import { useRouter } from 'next/navigation';
 
 import SizesModal from './modals/SizesModal';
@@ -95,24 +95,33 @@ const Details = ({result, currentUser}: {
     if(qty === 1) return
     setQty((prev:number) => prev - 1)
  }
-  const handleToggleWishlist = async()=> {
-    try {
-       const response =  await fetch("/api/wishlist/toggleWishlist", {
+ const [isLiked, setIsLiked] = useState(parsedUser?.saved?.includes(parsedResult._id) || false);
+
+  const [optimisticLike, switchOptimisticLike] = useOptimistic(isLiked, (state, value) => {
+    return !state;
+  });
+// <button onClick={() => switchOptimisticLike()}>{optimisticLike ? 'Unlike' : 'Like'}</button>
+const handleToggleWishlist = async () => {
+  switchOptimisticLike(""); // This toggles the optimistic like state
+  try {
+      const response = await fetch("/api/wishlist/toggleWishlist", {
           method: "POST",
           body: JSON.stringify({
-             userId: parsedUser._id,
-             productId: parsedResult._id
+              userId: parsedUser._id,
+              productId: parsedResult._id
           })
-       })
-       if(!response.ok) {
-          throw new Error('Failed to complete this action')
-       }
-       router.refresh()
-       // success toast;
-    } catch (error) {
-       console.log(error)
-    }
+      });
+      if (!response.ok) {
+          throw new Error('Failed to complete this action');
+      }
+      // No need to toggle `setIsLiked` here since `switchOptimisticLike` already did
+  } catch (error) {
+      console.log(error);
+      // Roll back optimistic update in case of an error
+      switchOptimisticLike(""); // This toggles back to the previous state
   }
+};
+
   return (
     <div className='flex lg:gap-7 gap-5 md:flex-row flex-col'>
           <div className='flex-1'>
@@ -144,14 +153,14 @@ const Details = ({result, currentUser}: {
             </div>
             {/* wishlist trigger */}
             <div
-            onClick={handleToggleWishlist}
-            className='h-[70px] p-3 w-[80px] bg-white hover:shadow-2xl cursor-pointer shadow-lg rounded-[10px] flex items-center justify-center'
-          >
-             {parsedUser?.saved?.includes(parsedResult._id) ? (
-               <FaHeart size={30} color='#E00697' />
-             ) : ( <FaRegHeart size={30} color='#E00697' />)}
-           
-          </div>
+    onClick={handleToggleWishlist}
+    className='h-[70px] p-3 w-[80px] bg-white hover:shadow-2xl cursor-pointer shadow-lg rounded-[10px] flex items-center justify-center'
+>
+    {optimisticLike ? (
+        <FaHeart size={30} color='#E00697' />
+    ) : ( <FaRegHeart size={30} color='#E00697' />)}
+</div>
+
            {/* wishlist trigger */}
             </div>
            

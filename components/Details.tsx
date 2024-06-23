@@ -96,10 +96,10 @@ const Details = ({result, currentUser}: {
     setQty((prev:number) => prev - 1)
  }
  const [isLiked, setIsLiked] = useState(parsedUser?.saved?.includes(parsedResult._id) || false);
+const [optimisticLike, switchOptimisticLike] = useOptimistic(isLiked, (state, value) => {
+  return !state;
+});
 
-  const [optimisticLike, switchOptimisticLike] = useOptimistic(isLiked, (state, value) => {
-    return !state;
-  });
 // <button onClick={() => switchOptimisticLike()}>{optimisticLike ? 'Unlike' : 'Like'}</button>
 const handleToggleWishlist = async () => {
   switchOptimisticLike(""); // This toggles the optimistic like state
@@ -114,13 +114,15 @@ const handleToggleWishlist = async () => {
       if (!response.ok) {
           throw new Error('Failed to complete this action');
       }
-      // No need to toggle `setIsLiked` here since `switchOptimisticLike` already did
+      setIsLiked((prev:boolean) => !prev); 
+      // Successful toggle, state is already updated optimistically
   } catch (error) {
       console.log(error);
       // Roll back optimistic update in case of an error
       switchOptimisticLike(""); // This toggles back to the previous state
   }
 };
+
 
   return (
     <div className='flex lg:gap-7 gap-5 md:flex-row flex-col'>
@@ -160,6 +162,7 @@ const handleToggleWishlist = async () => {
         <FaHeart size={30} color='#E00697' />
     ) : ( <FaRegHeart size={30} color='#E00697' />)}
 </div>
+
 
            {/* wishlist trigger */}
             </div>

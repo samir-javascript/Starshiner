@@ -1,7 +1,7 @@
 "use client"
 import { Virtual, Navigation, Pagination, Scrollbar, A11y } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { IoChevronForwardSharp } from "react-icons/io5";
+
 // Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/pagination';
@@ -9,6 +9,7 @@ import 'swiper/css/navigation';
 import { useEffect, useState } from 'react';
 
 import { wardrobeColumn } from '@/constants';
+import Link from 'next/link';
 const WardrobeCategories = () => {
   const [isMobile, setIsMobile] = useState(false);
  
@@ -44,10 +45,10 @@ const WardrobeCategories = () => {
       >
         {wardrobeColumn.map((item) => (
             <SwiperSlide key={item.name}>
-              <div className='flex flex-col items-center justify-center gap-1.5'>
+              <Link href={`/${item.name}`} className='flex flex-col items-center justify-center gap-1.5'>
                  <img className='rounded-[20px] ' src={item.img} alt={item.name}/>
                 <p className='font-bold text-black text-base '>{item.name} </p>
-              </div>
+              </Link>
           
   </SwiperSlide>
         ))}

@@ -21,13 +21,12 @@ import { useRouter } from 'next/navigation';
 type CommentProps = {
   open: boolean;
   setOpen: (v:boolean) => void;
-  productImage?: {
-
-  };
+  productImage: string;
+  productName:string;
   productId: string;
   userId: string;
 }
-const CommentModal = ({open,setOpen,productImage, productId, userId}: CommentProps) => {
+const CommentModal = ({open,setOpen,productImage, productName, productId, userId}: CommentProps) => {
   const [comment,setComment] = useState('')
   const router = useRouter()
   const [rating,setRating] = useState<number>()
@@ -97,7 +96,7 @@ const CommentModal = ({open,setOpen,productImage, productId, userId}: CommentPro
               <div className='flex flex-col  w-full'>
             <div className='flex items-center gap-2'>
                   <img className='lg:w-[90px] w-[70px]  object-cover '
-                   src="https://photos-de.starshiners.ro/108859/698506-372x558-lo.jpg" alt="" />
+                   src={productImage || ""} alt={productName} />
                         <p className='text-base text-black-1'>Item code: S-058555-3</p>
              </div>
               <div className='mt-5'>

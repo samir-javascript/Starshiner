@@ -50,7 +50,7 @@ const Page = async({params}:props) => {
       <div className='mt-7'>
          <Recommendation url="/" hasBg={true} items={[]} title='Black Tight Lycra Top with Low Neckline - StarShinerS - In the same collection' />
       </div>
-    <Rating userId={JSON.stringify(currentUser?._id)} 
+    <Rating image={result?.images[0].url[0]} name={result.name} userId={JSON.stringify(currentUser?._id)} 
      productId={JSON.stringify(result._id)} />
 
      <div className='max-w-[1200px] max-lg:px-3 mx-auto mt-7 '>

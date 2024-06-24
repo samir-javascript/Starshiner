@@ -208,7 +208,7 @@ const handleToggleWishlist = async () => {
                     disabled={size.stock === 0}
                     className={`${
                       size.stock === 0 ? 'bg-gray-100 line-through select-none cursor-default  ' : ''
-                    } ${selectedSize === size.size ? "!border-2 !border-green-1" : ""} outline-none border border-gray-300 cursor-pointer hover:border-black-1 rounded-[10px] w-[80px] flex items-center justify-center px-3 py-3`}
+                    } ${selectedSize === size.size ? "!border-2 !border-green-1" : ""} ${size.size.startsWith("ONE SIZE") ? "w-[180px] " : ""} outline-none border border-gray-300 cursor-pointer hover:border-black-1 rounded-[10px] w-[80px] flex items-center justify-center px-3 py-3`}
                   >
                     <p
                       className={`${

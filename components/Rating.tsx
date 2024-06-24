@@ -6,9 +6,11 @@ import CommentModal from './modals/CommentModal'
 import { Button } from './ui/button'
 import QuestionModal from './modals/QuestionModal'
 
-const Rating = ({userId, productId}: {
+const Rating = ({userId, productId , name, image}: {
     userId:string;
     productId: string;
+    name: string;
+    image:string;
 }) => {
     const parsedUserID = JSON.parse(userId)
     const parsedProductID = JSON.parse(productId)
@@ -92,7 +94,7 @@ const Rating = ({userId, productId}: {
            </div>
            
       </div> 
-      <CommentModal productId={parsedProductID}  userId={parsedUserID} open={open} setOpen={setOpen} />
+      <CommentModal productId={parsedProductID} productName={name} productImage={image}  userId={parsedUserID} open={open} setOpen={setOpen} />
       <QuestionModal productId={parsedProductID} userId={parsedUserID} open={openQuestionModal} setOpen={setOpenQuestionModal} />
   </>
   )

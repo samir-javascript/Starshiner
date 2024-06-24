@@ -35,19 +35,19 @@ const MobileProfileTabs = () => {
 
     ]
   return (
-    <div className='w-full lg:hidden  scrollbar-hide flex items-center gap-5 overflow-x-scroll'>
+    <div className='w-full lg:hidden  scrollbar-hide flex items-center gap-4 overflow-x-scroll'>
          {tabs.map((item) => (
              <Link className='flex px-3 flex-col gap-2 items-center' href={item.url} key={item.name}>
                    <div className='border-2 border-gray-400 rounded-full
-                    flex items-center justify-center w-[80px] h-[80px]  '>
-                         <div className='w-full h-full bg-gray-300 rounded-full items-center justify-center flex m-[2px] '>
-                               <Image src={item.icon} alt={item.name} width={35} height={35} />
+                    flex items-center justify-center w-[80px] h-[80px] p-[2px] '>
+                         <div className='w-full h-full bg-gray-300 rounded-full items-center justify-center flex  '>
+                               <Image src={item.icon} alt={item.name} className="invert-[100%] " width={35} height={35} />
                          </div>
                    </div>
                    <p className='text-center whitespace-nowrap  text-black-1 text-sm font-medium '>{item.name} </p>
              </Link>
          ))}
-         <div className='w-full h-5 bg-gray-100 my-3' />
+         <div className='w-full h-5 bg-white my-3' />
     </div>
   )
 }

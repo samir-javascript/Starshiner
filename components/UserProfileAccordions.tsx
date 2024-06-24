@@ -13,12 +13,13 @@ import {
     AccordionContent,
     AccordionItem,
     AccordionTrigger,
-  } from "../../components/ui/accordion"
-import { Button } from "../../components/ui/button";
+  } from "../components/ui/accordion"
+import { Button } from "../components/ui/button";
 import { FaCheck, FaEdit, FaTrash } from "react-icons/fa";
-import AddShippingModal from './../modals/AddShippingModal';
+
 import { usePathname, useRouter } from 'next/navigation';
 import Link from 'next/link';
+import AddShippingModal from './modals/AddShippingModal'
 type shippingsProps = {
 
     firstName: string;

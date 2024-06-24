@@ -1,4 +1,5 @@
 import { getCurrentUser, getMyOrders } from '@/actions/user.actions'
+import MobileProfileTabs from '@/components/MobileProfileTabs'
 import ProfileTabs from '@/components/ProfileTabs'
 import ProfileTop from '@/components/ProfileTop'
 import { Button } from '@/components/ui/button'
@@ -17,6 +18,7 @@ const page = async() => {
   return (
     <section className="bg-white py-3 h-full w-full" >
         <div className='flex max-w-[1200px] mx-auto lg:flex-row flex-col gap-5 items-start'>
+            <MobileProfileTabs />
             <ProfileTabs />
             <div className='flex-1 flex flex-col gap-5'>
               <div className='flex flex-col px-3 gap-1'>

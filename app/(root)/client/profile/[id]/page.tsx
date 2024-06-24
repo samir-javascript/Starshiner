@@ -1,4 +1,5 @@
 import { getCurrentUser, getMyShippingAddreses } from "@/actions/user.actions";
+import MobileProfileTabs from "@/components/MobileProfileTabs";
 import ProfileTabs from "@/components/ProfileTabs"
 import ProfileTop from "@/components/ProfileTop";
 import UserProfileAccordions from "@/components/modals/UserProfileAccordions"
@@ -17,6 +18,7 @@ const page = async({params}: {
     <section className="bg-[#eaecf0] py-3 px-3  w-full ">
         <div className='flex max-w-[1200px] mx-auto lg:flex-row flex-col gap-5 items-start'>
            <ProfileTabs />
+           <MobileProfileTabs />
             <div className='flex-1 flex flex-col gap-5'>
                 <ProfileTop title="Member Profile" 
                  links={[

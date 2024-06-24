@@ -1,5 +1,6 @@
 import { getCurrentUser, getMyWishlistItems } from '@/actions/user.actions'
 import Email from '@/components/Email'
+import MobileProfileTabs from '@/components/MobileProfileTabs'
 import ProductCard from '@/components/ProductCard'
 import ProfileTabs from '@/components/ProfileTabs'
 import ProfileTop from '@/components/ProfileTop'
@@ -21,6 +22,7 @@ const page = async() => {
     <section className="bg-white py-3 h-full w-full" >
         <div className='flex max-w-[1200px] mx-auto lg:flex-row flex-col gap-5 items-start'>
             <ProfileTabs />
+            <MobileProfileTabs />
             <div className='flex-1 flex flex-col gap-5'>
               <div className='flex px-3 flex-col gap-1'>
                  <ProfileTop title="My favorite items " text={`${items?.products?.length} items`} links={[

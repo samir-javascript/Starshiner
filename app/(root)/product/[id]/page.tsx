@@ -48,7 +48,7 @@ const Page = async({params}:props) => {
        
       </div>
       <div className='mt-7'>
-         <Recommendation url="/" hasBg={true} items={recommendedProducts} title='Black Tight Lycra Top with Low Neckline - StarShinerS - In the same collection' />
+         <Recommendation url="/" hasBg={true} items={[]} title='Black Tight Lycra Top with Low Neckline - StarShinerS - In the same collection' />
       </div>
     <Rating userId={JSON.stringify(currentUser?._id)} 
      productId={JSON.stringify(result._id)} />

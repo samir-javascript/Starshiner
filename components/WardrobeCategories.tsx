@@ -8,7 +8,7 @@ import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import { useEffect, useState } from 'react';
 
-import { recommendedProducts } from '@/constants';
+import { wardrobeColumn } from '@/constants';
 const WardrobeCategories = () => {
   const [isMobile, setIsMobile] = useState(false);
  
@@ -42,11 +42,11 @@ const WardrobeCategories = () => {
         onSwiper={(swiper) => console.log(swiper)}
         onSlideChange={() => console.log('swipe')}
       >
-        {recommendedProducts.map((item,i) => (
-            <SwiperSlide key={i}>
+        {wardrobeColumn.map((item) => (
+            <SwiperSlide key={item.name}>
               <div className='flex flex-col items-center justify-center gap-1.5'>
-                 <img className='rounded-[20px] ' src={"https://static.starshiners.ro/files/banners/dyn/webp/1626_33_1_5_1707730337.webp"} alt={item.name}/>
-                <p className='font-bold text-black text-base '>New spring collection</p>
+                 <img className='rounded-[20px] ' src={item.img} alt={item.name}/>
+                <p className='font-bold text-black text-base '>{item.name} </p>
               </div>
           
   </SwiperSlide>

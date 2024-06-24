@@ -447,6 +447,53 @@ export const recommendedProducts = [
   }
 ]
 
+export const wardrobeColumn = [
+  {
+    name: "bags",
+    img: 'https://static.starshiners.ro/files/banners/dyn/webp/776_33_1_5_1707730003.webp'
+  },
+  {
+    name: "new spring collection",
+    img: "https://static.starshiners.ro/files/banners/dyn/webp/640_33_1_5_1707730865.webp"
+  },
+  {
+     name: "i love denim",
+     img: "https://static.starshiners.ro/files/banners/dyn/webp/1626_33_1_5_1707730337.webp"
+  },
+   {
+    name: "clothes with floral prints",
+    img: "https://static.starshiners.ro/files/banners/dyn/webp/637_33_1_5_1707731186.webp"
+   },
+    {
+      name: "maternity clothes",
+      img: "https://static.starshiners.ro/files/banners/dyn/webp/632_33___1707732274.webp"
+    },
+    {
+      name: "blouses",
+      img: "https://static.starshiners.ro/files/banners/dyn/webp/633_33_1_5_1707733250.webp"
+    },
+     {
+       name: "",
+       img: "https://static.starshiners.ro/files/banners/dyn/webp/1624_33_1_5_1707731005.webp"
+     },
+      {
+        name: "office clothes",
+        img: "https://static.starshiners.ro/files/banners/dyn/webp/642_33_1_5_1707732060.webp"
+      },
+      {
+        name: "back in stock",
+        img: "https://static.starshiners.ro/files/banners/dyn/webp/639_33_1_5_1707732430.webp"
+      },
+      {
+        name: "accessoirs",
+        img: "https://static.starshiners.ro/files/banners/dyn/webp/-1_33_1_1_1707730138.webp"
+      },
+       {
+        name: "custom made prints",
+        img: "https://static.starshiners.ro/files/banners/dyn/webp/1623_33___1707732888.webp"
+       }
+]
+
 export const footerItems = [
   {
     head: "About us",

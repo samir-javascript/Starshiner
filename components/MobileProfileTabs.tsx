@@ -69,14 +69,17 @@
 // }
 
 // export default MobileProfileTabs
-import { SignOutButton } from '@clerk/nextjs'
-import { auth } from '@clerk/nextjs/server'
+"use client"
+import { SignOutButton, useAuth } from '@clerk/nextjs'
+
 import Image from 'next/image'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import React from 'react'
 
 const MobileProfileTabs = () => {
-    const { userId } = auth()
+    const { userId } = useAuth()
+    const pathname = usePathname()
     const tabs = [
         {
             icon: "/icons/pc.png",
@@ -110,7 +113,7 @@ const MobileProfileTabs = () => {
             {tabs.map((item) => (
                 <Link className='flex px-3 flex-col gap-2 items-center' href={item.url} key={item.name}>
                     <div className='border-2 border-gray-400 rounded-full flex items-center justify-center w-[80px] h-[80px] p-[2px]'>
-                        <div className='w-full h-full bg-gray-300 rounded-full items-center justify-center flex'>
+                        <div className={`w-full h-full  rounded-full items-center justify-center flex ${item.url === pathname ? "bg-[#0b4d54] " : "bg-gray-300"}`}>
                             <Image src={item.icon} alt={item.name} className="invert-[100%]" width={35} height={35} />
                         </div>
                     </div>

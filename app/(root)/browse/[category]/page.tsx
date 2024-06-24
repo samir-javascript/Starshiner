@@ -8,7 +8,7 @@ import React from 'react'
 import { FaSortAmountDown } from 'react-icons/fa'
 import { IoChevronForwardOutline, IoFilter } from 'react-icons/io5'
 
-const page = async() => {
+const page = async({params}: {params: {category:string}}) => {
    const {userId} = auth()
    const currentUser = await getCurrentUser({clerkId: userId as string})
   return (

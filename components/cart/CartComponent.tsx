@@ -1,10 +1,10 @@
 "use client"
 
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
-import CartCheckout from "../modals/CartCheckout";
+import CartCheckout from "./CartCheckout";
 import EmptyCart from "../EmptyCart";
-import CartItems from "../modals/CartItems";
-import CartShipping from "../modals/CartShipping";
+import CartItems from "./CartItems";
+import CartShipping from "./CartShipping";
 import { FaLock, FaRegClock } from "react-icons/fa";
 import {
     Accordion,

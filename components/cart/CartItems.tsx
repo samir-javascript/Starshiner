@@ -8,7 +8,7 @@ import { decreaseQty, increaseQty, removeFromCart } from "@/lib/features/cartSli
 import { useAppDispatch, useAppSelector } from "@/lib/hooks"
 import { ProductProps } from "@/types"
 import { FaMinus, FaPlus, FaTrash } from "react-icons/fa"
-import DeleteItemFromCartModal from "./DeleteItemFromCartModal"
+import DeleteItemFromCartModal from "../modals/DeleteItemFromCartModal"
 import { FormHTMLAttributes, useRef, useState } from "react"
 
 const CartItems = () => {

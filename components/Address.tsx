@@ -1,9 +1,9 @@
 "use client"
 import { useAppSelector } from '@/lib/hooks'
-import { Button } from '../ui/button'
-import ShippingModalOptions from './ShippingModalOptions'
+import { Button } from './ui/button'
+import ShippingModalOptions from './modals/ShippingModalOptions'
 import { useState } from 'react'
-import AddShippingModal from './AddShippingModal'
+import AddShippingModal from './modals/AddShippingModal'
 
 const Address = ({addresses, userId}: {
     addresses:string;

@@ -1,11 +1,12 @@
 "use client";  // Ensure this directive is at the very top
 
 import { useAppDispatch, useAppSelector } from '@/lib/hooks';
-import EditShipping from './EditShipping';
+
 import { MdPublishedWithChanges } from 'react-icons/md';
 import { FaLocationDot } from "react-icons/fa6";
-import ShippingCartModal from './ShippingCartModal';
+import ShippingCartModal from '../modals/ShippingCartModal';
 import { useState } from 'react';
+import EditShipping from '../EditShipping';
 
 const CartShipping = ({ currentUser }: { currentUser: any }) => {
  

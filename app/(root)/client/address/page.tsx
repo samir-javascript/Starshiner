@@ -4,7 +4,7 @@ import MobileProfileTabs from '@/components/MobileProfileTabs'
 import ProductCard from '@/components/ProductCard'
 import ProfileTabs from '@/components/ProfileTabs'
 import ProfileTop from '@/components/ProfileTop'
-import Address from '@/components/modals/Address'
+import Address from '@/components/Address'
 import { Button } from '@/components/ui/button'
 import { auth } from '@clerk/nextjs/server'
 

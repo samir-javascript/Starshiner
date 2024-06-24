@@ -62,7 +62,7 @@ const Recommendation = ({title, items, url, hasBg = false}: {
                  <img width={300} height={300} className="object-contain w-full" src={item.images && item?.images[0]?.url[0] || ""} alt={item?.name}/>
                  <article className='bg-white  p-3 flex flex-col items-center justify-center'>
                       <p className="line-clamp-1 text-black-1 text-sm font-normal ">{item.name} </p>
-                      <div  className="flex  flex-wrap items-center gap-1">
+                      <div  className="flex  items-center gap-1">
                         
                             {item.images && item.images[0].colors.map((color: any, index: number) => (
                         color.sizes.map(((x:any) => (

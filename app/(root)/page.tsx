@@ -1,4 +1,4 @@
-import { getProducts, getRecommendedProducts } from "@/actions/product.actions"
+import { getEliticalProducts, getProducts, getRecommendedProducts } from "@/actions/product.actions"
 import BrandStatement from "@/components/BrandStatement"
 
 import GridCategories from "@/components/GridCategories"
@@ -16,7 +16,7 @@ import { ProductTypes } from "@/types"
 export default async function Home() {
   const result = await getRecommendedProducts() as ProductTypes[]
   
-  
+  const ecologicalProducts = await getEliticalProducts() as ProductTypes[]
  
  
   return (
@@ -27,7 +27,7 @@ export default async function Home() {
       <Recommendation hasBg={true} title="This week`s recommendations" url="/recommeded_week" items={result} />
       <GridCategories />
       <WardrobeCategories />
-      <Recommendation hasBg={false} title="Ecological leather articles" url="/recommeded_week" items={[]} />
+      <Recommendation hasBg={false} title="Ecological leather articles" url="/recommeded_week" items={ecologicalProducts} />
       <Recommendation hasBg= {false} title="Plus Size Clothing" url="/recommeded_week" items={[]} />
       <BrandStatement />
      

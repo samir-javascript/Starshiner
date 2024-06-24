@@ -65,4 +65,13 @@ export const getRecommendedProducts = cache( async()=> {
    } catch (error) {
        console.log(error)
    } 
-}, ['getRecommendedProducts'], {revalidate: 1000 * 24 * 24 * 60})
+}, ['getRecommendedProducts', "/"], {revalidate: 1000 * 24 * 24 * 60})
+export const getEliticalProducts = cache( async()=> {
+   try {
+      await connectToDb()
+      const products = await Product.find({position: "ecological-leather-articles"})
+      return products
+   } catch (error) {
+       console.log(error)
+   } 
+}, ['getEliticalProducts', "/"], {revalidate: 1000 * 24 * 24 * 60})

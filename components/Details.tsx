@@ -77,7 +77,9 @@ const Details = ({result, currentUser}: {
       price: parsedResult.price,
       qty: qty,
     })
+    router.refresh()
     setOpen(true)
+
   };
 
   useEffect(() => {

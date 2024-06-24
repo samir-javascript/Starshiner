@@ -2,7 +2,8 @@ import { getCurrentUser, getMyShippingAddreses } from "@/actions/user.actions";
 import MobileProfileTabs from "@/components/MobileProfileTabs";
 import ProfileTabs from "@/components/ProfileTabs"
 import ProfileTop from "@/components/ProfileTop";
-import UserProfileAccordions from "@/components/modals/UserProfileAccordions"
+import UserProfileAccordions from "@/components/UserProfileAccordions";
+
 import Link from "next/link";
 
 const page = async({params}: {

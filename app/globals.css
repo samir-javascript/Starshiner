@@ -47,6 +47,10 @@
   height: auto;
   object-fit: cover;
 }
+input {
+  outline: none!important;
+  outline-offset: 0!important;
+}
 
  .swiper-button-next:hover, .swiper-button-prev:hover {
    opacity: 1;

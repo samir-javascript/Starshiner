@@ -56,3 +56,13 @@ export const getAllOrders = cache (async()=>  {
        console.log(error, "error getting all orders")
    }
 }, ["getAllOrders", "/ordersList"], {revalidate: 1000 * 60 * 60 * 24})
+
+export const getRecommendedProducts = cache( async()=> {
+   try {
+      await connectToDb()
+      const products = await Product.find({position: "recommended"})
+      return products
+   } catch (error) {
+       console.log(error)
+   } 
+}, ['getRecommendedProducts'], {revalidate: 1000 * 24 * 24 * 60})

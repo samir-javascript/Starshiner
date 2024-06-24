@@ -9,12 +9,14 @@ import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 
 import Link from 'next/link';
+import { ProductTypes } from '@/types';
+import Image from 'next/image';
 
 const Recommendation = ({title, items, url, hasBg = false}: {
    title: string;
    url: string;
    hasBg: boolean;
-   items: any
+   items: ProductTypes[]
 }) => {
  
   // Create array with 500 slides
@@ -54,20 +56,24 @@ const Recommendation = ({title, items, url, hasBg = false}: {
         onSwiper={(swiper) => console.log(swiper)}
         onSlideChange={() => console.log('swipe')}
       >
-        {items.map((item: any,i:number) => (
+        {items.map((item,i:number) => (
             <SwiperSlide key={i}>
-              <div className='flex flex-col'>
-                 <img src={"https://photos-de.starshiners.ro/103884/708240-372x558-lo.jpg"} alt={item.name}/>
+              <Link href={`/product/${item._id}`} className='flex flex-col'>
+                 <img width={300} height={300} className="object-contain w-full" src={item.images && item?.images[0]?.url[0] || ""} alt={item?.name}/>
                  <article className='bg-white  p-3 flex flex-col items-center justify-center'>
                       <p className="line-clamp-1 text-black-1 text-sm font-normal ">{item.name} </p>
-                      <div className="flex items-center gap-1">
-                          {item.sizes.map(((x:string) => (
-                              <p className="text-[#121212] text-sm font-normal" key={x}>{x}</p>
-                          )))}
+                      <div  className="flex  flex-wrap items-center gap-1">
+                        
+                            {item.images && item.images[0].colors.map((color: any, index: number) => (
+                        color.sizes.map(((x:any) => (
+                          <p className="text-[#121212] text-sm font-normal" key={x._id}>{x.size}</p>
+                      )))
+                      ))
+                      }
                       </div>
-                      <p className="font-bold text-black text-base ">{item.price}.99 £ </p>
+                      <p className="font-bold text-black text-base ">{item.price},99 £ </p>
                  </article>
-              </div>
+              </Link>
           
   </SwiperSlide>
         ))}

@@ -76,6 +76,46 @@ export interface UpdateProductParams {
     category: string;
     position: string;
 }
+interface Size {
+    size: string;
+    stock: number;
+  }
+ 
+  interface Color {
+    color: string;
+    sizes: Size[];
+  }
+ 
+  interface ImageDetails {
+    url: string[];
+    colors: Color[];
+  }
+  export interface ProductTypes {
+     _id:string;
+     name:string;
+     description:string;
+     category:string;
+     price: number;
+     prevPrice: string;
+     isNewProduct: boolean;
+     numReviews: number;
+     rating: number;
+     position:string;
+     reviews: {
+          user: string;
+          title: string
+          name:string
+          rating: number
+     }[];
+      questions: {
+          user:string 
+          name:string
+          question:string
+      }[]
+      images: ImageDetails[]
+      createdAt: Date
+      updatedAt: Date
+  }
 export interface CreateProductParams {
      name: string;
      description: string;
@@ -83,7 +123,7 @@ export interface CreateProductParams {
      prevPrice: number;
      category: string;
      path: string;
-     images: string;
-     colors: object[];
+     images: ImageDetails[];
+    
      position:string;
 }

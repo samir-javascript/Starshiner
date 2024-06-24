@@ -7,6 +7,7 @@ import { auth } from '@clerk/nextjs/server';
 import { UserButton } from '@clerk/nextjs';
 const Nav = () => {
   const {userId} = auth()
+  
   return (
     <nav className="bg-primary-1 px-2 flex max-md:hidden w-full h-[60px] ">
         <div className='w-full max-w-[1200px] mx-auto h-full gap-7 flex items-center justify-between '>
@@ -15,20 +16,7 @@ const Nav = () => {
           </Link>
            
             <InputSearch />
-            <div className='flex items-center gap-4'>
-                   <Link href={`/client/profile/${userId}`} className='flex items-center gap-1.5'>
-                        <UserButton />
-                        <p className='text-white font-normal text-sm lg:flex hidden '>My account</p>  
-                   </Link>
-                   <Link href="/my-favourites_items" className='flex items-center gap-1.5'>
-                        <FaRegHeart color="white" size={22} />
-                        <p className='text-white font-normal text-sm lg:flex hidden '>Favourites</p>  
-                   </Link>
-                   <Link href="/cart" className='flex items-center gap-1.5'>
-                        <FaShoppingBag color="white" size={22} />
-                        <p className='text-white font-normal text-sm lg:flex hidden '>My cart</p>  
-                   </Link>
-            </div>
+            
         </div>
     </nav>
   )

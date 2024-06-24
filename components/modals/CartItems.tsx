@@ -60,7 +60,7 @@ const CartItems = () => {
          <p>My Cart ({(cartItems.length && cartItems?.length)} items) </p>
     </AccordionTrigger>
     <AccordionContent  className='bg-white px-3 py-4 rounded-br-[15px] rounded-bl-[15px] '>
-      {cartItems.map((item:any) => (
+      {cartItems.map((item:ProductProps) => (
         <div className="flex flex-col border-b gap-3 border-gray-300 pb-3 " key={item._id}>
  <div  className='flex  items-center justify-between w-full'>
            <div className='flex items-center gap-2'>
@@ -129,6 +129,7 @@ const CartItems = () => {
   title={selectedProduct?.name || ''}
   qty={selectedProduct?.qty || 0}
   image={selectedProduct?.filteredImages[0]?.url[0] || ''}
+  
   selectedSize={selectedProduct?.selectedSize || ''}
 />
         </div>

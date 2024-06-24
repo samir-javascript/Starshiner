@@ -9,6 +9,7 @@ const page = async({params}: {
     id: string
   }
 }) => {
+  if(!params.id) return
    const currentUser = await getCurrentUser({clerkId:params.id!})
    const shippingAddresses = await getMyShippingAddreses({userId:currentUser?._id})
 
@@ -34,7 +35,7 @@ const page = async({params}: {
                  ]}
                 text="Welcome to StarShinerS! Here you can edit your personal information, personalize your profile and change your password!" />
                  <div className="flex w-full  flex-col gap-4">
-                 <UserProfileAccordions currentUser={JSON.stringify(currentUser)} shippings={JSON.stringify(shippingAddresses)} userId={JSON.stringify(currentUser._id)} />
+                 <UserProfileAccordions currentUser={JSON.stringify(currentUser)} shippings={JSON.stringify(shippingAddresses)} userId={JSON.stringify(currentUser?._id)} />
 
                  </div>
                 <div className="rounded-[17px] w-full bg-white shadow-lg flex flex-col p-5 ">

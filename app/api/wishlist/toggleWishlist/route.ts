@@ -28,7 +28,7 @@ export async function POST(req:Request) {
            })
            await existsWishlist.save()
            revalidatePath("/favourites")
-           revalidatePath(`/product/${productId}`)
+          
            return NextResponse.json({message: "item removed from your wishlist"})
 
         }else  {
@@ -38,7 +38,7 @@ export async function POST(req:Request) {
          })
           await existsWishlist.save()
           revalidatePath("/favourites")
-          revalidatePath(`/product/${productId}`)
+        
           return NextResponse.json({message: "item added to your wishlist"})
         }
        

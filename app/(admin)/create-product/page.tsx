@@ -1,11 +1,12 @@
 "use client"
 
  import Image from "next/image";
- import { FormEvent, useState } from "react";
+ import { FormEvent, useRef, useState } from "react";
  import { Button } from "@/components/ui/button";
  import * as LR from '@uploadcare/blocks';
  import dynamic from 'next/dynamic';
 import { usePathname } from "next/navigation";
+
 
  const NoSSR = dynamic(() => import('@/components/adminComponents/UploadFiles'), { ssr: false });
 
@@ -44,12 +45,7 @@ import { usePathname } from "next/navigation";
    const [name, setName] = useState('');
    const [description, setDescription] = useState('');
    const [loading, setLoading] = useState(false);
-  const imgs  = f?.map((x) => x.cdnUrl)
-  //  const addImage = () => {
-  //    setImages([...images, { url: imgs, colors: [] }]);
-  //    setF([])
-  //  };
- // f.map(entry => entry.cdnUrl || '')
+ 
   const addImage = () => {
     if (f && f.length > 0) {
       const newImages: ImageDetails = {
@@ -61,19 +57,7 @@ import { usePathname } from "next/navigation";
     }
   };
 
-  //  const addColor = () => {
-  //    const updatedImages = images.map(img => {
-  //      if (img.url.includes(selectedImage as string)) {
-  //        return {
-  //          ...img,
-  //          colors: [...img.colors, { color, sizes: [] }]
-  //        };
-  //      }
-  //      return img;
-  //    });
-  //    setImages(updatedImages);
-  //    setColor('');
-  //  };
+  
   const addColor = () => {
     const updatedImages = images.map(img => {
       if (img.url.some(url => url === selectedImage)) {
@@ -88,28 +72,8 @@ import { usePathname } from "next/navigation";
     setColor('');
   };
   
-  //  const addSize = () => {
-  //    const updatedImages = images.map(img => {
-  //      if (img.url.includes(selectedImage as string)) {
-  //        return {
-  //          ...img,
-  //          colors: img.colors.map(col => {
-  //            if (col.color === selectedColor) {
-  //              return {
-  //                ...col,
-  //                sizes: [...col.sizes, { size, stock }]
-  //              };
-  //            }
-  //            return col;
-  //          })
-  //        };
-  //      }
-  //      return img;
-  //    });
-  //    setImages(updatedImages);
-  //    setSize('');
-  //    setStock(0);
-  //  };
+ 
+const formRef = useRef<HTMLFormElement>(null)
   const addSize = () => {
     const updatedImages = images.map(img => {
       if (img.url.some(url => url === selectedImage)) {
@@ -133,37 +97,39 @@ import { usePathname } from "next/navigation";
     setStock(0);
   };
   
-   const handleCreateProduct = async (e: FormEvent) => {
-     e.preventDefault();
+   const handleCreateProduct = async (e:FormEvent) => {
+   e.preventDefault()
      setLoading(true);
      try {
-       const res = await fetch('/api/addProduct', {
-         method: "POST",
-         headers: {
-           'Content-Type': 'application/json'
-         },
-         body: JSON.stringify({
-           name,
-           description,
-           path: pathname,
-           images,
-           category,
-           price,
-           prevPrice,
-           position
-         })
-       });
-       if (res.ok) {
-         setName('');
-         setDescription('');
-         setCategory('');
-         setImages([]);
-         setPosition('');
-         setPrice(0);
-         setPrevPrice(0);
-       } else {
-         alert('something went wrong');
-       }
+        const res = await fetch('/api/addProduct', {
+          method: "POST",
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            name,
+            description,
+            path: pathname,
+            images,
+            category,
+            price,
+            prevPrice,
+            position
+          })
+        });
+    
+    if(res.ok) {
+      setName('');
+      setDescription('');
+      setCategory('');
+      setImages([]);
+      setPosition('');
+      setPrice(0);
+      setPrevPrice(0);
+    }
+       
+       
+       
      } catch (error) {
        console.log(error);
      } finally {
@@ -174,18 +140,18 @@ console.log(f, "f hereeee")
 
    return (
      <div className="w-full flex flex-col gap-2 py-10">
-       <form onSubmit={handleCreateProduct} className="max-w-[700px] md:w-[700px] mx-auto flex flex-col gap-7">
+       <form ref={formRef} onSubmit={handleCreateProduct} className="max-w-[700px] md:w-[700px] mx-auto flex flex-col gap-7">
          <div className="flex flex-col gap-2">
            <label className="label-css" htmlFor="productName">Product Name</label>
-           <input value={name} onChange={(e) => setName(e.target.value)} className="input-css" type="text" placeholder="Product Name" />
+           <input value={name} name="name" onChange={(e) => setName(e.target.value)} className="input-css" type="text" placeholder="Product Name" />
          </div>
          <div className="flex flex-col gap-2">
            <label className="label-css" htmlFor="productDescription">Product Description</label>
-           <input value={description} onChange={(e) => setDescription(e.target.value)} className="input-css" type="text" placeholder="Product Description" />
+           <input value={description} name="description" onChange={(e) => setDescription(e.target.value)} className="input-css" type="text" placeholder="Product Description" />
          </div>
          <div className="flex flex-col gap-2">
            <label className="label-css" htmlFor="productCategory">Product Category</label>
-           <input value={category} onChange={(e) => setCategory(e.target.value)} className="input-css" type="text" placeholder="Product Category" />
+           <input name="category" value={category} onChange={(e) => setCategory(e.target.value)} className="input-css" type="text" placeholder="Product Category" />
          </div>
 
          {/* Image, Color, and Size Management */}
@@ -297,16 +263,16 @@ console.log(f, "f hereeee")
 
          <div className="flex flex-col gap-2">
            <label className="label-css" htmlFor="productPrice">Product Price</label>
-           <input value={price} onChange={(e) => setPrice(Number(e.target.value))} className="input-css" min={1} type="number" placeholder="Product Price" />
+           <input name="price" value={price} onChange={(e) => setPrice(Number(e.target.value))} className="input-css" min={1} type="number" placeholder="Product Price" />
          </div>
          <div className="flex flex-col gap-2">
            <label className="label-css" htmlFor="productPrevPrice">Product Previous Price</label>
-           <input value={prevPrice} onChange={(e) => setPrevPrice(Number(e.target.value))} className="input-css" min={1} type="number" placeholder="Product Previous Price" />
+           <input name="prevPrice" value={prevPrice} onChange={(e) => setPrevPrice(Number(e.target.value))} className="input-css" min={1} type="number" placeholder="Product Previous Price" />
          </div>
        
          <div className="flex flex-col gap-2">
            <label className="label-css" htmlFor="productPosition">Product Position</label>
-           <input value={position} onChange={(e) => setPosition(e.target.value)} className="input-css" type="text" placeholder="Product Position" />
+           <input name="position" value={position} onChange={(e) => setPosition(e.target.value)} className="input-css" type="text" placeholder="Product Position" />
          </div>
  <div className="flex flex-col  gap-2">
          

@@ -95,14 +95,13 @@ const Details = ({result, currentUser}: {
     if(qty === 1) return
     setQty((prev:number) => prev - 1)
  }
- const [isLiked, setIsLiked] = useState(parsedUser?.saved?.includes(parsedResult._id) || false);
-const [optimisticLike, switchOptimisticLike] = useOptimistic(isLiked, (state, value) => {
-  return !state;
-});
+// const [isLiked, setIsLiked] = useState(parsedUser?.saved?.includes(parsedResult._id));
+// const [optimisticLike, switchOptimisticLike] = useOptimistic(isLiked, (state) => !state);
 
-// <button onClick={() => switchOptimisticLike()}>{optimisticLike ? 'Unlike' : 'Like'}</button>
+
+
 const handleToggleWishlist = async () => {
-  switchOptimisticLike(""); // This toggles the optimistic like state
+ // switchOptimisticLike({}); // This toggles the optimistic like state
   try {
       const response = await fetch("/api/wishlist/toggleWishlist", {
           method: "POST",
@@ -114,14 +113,15 @@ const handleToggleWishlist = async () => {
       if (!response.ok) {
           throw new Error('Failed to complete this action');
       }
-      setIsLiked((prev:boolean) => !prev); 
-      // Successful toggle, state is already updated optimistically
+      router.refresh()
+    //  setIsLiked((prev:boolean) => !prev); // Successful toggle, state is already updated optimistically
   } catch (error) {
       console.log(error);
-      // Roll back optimistic update in case of an error
-      switchOptimisticLike(""); // This toggles back to the previous state
+     // switchOptimisticLike({}); // This toggles back to the previous state in case of error
   }
 };
+
+
 
 
   return (
@@ -158,10 +158,13 @@ const handleToggleWishlist = async () => {
     onClick={handleToggleWishlist}
     className='h-[70px] p-3 w-[80px] bg-white hover:shadow-2xl cursor-pointer shadow-lg rounded-[10px] flex items-center justify-center'
 >
-    {optimisticLike ? (
+    {parsedUser?.saved?.includes(parsedResult._id) ? (
         <FaHeart size={30} color='#E00697' />
-    ) : ( <FaRegHeart size={30} color='#E00697' />)}
+    ) : (
+        <FaRegHeart size={30} color='#E00697' />
+    )}
 </div>
+
 
 
            {/* wishlist trigger */}

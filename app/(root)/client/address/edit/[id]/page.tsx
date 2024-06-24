@@ -1,9 +1,13 @@
 import React from 'react'
-import ProfileTabs from "../../../../../../components/ProfileTabs"
-import Link from 'next/link'
-import ProfileTop from "../../../../../../components/ProfileTop"
-import { getShippingById } from "../../../../../../actions/user.actions"
-import EditShipping from '../../../../../../components/modals/EditShipping'
+// import ProfileTabs from "../../../../../../components/ProfileTabs"
+// import Link from 'next/link'
+// import ProfileTop from "../../../../../../components/ProfileTop"
+// import { getShippingById } from "../../../../../../actions/user.actions"
+import EditShipping from '@/components/EditShipping'
+import ProfileTabs from '@/components/ProfileTabs'
+import { getShippingById } from '@/actions/user.actions'
+import ProfileTop from '@/components/ProfileTop'
+
 
 const page = async({params}: {
   params: {

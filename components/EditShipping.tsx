@@ -8,16 +8,16 @@ import {
     FormItem,
     FormLabel,
     FormMessage,
-  } from "../../components/ui/form" 
-  import { ShippingAddressValidationSchema} from "../../lib/FormValidation"
+  } from "../components/ui/form" 
+  import { ShippingAddressValidationSchema} from "../lib/FormValidation"
   import { zodResolver } from "@hookform/resolvers/zod"
-import { Input } from "../../components/ui/input"
+import { Input } from "../components/ui/input"
 import { useForm } from "react-hook-form"
 import { FaCheck } from "react-icons/fa"
 import { z } from "zod"
 import { usePathname, useRouter } from "next/navigation"
-import { useAppDispatch } from "../../lib/hooks"
-import { Button } from "../ui/button"
+import { useAppDispatch } from "../lib/hooks"
+import { Button } from "../components/ui/button"
   const EditShipping = ({shipping,type,userId}:  {
     shipping?: string;
     type: string;

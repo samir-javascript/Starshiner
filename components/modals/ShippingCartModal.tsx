@@ -12,7 +12,7 @@ import { useAppSelector } from '@/lib/hooks';
 import { LucidePencil } from 'lucide-react';
 import AddShippingModal from "./AddShippingModal";
 import { useState } from "react";
-import EditShipping from "./EditShipping";
+import EditShipping from "../EditShipping";
 import EditShippingModal from "./EditShippingModal";
   
 const ShippingCartModal = ({open,setOpen ,_id}: {

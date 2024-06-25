@@ -28,7 +28,7 @@ export default async function Home() {
       <GridCategories />
       <WardrobeCategories />
       <Recommendation hasBg={false} title="Ecological leather articles" url="/recommeded_week" items={ecologicalProducts} />
-      <Recommendation hasBg= {false} title="Plus Size Clothing" url="/recommeded_week" items={plusSizeProducts} />
+      <Recommendation hasBg= {true} title="Plus Size Clothing" url="/recommeded_week" items={plusSizeProducts} />
       <BrandStatement />
      
     </div>

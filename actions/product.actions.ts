@@ -75,3 +75,12 @@ export const getEliticalProducts = cache( async()=> {
        console.log(error)
    } 
 }, ['getEliticalProducts', "/"], {revalidate: 1000 * 24 * 24 * 60})
+export const getPlusSizeProducts = cache( async()=> {
+   try {
+      await connectToDb()
+      const products = await Product.find({position: "plus size"})
+      return products
+   } catch (error) {
+       console.log(error)
+   } 
+}, ['getPlusSizeProducts', "/"], {revalidate: 1000 * 24 * 24 * 60})

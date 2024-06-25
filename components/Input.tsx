@@ -1,23 +1,97 @@
 "use client"
+import { getSuggestionsProducts } from "@/actions/product.actions";
 import { useAppSelector } from "@/lib/hooks";
+import { ProductTypes } from "@/types";
 import { UserButton, useUser } from "@clerk/nextjs";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FaRegHeart, FaSearch, FaShoppingBag } from "react-icons/fa";
+import { IoReloadCircleOutline } from "react-icons/io5";
 
 const InputSearch = () => {
   const [value,setValue] = useState("")
+  const [isLoading,setIsLoading] = useState(false)
   const { user, isLoaded } = useUser()
   const { cartItems } = useAppSelector((state:any) => state?.cart)
-  
+  const [suggestions,setSuggestions] = useState<any>([])
+ 
+   useEffect(() => {
+    const fetchResult = async()=> {
+         setSuggestions([])
+         setIsLoading(true)
+         try {
+             const res = await getSuggestionsProducts({
+                query: value,
+               
+             })
+             // @ts-ignore
+             setSuggestions(JSON.parse(res))
+             setIsLoading(false)
+         } catch (error) {
+             console.log(error)
+             throw error;
+         }finally {
+            setIsLoading(false)
+         }
+    }
+    
+    const delayDebounceFn = setTimeout(() => {
+     if (value) {
+       fetchResult();
+     }
+   }, 500);
+
+   return () => {
+     clearTimeout(delayDebounceFn);
+   };
+    
+
+}, [value])
+console.log(suggestions, "products from input")
   return (
     <>
-    <div className='flex flex-1 max-w-[600px] items-center justify-between bg-white h-[35px] rounded-[25px] border !border-primary-1 px-3 py-1 '>
+   
+    <div className='flex relative flex-1 max-w-[600px] items-center justify-between bg-white h-[35px] rounded-[25px] border !border-primary-1 px-3 py-1 '>
          <input value={value} onChange={(e) => setValue(e.target.value)}
           className='bg-transparent !outline-none !outline-offset-0 border-none flex-1 w-full' 
          placeholder='find the item you want' type="text" />
-          <FaSearch  color="gray" size={18} />
+         {isLoading ? (  <IoReloadCircleOutline size={20} color="gray"  className='  animate-spin '/>) : (  <FaSearch  color="gray" size={18} />)}
+        {suggestions.length  > 0 && (
+  <div className="absolute border border-gray-300 shadow-md bg-white z-[999999999999999999999999999999999999999] top-[40px] flex-col w-[410px] pt-3 flex max-md:hidden ">
+     <Link href={`/search?q=${value}`} className="px-3 mb-4 flex items-center gap-2">
+     <FaSearch  color="gray" size={18} />
+     <p className="text-red-700 font-medium text-base  ">{value} </p>
+     </Link>
+  <div className="px-3">
+       <h2 className="text-[#000] mb-3 capitalize text-[20px] font-semibold ">Related articles</h2>
+  </div>
+  {/* https://photos-de.starshiners.ro/109144/707899-56x84-lo.jpg */}
+ 
+  
+  
+   <div className="bg-gray-1  gap-3 flex flex-col w-full">
+   {suggestions.map((item:ProductTypes,index:number) => (
+      <Link href={`/product/${item._id}`} className="flex border-b p-3 border-gray-400  items-center gap-3" key={index}>
+            <img className="w-[80px] object-contain " src={item?.images[0].url[0] || ""} alt={item?.name} />
+            <div className="flex flex-col ">
+                <p className="line-clamp-1 text-[#222] text-[15px] font-normal  ">{item.name} </p>
+                <div className="flex items-center gap-1.5 ">
+{["S","M", "L","XL", "4XL"]. map((size, index: number) => (
+  <p className="text-[#222] text-[15px] font-normal" key={index}>{size} </p>
+  ))}
+</div>
+                <h3 className="font-bold text-[#000] text-[17px] ">{item?.price} £</h3>
+            </div>
+      </Link>
+   ))}
+</div>
+  
+
+</div>
+        )}
+   
     </div>
+   
     <div className='flex items-center gap-4'>
     <Link href={`/client/profile/${user?.id}`} className='flex items-center gap-1.5'>
          <UserButton  />

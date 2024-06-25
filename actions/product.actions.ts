@@ -84,3 +84,25 @@ export const getPlusSizeProducts = cache( async()=> {
        console.log(error)
    } 
 }, ['getPlusSizeProducts', "/"], {revalidate: 1000 * 24 * 24 * 60})
+export const getSuggestionsProducts = async(params:{
+   query:string
+}) => {
+     try {
+      if (!params.query || typeof params.query !== 'string') return;
+      await connectToDb()
+
+      const regexQuery = { $regex: params.query, $options: "i" };
+      const searchQuery = {
+        $or: [
+          { name: regexQuery },
+          { description: regexQuery },
+          { category: regexQuery },
+        ],
+      };
+      const products = await Product.find(searchQuery)
+      .limit(3)
+      return JSON.stringify(products)
+     } catch (error) {
+       console.log(error, "error getting products by search query for suggestion")
+     }
+}

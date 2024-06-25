@@ -128,8 +128,8 @@ const MobileMegaMenu = ({open,setOpen}: {
                     </ul>
                </AccordionContent>
              </AccordionItem>
-             <AccordionItem value="nested value 6">
-             <AccordionTrigger className='  hover:no-underline px-2 !border-0  text-[#000] tracking-[1px] font-medium uppercase '> colors</AccordionTrigger>
+             <AccordionItem className="!border-b-0" value="nested value 6">
+             <AccordionTrigger className='  hover:no-underline px-2 !border-b-0  text-[#000] tracking-[1px] font-medium uppercase '> colors</AccordionTrigger>
                 <AccordionContent className="ml-[25px] ">
                <ul>
                {colorsDropdown.map((item, index) => (

@@ -1,9 +1,10 @@
-import {
-    Dialog,
-    DialogContent,
+
+  import {
+    AlertDialog,
+  
+    AlertDialogContent,
    
-   
-  } from "@/components/ui/dialog"
+  } from "../ui/alert-dialog"
 import {  FaTimes } from "react-icons/fa";
 import { Button } from "../ui/button";
 import Link from "next/link";
@@ -24,9 +25,9 @@ const CrossSellModal = ({open,setOpen,product} : {
   const isCategory = false
   const formattedPrice = new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(product.price)
   return (
-    <Dialog open={open} onOpenChange={() => setOpen(false)} >
+    <AlertDialog open={open} onOpenChange={() => setOpen(false)} >
    
-    <DialogContent className="bg-white !p-0 h-[90%]
+    <AlertDialogContent className="bg-white !p-0 h-[90%]
      !m-0 !rounded-[15px]
       z-[999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999] ">
          <div className="shadow-md p-4">
@@ -94,8 +95,8 @@ Dress cotton accessorized with belt cloche </p>
      </div>
  
 
-    </DialogContent>
-  </Dialog>
+    </AlertDialogContent>
+  </AlertDialog>
   
   )
 }

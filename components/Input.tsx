@@ -4,6 +4,7 @@ import { useAppSelector } from "@/lib/hooks";
 import { ProductTypes } from "@/types";
 import { UserButton, useUser } from "@clerk/nextjs";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { FaRegHeart, FaSearch, FaShoppingBag } from "react-icons/fa";
 import { IoReloadCircleOutline } from "react-icons/io5";
@@ -14,7 +15,7 @@ const InputSearch = () => {
   const { user, isLoaded } = useUser()
   const { cartItems } = useAppSelector((state:any) => state?.cart)
   const [suggestions,setSuggestions] = useState<any>([])
- 
+   const router = useRouter()
    useEffect(() => {
     const fetchResult = async()=> {
          setSuggestions([])
@@ -47,17 +48,29 @@ const InputSearch = () => {
     
 
 }, [value])
+const handleSearch = ()=> {
+  if(value.trim()) {
+      router.push(`/search?q=${value}`)
+      setValue('')
+  }else {
+     router.push('/')
+  }
+}
 console.log(suggestions, "products from input")
   return (
     <>
    
     <div className='flex relative flex-1 max-w-[600px] items-center justify-between bg-white h-[35px] rounded-[25px] border !border-primary-1 px-3 py-1 '>
-         <input value={value} onChange={(e) => setValue(e.target.value)}
+         <input onKeyPress={(e)=> {
+             if(e.key === "Enter") {
+                handleSearch()
+             }
+           }} value={value} onChange={(e) => setValue(e.target.value)}
           className='bg-transparent !outline-none !outline-offset-0 border-none flex-1 w-full' 
          placeholder='find the item you want' type="text" />
          {isLoading ? (  <IoReloadCircleOutline size={20} color="gray"  className='  animate-spin '/>) : (  <FaSearch  color="gray" size={18} />)}
         {suggestions.length  > 0 && (
-  <div className="absolute border border-gray-300 shadow-md bg-white z-[999999999999999999999999999999999999999] top-[40px] flex-col w-[410px] pt-3 flex max-md:hidden ">
+  <div className="absolute border border-gray-300 shadow-md bg-white !z-[999999999999999999999999999999999999999] top-[40px] flex-col w-[410px] pt-3 flex max-md:hidden ">
      <Link href={`/search?q=${value}`} className="px-3 mb-4 flex items-center gap-2">
      <FaSearch  color="gray" size={18} />
      <p className="text-red-700 font-medium text-base  ">{value} </p>

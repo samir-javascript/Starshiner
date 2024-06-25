@@ -251,7 +251,7 @@ const MobileMegaMenu = ({open,setOpen}: {
                     </ul>
                </AccordionContent>
              </AccordionItem>
-        <div className="w-full border-b border-gray-200 py-3 px-2  ">
+        <div className="w-full py-3 px-2  ">
             <Link href="/new-collections">
                 <p className="uppercase tracking-[1px] text-black-1 text-base font-medium ">bags</p>
             </Link>

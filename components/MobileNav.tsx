@@ -1,21 +1,23 @@
 "use client"
 import Image from 'next/image';
 import Link from 'next/link';
-import React from 'react'
+import React, {useState} from 'react'
 import { MdMenu } from "react-icons/md";
 import { FaSearch, FaRegUser, FaRegHeart, FaShoppingBag } from "react-icons/fa";
 import { RiShoppingBag4Fill } from "react-icons/ri";
 
 import { useAuth } from '@clerk/nextjs';
 import { useAppSelector } from '@/lib/hooks';
+import  MobileMegaMenu  from './MobileMegaMenu';
 const MobileNav = () => {
+    const [open,setOpen] = useState(false)
     const { userId } = useAuth()
     const { cartItems } = useAppSelector((state:any) => state.cart)
   return (
     <div className='md:hidden flex bg-primary-1 h-[60px] w-full '>
         <div className='flex items-center justify-between w-full px-3 h-full'>
               <div className="flex items-center gap-3">
-                  <MdMenu color="white" size={35} />
+                  <MdMenu onClick={() => setOpen(true)} color="white" size={35} />
                   <Link href="/">
                       <Image alt="starshiners"  width={170} height={90} src="https://stcnt.starshiners.ro/img/logo-StarShinerS-2.svg" />
                   </Link>
@@ -42,6 +44,7 @@ const MobileNav = () => {
     </Link>
               </div>
         </div>
+        <MobileMegaMenu open={open} setOpen={setOpen} />
     </div>
   )
 }

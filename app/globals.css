@@ -7,6 +7,9 @@
 .scrollbar-hide {
   scrollbar-width: none;
 }
+.sheet button:not(:first-of-type) svg {
+  display: none !important;
+}
   @layer {
     .input-css {
        @apply !py-3 !px-5 !bg-gray-100 !w-full  !rounded-[15px]  outline-none border-gray-200 text-sm font-medium

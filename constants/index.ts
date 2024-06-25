@@ -103,6 +103,8 @@ export const homeCategories = [
 },
 
 ]
+
+
 // delete this when changing to dynamic rendering;
 export const categories = [
   {

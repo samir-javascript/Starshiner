@@ -15,7 +15,7 @@ export default function MegaMenu() {
   
   return (
     <Mega className='w-full !relative z-[999] max-md:!py-0 !pt-0 border-b border-gray-300'>
-      <div className="hidden sm:!flex max-w-[1200px] !flex-wrap items-center justify-between lg:px-[4rem] md:space-x-8">
+      <div className="hidden sm:!flex max-w-[1000px]  !flex-wrap items-center justify-between lg:px-[4rem] md:space-x-8">
         <Navbar.Toggle />
         <Navbar.Collapse className='!flex items-center flex-wrap w-full'>
           <Link href='/' className='!py-0 flex-shrink-0'>

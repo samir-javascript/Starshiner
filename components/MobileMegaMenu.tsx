@@ -47,14 +47,16 @@ const MobileMegaMenu = ({open,setOpen}: {
              <AccordionTrigger className='  hover:no-underline px-2  text-[#000] tracking-[1px] font-medium uppercase '> Types</AccordionTrigger>
                <AccordionContent className=" ml-[25px]">
                <ul>
-                    {typesDropdown.map((item) => (
-                      <li className='flex items-center border-b py-2  border-gray-200 mb-1.5 gap-1' key={item}>
-                       
-                        <Link className='!text-[15px] text-black-1 ' href="/">
-                          {item}
-                        </Link>
-                      </li>
-                    ))}
+               {typesDropdown.map((item, index) => (
+  <li
+    className={`flex items-center py-2 mb-1.5 gap-1 ${index !== typesDropdown.length - 1 ? 'border-b border-gray-200' : ''}`}
+    key={item}
+  >
+    <Link className='!text-[15px] text-black-1' href="/">
+      {item}
+    </Link>
+  </li>
+))}
                   </ul>
                </AccordionContent>
              </AccordionItem>
@@ -62,14 +64,16 @@ const MobileMegaMenu = ({open,setOpen}: {
              <AccordionTrigger className='  hover:no-underline px-2  text-[#000] tracking-[1px] font-medium uppercase '>Length</AccordionTrigger>
                <AccordionContent className="ml-[25px] ">
                <ul>
-                      {lengthDropdown.map((item) => (
-                        <li className='flex items-center border-b py-2  border-gray-200 mb-1.5 gap-1' key={item}>
-                       
-                        <Link className='!text-[15px] text-black-1 ' href="/">
-                          {item}
-                        </Link>
-                      </li>
-                      ))}
+               {lengthDropdown.map((item, index) => (
+  <li
+    className={`flex items-center py-2 mb-1.5 gap-1 ${index !== lengthDropdown.length - 1 ? 'border-b border-gray-200' : ''}`}
+    key={item}
+  >
+    <Link className='!text-[15px] text-black-1' href="/">
+      {item}
+    </Link>
+  </li>
+))}
                     </ul>
                </AccordionContent>
              </AccordionItem>
@@ -77,14 +81,16 @@ const MobileMegaMenu = ({open,setOpen}: {
              <AccordionTrigger className='  hover:no-underline px-2  text-[#000] tracking-[1px] font-medium uppercase '> material</AccordionTrigger>
              <AccordionContent className="ml-[25px] ">
                <ul>
-                      {materialDropdown.map((item) => (
-                        <li className='flex items-center border-b py-2  border-gray-200 mb-1.5 gap-1' key={item}>
-                       
-                        <Link className='!text-[15px] text-black-1 ' href="/">
-                          {item}
-                        </Link>
-                      </li>
-                      ))}
+               {materialDropdown.map((item, index) => (
+  <li
+    className={`flex items-center py-2 mb-1.5 gap-1 ${index !== materialDropdown.length - 1 ? 'border-b border-gray-200' : ''}`}
+    key={item}
+  >
+    <Link className='!text-[15px] text-black-1' href="/">
+      {item}
+    </Link>
+  </li>
+))}
                     </ul>
                </AccordionContent>
              </AccordionItem>
@@ -92,14 +98,16 @@ const MobileMegaMenu = ({open,setOpen}: {
              <AccordionTrigger className='  hover:no-underline px-2  text-[#000] tracking-[1px] font-medium uppercase hover:font-bold '> events</AccordionTrigger>
              <AccordionContent className="ml-[25px] ">
                <ul>
-                      {eventsDropdown.map((item) => (
-                        <li className='flex items-center border-b py-2  border-gray-200 mb-1.5 gap-1' key={item}>
-                       
-                        <Link className='!text-[15px] text-black-1 ' href="/">
-                          {item}
-                        </Link>
-                      </li>
-                      ))}
+               {eventsDropdown.map((item, index) => (
+  <li
+    className={`flex items-center py-2 mb-1.5 gap-1 ${index !== eventsDropdown.length - 1 ? 'border-b border-gray-200' : ''}`}
+    key={item}
+  >
+    <Link className='!text-[15px] text-black-1' href="/">
+      {item}
+    </Link>
+  </li>
+))}
                     </ul>
                </AccordionContent>
              </AccordionItem>
@@ -107,14 +115,16 @@ const MobileMegaMenu = ({open,setOpen}: {
              <AccordionTrigger className='  hover:no-underline px-2  text-[#000] tracking-[1px] font-medium uppercase hover:font-bold '> seasonal</AccordionTrigger>
                <AccordionContent className="ml-[25px] ">
                <ul>
-                      {seasonalDropdown.map((item) => (
-                        <li className='flex items-center border-b py-2  border-gray-200 mb-1.5 gap-1' key={item}>
-                       
-                        <Link className='!text-[15px] text-black-1 ' href="/">
-                          {item}
-                        </Link>
-                      </li>
-                      ))}
+               {seasonalDropdown.map((item, index) => (
+  <li
+    className={`flex items-center py-2 mb-1.5 gap-1 ${index !== seasonalDropdown.length - 1 ? 'border-b border-gray-200' : ''}`}
+    key={item}
+  >
+    <Link className='!text-[15px] text-black-1' href="/">
+      {item}
+    </Link>
+  </li>
+))}
                     </ul>
                </AccordionContent>
              </AccordionItem>
@@ -122,14 +132,16 @@ const MobileMegaMenu = ({open,setOpen}: {
              <AccordionTrigger className='  hover:no-underline px-2 !border-0  text-[#000] tracking-[1px] font-medium uppercase '> colors</AccordionTrigger>
                 <AccordionContent className="ml-[25px] ">
                <ul>
-                      {colorsDropdown.map((item) => (
-                        <li className='flex items-center border-b py-2  border-gray-200 mb-1.5 gap-1' key={item}>
-                       
-                        <Link className='!text-[15px] text-black-1 ' href="/">
-                          {item}
-                        </Link>
-                      </li>
-                      ))}
+               {colorsDropdown.map((item, index) => (
+  <li
+    className={`flex items-center py-2 mb-1.5 gap-1 ${index !== colorsDropdown.length - 1 ? 'border-b border-gray-200' : ''}`}
+    key={item}
+  >
+    <Link className='!text-[15px] text-black-1' href="/">
+      {item}
+    </Link>
+  </li>
+))}
                     </ul>
                </AccordionContent>
              </AccordionItem>
@@ -145,14 +157,16 @@ const MobileMegaMenu = ({open,setOpen}: {
              <AccordionTrigger className='  hover:no-underline px-2  text-[#000] tracking-[1px] font-medium uppercase '> Blouses, shirts, t-shirts</AccordionTrigger>
                <AccordionContent className=" ml-[25px]">
                <ul>
-                    {shirtsandtshirts.map((item) => (
-                      <li className='flex items-center border-b py-2  border-gray-200 mb-1.5 gap-1' key={item}>
-                       
-                        <Link className='!text-[15px] text-black-1 ' href="/">
-                          {item}
-                        </Link>
-                      </li>
-                    ))}
+               {shirtsandtshirts.map((item, index) => (
+  <li
+    className={`flex items-center py-2 mb-1.5 gap-1 ${index !== shirtsandtshirts.length - 1 ? 'border-b border-gray-200' : ''}`}
+    key={item}
+  >
+    <Link className='!text-[15px] text-black-1' href="/">
+      {item}
+    </Link>
+  </li>
+))}
                   </ul>
                </AccordionContent>
              </AccordionItem>
@@ -160,14 +174,16 @@ const MobileMegaMenu = ({open,setOpen}: {
              <AccordionTrigger className='  hover:no-underline px-2  text-[#000] tracking-[1px] font-medium uppercase '>coats, jackets, blazers</AccordionTrigger>
                <AccordionContent className="ml-[25px] ">
                <ul>
-                      {coats.map((item) => (
-                        <li className='flex items-center border-b py-2  border-gray-200 mb-1.5 gap-1' key={item}>
-                       
-                        <Link className='!text-[15px] text-black-1 ' href="/">
-                          {item}
-                        </Link>
-                      </li>
-                      ))}
+               {coats.map((item, index) => (
+  <li
+    className={`flex items-center py-2 mb-1.5 gap-1 ${index !== coats.length - 1 ? 'border-b border-gray-200' : ''}`}
+    key={item}
+  >
+    <Link className='!text-[15px] text-black-1' href="/">
+      {item}
+    </Link>
+  </li>
+))}
                     </ul>
                </AccordionContent>
              </AccordionItem>
@@ -175,14 +191,16 @@ const MobileMegaMenu = ({open,setOpen}: {
              <AccordionTrigger className='  hover:no-underline px-2  text-[#000] tracking-[1px] font-medium uppercase '>trousers, jeans, jackets</AccordionTrigger>
              <AccordionContent className="ml-[25px] ">
                <ul>
-                      {jeans.map((item) => (
-                        <li className='flex items-center border-b py-2  border-gray-200 mb-1.5 gap-1' key={item}>
-                       
-                        <Link className='!text-[15px] text-black-1 ' href="/">
-                          {item}
-                        </Link>
-                      </li>
-                      ))}
+               {jeans.map((item, index) => (
+  <li
+    className={`flex items-center py-2 mb-1.5 gap-1 ${index !== jeans.length - 1 ? 'border-b border-gray-200' : ''}`}
+    key={item}
+  >
+    <Link className='!text-[15px] text-black-1' href="/">
+      {item}
+    </Link>
+  </li>
+))}
                     </ul>
                </AccordionContent>
              </AccordionItem>
@@ -190,14 +208,16 @@ const MobileMegaMenu = ({open,setOpen}: {
              <AccordionTrigger className='  hover:no-underline px-2  text-[#000] tracking-[1px] font-medium uppercase hover:font-bold '>skirts</AccordionTrigger>
              <AccordionContent className="ml-[25px] ">
                <ul>
-                      {skirts.map((item) => (
-                        <li className='flex items-center border-b py-2  border-gray-200 mb-1.5 gap-1' key={item}>
-                       
-                        <Link className='!text-[15px] text-black-1 ' href="/">
-                          {item}
-                        </Link>
-                      </li>
-                      ))}
+               {skirts.map((item, index) => (
+  <li
+    className={`flex items-center py-2 mb-1.5 gap-1 ${index !== skirts.length - 1 ? 'border-b border-gray-200' : ''}`}
+    key={item}
+  >
+    <Link className='!text-[15px] text-black-1' href="/">
+      {item}
+    </Link>
+  </li>
+))}
                     </ul>
                </AccordionContent>
              </AccordionItem>
@@ -246,14 +266,16 @@ const MobileMegaMenu = ({open,setOpen}: {
      <AccordionTrigger className='  hover:no-underline px-2  text-black-1 tracking-[1px] hover:font-bold hover:text-primary-1 transition-all duration-300 font-medium uppercase '> NEW arrivals 2024</AccordionTrigger>
       <AccordionContent className="ml-[25px] ">
                <ul>
-                      {arrivals.map((item) => (
-                        <li className='flex items-center border-b py-2  border-gray-200 mb-1.5 gap-1' key={item}>
-                       
-                        <Link className='!text-[15px] text-black-1 ' href="/">
-                          {item}
-                        </Link>
-                      </li>
-                      ))}
+               {arrivals.map((item, index) => (
+  <li
+    className={`flex items-center py-2 mb-1.5 gap-1 ${index !== arrivals.length - 1 ? 'border-b border-gray-200' : ''}`}
+    key={item}
+  >
+    <Link className='!text-[15px] text-black-1' href="/">
+      {item}
+    </Link>
+  </li>
+))}
                     </ul>
                </AccordionContent>
    </AccordionItem>
@@ -262,14 +284,16 @@ const MobileMegaMenu = ({open,setOpen}: {
      <AccordionTrigger className='  hover:no-underline px-2 hover:font-bold hover:text-primary-1 transition-all duration-300  text-black-1 tracking-[1px]  font-medium uppercase '> % sales & offers</AccordionTrigger>
      <AccordionContent className="ml-[25px] ">
                <ul>
-                      {salesAndOffers.map((item) => (
-                        <li className='flex items-center border-b py-2  border-gray-200 mb-1.5 gap-1' key={item}>
-                       
-                        <Link className='!text-[15px] text-black-1 ' href="/">
-                          {item}
-                        </Link>
-                      </li>
-                      ))}
+               {salesAndOffers.map((item, index) => (
+  <li
+    className={`flex items-center py-2 mb-1.5 gap-1 ${index !== salesAndOffers.length - 1 ? 'border-b border-gray-200' : ''}`}
+    key={item}
+  >
+    <Link className='!text-[15px] text-black-1' href="/">
+      {item}
+    </Link>
+  </li>
+))}
                     </ul>
                </AccordionContent>
    </AccordionItem>

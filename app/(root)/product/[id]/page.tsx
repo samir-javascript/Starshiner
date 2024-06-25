@@ -28,11 +28,11 @@ const Page = async({params}:props) => {
   const currentUser = await getCurrentUser({clerkId: userId as string})
   return (
     
-    <div className='w-full bg-white py-4 h-full'>
+    <div  className='w-full bg-white  py-4 h-full'>
       <div className='max-w-[1200px] flex flex-col mx-auto'>
         <div className='flex items-center px-3 mb-3 gap-1'>
           <Link className='text-black-1 text-sm hover:underline font-medium' href="/">
-            StarShinerS.com
+             StarShinerS.com
           </Link>
           <IoChevronForwardSharp />
           <Link className='text-black-1 text-sm hover:underline font-medium' href="/">

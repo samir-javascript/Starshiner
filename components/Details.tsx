@@ -9,9 +9,10 @@ import { addToCart } from '@/lib/features/cartSlice';
 import { useAppDispatch } from '@/lib/hooks';
 import { useEffect, useOptimistic, useState } from 'react';
 import { useRouter } from 'next/navigation';
-
+import {  Tooltip } from "flowbite-react";
 import SizesModal from './modals/SizesModal';
 import CrossSellModal from './modals/CrossSellModal';
+import { ProductTypes } from '@/types';
 interface Size {
   size: string;
   stock: number;
@@ -44,6 +45,7 @@ const Details = ({result, currentUser}: {
   const dispatch = useAppDispatch()
    const parsedResult = JSON.parse(result)
    const parsedUser = JSON.parse(currentUser)
+   const [hoveredColor,setHoveredColor] = useState('')
    const [selectedColor, setSelectedColor] = useState(parsedResult.images[0].colors[0].color);
    const [selectedSize,setSelectedSize] = useState('')
    const getSizesForSelectedColor = (selectedColor: string) => {
@@ -123,6 +125,11 @@ const handleToggleWishlist = async () => {
   }
 };
 
+const filteredImages = parsedResult.images.filter((item:any) =>
+  item.colors.some((color:any) => color.color === hoveredColor)
+);
+
+const imageToDisplay = filteredImages.length > 0 ? filteredImages[0].url[0] : '';
 
 
 
@@ -180,11 +187,16 @@ const handleToggleWishlist = async () => {
         <div className="flex items-center gap-2">
         {parsedResult.images.flatMap((item: any) =>
                       item.colors.map((color: any, index: number) => (
+                        <Tooltip  style="dark" content={<div  className='border-3 border-black-1 tooltip-dark '>
+                            <img className="w-[90px] object-contain " src={imageToDisplay} alt="product picture" />
+                        </div>} placement="bottom" >
                         <div
                           key={index}
-                          className="border-2 border-gray-300 flex items-center justify-center rounded-full w-[40px] h-[40px] p-[2px]"
+                          onMouseEnter={() => setHoveredColor(color.color)}
+                          className="border-2 cursor-pointer border-gray-300 flex items-center justify-center rounded-full w-[40px] h-[40px] p-[2px]"
                           onClick={() => {
                             setSelectedColor(color.color)
+
                             setSelectedSize('')
                           }}
                         >
@@ -193,6 +205,7 @@ const handleToggleWishlist = async () => {
                             className="w-full h-full rounded-full"
                           />
                         </div>
+                        </Tooltip>
                       ))
                     )}
         </div>

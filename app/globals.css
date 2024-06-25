@@ -10,6 +10,12 @@
 .sheet button:not(:first-of-type) svg {
   display: none !important;
 }
+.tooltip-dark {
+  --tw-tooltip-bg: #000;
+  --tw-tooltip-color: #fff;
+  --tw-tooltip-border: 1px solid #333;
+}
+
   @layer {
     .input-css {
        @apply !py-3 !px-5 !bg-gray-100 !w-full  !rounded-[15px]  outline-none border-gray-200 text-sm font-medium

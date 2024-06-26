@@ -1,4 +1,4 @@
-import { getProductsByCategory } from '@/actions/product.actions'
+import { getArticles, getProductsByCategory } from '@/actions/product.actions'
 import { getCurrentUser } from '@/actions/user.actions'
 import FilterColumn from '@/components/FilterColumn'
 import MobileFilter from '@/components/MobileFilter'
@@ -9,10 +9,10 @@ import React from 'react'
 import { FaSortAmountDown } from 'react-icons/fa'
 import { IoChevronForwardOutline, IoFilter } from 'react-icons/io5'
 
-const page = async({params}: {params: {category:string}}) => {
+const page = async({params}: {params: {category:string, page: number}}) => {
    const {userId} = auth()
    const currentUser = await getCurrentUser({clerkId: userId as string})
-   const products = await getProductsByCategory({categoryName:params.category})
+   const result = await getArticles({page: params.page || 1})
 
   return (
     <div className="w-full bg-white lg:py-7">
@@ -49,7 +49,7 @@ const page = async({params}: {params: {category:string}}) => {
                     
                   </div>
                   <div className='flex-1 flex items-center w-full gap-2 flex-wrap lg:justify-start justify-center'>
-                         {products?.map((item,i) => (
+                         {result?.products?.map((item,i) => (
                              <ProductCard item={JSON.stringify(item)} currentUser={JSON.stringify(currentUser)}  isCategory  key={i} />
                          ) )}
                   </div>

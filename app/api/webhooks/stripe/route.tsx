@@ -36,7 +36,7 @@ export const POST = async (req: NextRequest) => {
       console.error('Error verifying webhook signature:', err);
       return NextResponse.json({ error: 'Webhook signature verification failed' }, { status: 400 });
     }
-       if(event.type === "payment_intent.canceled") {
+       if(event.type === "checkout.session.async_payment_failed") {
         const charge = event.data.object;
         const referenceId = charge?.metadata?.referenceId
         console.log(referenceId, "Received referenceId");

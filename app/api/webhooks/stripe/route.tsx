@@ -36,8 +36,49 @@ export const POST = async (req: NextRequest) => {
       console.error('Error verifying webhook signature:', err);
       return NextResponse.json({ error: 'Webhook signature verification failed' }, { status: 400 });
     }
-
-    if (event.type === "checkout.session.completed") {
+       if(event.type === "payment_intent.canceled") {
+        const charge = event.data.object;
+        const referenceId = charge?.metadata?.referenceId
+        console.log(referenceId, "Received referenceId");
+  
+        const cart = await Cart.findOne({ referenceId: referenceId });
+        if (!cart) {
+          console.error('Cart not found for referenceId:', referenceId);
+          return NextResponse.json({ error: "Cart not found" }, { status: 404 });
+        }
+        const order = new OrderModel({
+      
+          orderItems: cart.cartItems.map((x:any) => ({
+            ...x,
+            product: x._id,
+            _id: undefined
+          })),
+          deliveryStatus: "ordered",
+          paymentIntent: null,
+          paymentStatus: "canceled",
+          itemsPrice: cart.totalAmount,
+          totalAmount: cart.totalAmount,
+          userId: charge?.metadata?.userId,
+          paymentMethode: "Stripe",
+          isPaid: false, 
+         
+          shippingAmount: cart.shippingAmount,
+          shippingAddress: cart.shippingAddress,
+         
+        });
+        await order.save();
+        await Cart.findByIdAndDelete(cart._id)
+        // Update product stock based on cart items
+        // for (const item of cart.cartItems) {
+        //   await Product.updateOne({ _id: item._id }, { $inc: { stock: -item.qty } });
+        // }
+  
+        // Send a confirmation email [we need to verify domain name]
+        revalidatePath("/active-orders")
+        revalidatePath("/ordersList")
+        return NextResponse.json({ message: "Webhook processed successfully" });
+       }
+   else if (event.type === "checkout.session.completed") {
       const charge = event.data.object;
       const referenceId = charge?.metadata?.referenceId
       console.log(referenceId, "Received referenceId");

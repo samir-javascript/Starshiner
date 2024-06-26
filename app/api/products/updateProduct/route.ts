@@ -21,6 +21,7 @@ export async function PUT(req:Request) {
           product.category = category;
          await product.save()
          revalidatePath(path)
+         revalidatePath("/all-articles")
          revalidatePath('/')
          return NextResponse.json({message: "product has been updated"})
        }

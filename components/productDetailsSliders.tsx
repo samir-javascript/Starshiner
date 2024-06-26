@@ -5,7 +5,7 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import SwiperCore, { Navigation, Pagination, Scrollbar, A11y } from 'swiper/modules';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 // Import Swiper styles
 interface Size {
@@ -29,18 +29,25 @@ const ProductDetailsSlides = ({ images, selectedColor }: { images: ImageDetails[
   );
 
   const imagesToDisplay = filteredImages.length > 0 ? filteredImages : images;
- 
+  const [selectedImage,setSelectedImage] = useState(imagesToDisplay[0].url[0])
+  const handleThumbnailClick = (thumbnail:string) => {
+    setSelectedImage(thumbnail);
+  };
+  useEffect(() => {
+    setSelectedImage(imagesToDisplay[0].url[0])
+  }, [selectedColor])
   return (
     <div className='flex items-start w-full gap-4'>
       <div className='md:flex items-center hidden flex-col border-2 border-gray-200 rounded-[10px]'>
         {imagesToDisplay.map((item, i) => (
           <div key={i}>
             {item.url.map((url, urlIndex) => (
-              <img
+              <img 
+              onClick={() => handleThumbnailClick(url)}
                 key={urlIndex}
-                className='rounded-tr-[10px] w-[100px] object-cover rounded-tl-[10px]'
+                className={`${selectedImage === url ? "opacity-[0.7] " : ""} rounded-tr-[10px] cursor-pointer w-[100px] transition-all duration-300 hover:opacity-[0.8] object-cover rounded-tl-[10px]`}
                 src={url}
-                alt=""
+                alt={url}
               />
             ))}
           </div>
@@ -49,9 +56,9 @@ const ProductDetailsSlides = ({ images, selectedColor }: { images: ImageDetails[
       <div className='md:block hidden w-full'>
         <img
           className='md:border-2 w-full object-cover border-gray-300 md:rounded-[15px]'
-          src={imagesToDisplay[0].url[0]}
+          src={selectedImage}
          
-          alt=""
+          alt={selectedImage}
         />
       </div>
       <div className='md:hidden w-full'>

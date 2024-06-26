@@ -11,6 +11,7 @@ export async function DELETE(req:Request) {
        if(product) {
            await Product.findByIdAndDelete(product._id)
            revalidatePath(path)
+           revalidatePath("/all-articles")
            revalidatePath('/productsList')
            revalidatePath('/')
            return NextResponse.json({message: "product has been deleted successfuly"})

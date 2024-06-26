@@ -29,6 +29,25 @@ export const getProducts =  cache (async(params: {
    }
 }, ['/', "getProducts"], {revalidate: 60 * 60 * 24})
 
+export const getArticles =  cache (async(params: {
+   page: number
+})=> {
+   await connectToDb()
+   const pageSize = 65;
+   const { page } = params;
+   const skipAmount = pageSize * (page - 1)
+   try {
+      const products = await Product.find({})
+      .limit(pageSize)
+      .skip(skipAmount)
+      return {
+         products, page, pages: Math.ceil(products.length / pageSize)
+        
+      }
+   } catch (error) {
+      console.log(error)
+   }
+}, ['/', "getArticles", "/all-articles"], {revalidate: 60 * 60 * 24})
 export async function getProductById(params: {productId:string}) {
    await connectToDb()
        try {
@@ -105,4 +124,42 @@ export const getSuggestionsProducts = async(params:{
      } catch (error) {
        console.log(error, "error getting products by search query for suggestion")
      }
+}
+export const getSearchQueryProducts = async(params:{
+   query:string;
+   filter?:string
+}) => {
+     try {
+      if (!params.query || typeof params.query !== 'string') return;
+      await connectToDb()
+
+      const regexQuery = { $regex: params.query, $options: "i" };
+      const searchQuery = {
+        $or: [
+          { name: regexQuery },
+          { description: regexQuery },
+          { category: regexQuery },
+        ],
+      };
+      const products = await Product.find(searchQuery)
+      
+      return products
+     } catch (error) {
+       console.log(error, "error getting products by search query for suggestion")
+     }
+}
+
+export const getProductsByCategory = async(params: {
+   filter?:string;
+   categoryName:string
+})=> {
+   if(!params.categoryName) return
+   const regexQuery = { $regex: params.categoryName, $options: "i" };
+    try {
+      await connectToDb()
+      const products = await Product.find({category: regexQuery})
+      return products;
+    } catch (error) {
+        console.log(error)
+    }
 }

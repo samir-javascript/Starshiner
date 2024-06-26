@@ -16,6 +16,7 @@ export const POST = async(req:Request) => {
                  position,
                  colors,
           })
+          revalidatePath("/all-articles")
           revalidatePath(path)
           revalidatePath("/")
           return NextResponse.json({product , message: "product has been created!"})

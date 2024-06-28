@@ -27,8 +27,8 @@ export default async function Home() {
       <Recommendation hasBg={true} title="This week`s recommendations" url="/recommeded_week" items={result} />
       <GridCategories />
       <WardrobeCategories />
-      <Recommendation hasBg={false} title="Ecological leather articles" url="/recommeded_week" items={ecologicalProducts} />
-      <Recommendation hasBg= {true} title="Plus Size Clothing" url="/recommeded_week" items={plusSizeProducts} />
+      <Recommendation hasBg={false} title="Ecological leather articles" url="/Ecological-leather-articles" items={ecologicalProducts} />
+      <Recommendation hasBg= {true} title="Plus Size Clothing" url="/plus-size" items={plusSizeProducts} />
       <BrandStatement />
      
     </div>

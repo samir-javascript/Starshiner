@@ -37,9 +37,9 @@ export async function POST(req: Request) {
         }));
 
         const customer = await stripe.customers.create({
-            phone: "0609547692", // Consider using real customer data if available
-            email: "soufianehmamou92@gmail.com",
-            name: "soufiane hmamou",
+            phone:user?.phoneNumber || "", // Consider using real customer data if available
+            email: user?.email || "",
+            name: user?.username || "",
         });
 
         const checkoutSession = await stripe.checkout.sessions.create({

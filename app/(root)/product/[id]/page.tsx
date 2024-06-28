@@ -8,6 +8,8 @@ import Recommendation from '@/components/Recommendation';
 import { recommendedProducts } from '@/constants';
 import { ReviewProps } from '@/types';
 import { auth } from '@clerk/nextjs/server';
+import type { Metadata } from 'next';
+
 import Image from 'next/image';
 
 import Link from 'next/link';
@@ -21,7 +23,16 @@ interface props {
     id: string;
   }
 }
+
+export async function generateMetadata({ params }: {params: {id:string}}) {
+  const result = await getProductById({productId: params.id})
+    return {
+      title: `StarshinerS | ${result.name}`,
+      description: result.description,
+    }
+  }
 const Page = async({params}:props) => {
+  
   const result = await getProductById({productId: params.id})
   if(result == null) return notFound()
     const {userId} = auth()

@@ -9,22 +9,27 @@ import React from 'react'
 import { FaSortAmountDown } from 'react-icons/fa'
 import { IoChevronForwardOutline, IoFilter } from 'react-icons/io5'
 
-const page = async({params}: {params: {category:string, page: number}}) => {
+const page = async({searchParams}: {
+   searchParams: {
+      page: number,
+      color: string[]
+   }
+}) => {
    const {userId} = auth()
    const currentUser = await getCurrentUser({clerkId: userId as string})
-   const result = await getArticles({page: params.page || 1})
-
+   const result = await getArticles({page: searchParams.page || 1})
+console.log(searchParams.color, "search params from server")
   return (
     <div className="w-full bg-white lg:py-7">
         <div className='lg:max-w-[1200px] w-full mx-auto  lg:px-3 flex-col flex'>
-               <div>
+               {/* <div>
                <picture className="pc lg:flex hidden ">
 				<img className='rounded-[15px] ' src="https://stcnt.starshiners.ro/img/banners/banner-denim15-april-2024-4.jpg?5" alt="-15% Extra discount" />
 			</picture>
          <picture className="mobile lg:hidden flex">
 				<img src="https://stcnt.starshiners.ro/img/mobile/banners/mobile-banner-denim15-april-2024-4.jpg?5" alt="-15% Extra discount" />
 			</picture>
-               </div>
+               </div> */}
                <div className='flex  max-lg:px-3 flex-col gap-1 mt-3'>
                <div className='flex items-center gap-1'>
                     <Link className='text-sm font-medium text-black-1 ' href="/">

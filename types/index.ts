@@ -96,19 +96,19 @@ interface Size {
      description:string;
      category:string;
      price: number;
-     prevPrice: string;
+     prevPrice: number;
      isNewProduct: boolean;
      numReviews: number;
      rating: number;
      position:string;
      reviews: {
-          user: string;
+          user:any;
           title: string
           name:string
           rating: number
      }[];
       questions: {
-          user:string 
+          user:any
           name:string
           question:string
       }[]

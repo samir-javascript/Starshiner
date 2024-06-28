@@ -19,7 +19,7 @@ const Recommendation = ({title, items, url, hasBg = false}: {
    items: ProductTypes[]
 }) => {
  
-  // Create array with 500 slides
+  
   const [isMobile, setIsMobile] = useState(false);
  
    useEffect(() => {
@@ -51,7 +51,7 @@ const Recommendation = ({title, items, url, hasBg = false}: {
         slidesPerView={isMobile ? 2 : 4}
         navigation
       
-        autoplay={{ delay: 2500 }}
+       
         scrollbar={{ draggable: true }}
         onSwiper={(swiper) => console.log(swiper)}
         onSlideChange={() => console.log('swipe')}
@@ -59,13 +59,13 @@ const Recommendation = ({title, items, url, hasBg = false}: {
         {items.map((item,i:number) => (
             <SwiperSlide key={i}>
               <Link href={`/product/${item._id}`} className='flex flex-col'>
-                 <img width={300} height={300} className="object-contain w-full" src={item.images && item?.images[0]?.url[0] || ""} alt={item?.name}/>
+                 <Image width={300} height={300} className="object-contain w-full" src={item.images && item?.images[0]?.url[0] || ""} alt={item?.name}/>
                  <article className='bg-white  p-3 flex flex-col items-center justify-center'>
                       <p className="line-clamp-1 text-black-1 text-sm font-normal ">{item.name} </p>
                       <div  className="flex  items-center gap-1">
                         
-                            {item.images && item.images[0].colors.map((color: any, index: number) => (
-                        color.sizes.map(((x:any) => (
+                            {item.images && item.images[0].colors.map((color: any) => (
+                        color.sizes.map(((x:{size:string,_id:string}) => (
                           <p className="text-[#121212] text-sm font-normal" key={x._id}>{x.size}</p>
                       )))
                       ))

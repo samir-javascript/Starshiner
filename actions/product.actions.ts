@@ -1,8 +1,7 @@
 "use server"
 import Product from "@/schemas/productModel";
 import { connectToDb } from "@/db";
-import { CreateProductParams, UpdateProductParams } from "@/types";
-import { revalidatePath } from "next/cache";
+
 import { cache } from "@/lib/cache";
 import { notFound } from "next/navigation";
 import OrderModel from "@/schemas/orderModel";
@@ -30,7 +29,8 @@ export const getProducts =  cache (async(params: {
 }, ['/', "getProducts"], {revalidate: 60 * 60 * 24})
 
 export const getArticles =  cache (async(params: {
-   page: number
+   page: number;
+   categories?:string[]
 })=> {
    await connectToDb()
    const pageSize = 65;

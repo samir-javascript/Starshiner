@@ -1,6 +1,6 @@
 "use client"
 
- import Image from "next/image";
+
  import { FormEvent, useRef, useState } from "react";
  import { Button } from "@/components/ui/button";
  import * as LR from '@uploadcare/blocks';
@@ -136,14 +136,14 @@ const formRef = useRef<HTMLFormElement>(null)
        setLoading(false);
      }
    };
-console.log(f, "f hereeee")
+
 
    return (
-     <div className="w-full flex flex-col gap-2 py-10">
-       <form ref={formRef} onSubmit={handleCreateProduct} className="max-w-[700px] md:w-[700px] mx-auto flex flex-col gap-7">
+     <div className="w-full flex max-md:px-3 flex-col gap-2 py-10">
+       <form ref={formRef}  onSubmit={handleCreateProduct} className="max-w-[700px]  md:w-[700px] mx-auto flex flex-col gap-7">
          <div className="flex flex-col gap-2">
            <label className="label-css" htmlFor="productName">Product Name</label>
-           <input value={name} name="name" onChange={(e) => setName(e.target.value)} className="input-css" type="text" placeholder="Product Name" />
+           <input  value={name} name="name" onChange={(e) => setName(e.target.value)} className="input-css" type="text" placeholder="Product Name" />
          </div>
          <div className="flex flex-col gap-2">
            <label className="label-css" htmlFor="productDescription">Product Description</label>
@@ -153,6 +153,15 @@ console.log(f, "f hereeee")
            <label className="label-css" htmlFor="productCategory">Product Category</label>
            <input name="category" value={category} onChange={(e) => setCategory(e.target.value)} className="input-css" type="text" placeholder="Product Category" />
          </div>
+
+
+
+
+
+
+
+
+
 
          {/* Image, Color, and Size Management */}
          <div>
@@ -172,13 +181,7 @@ console.log(f, "f hereeee")
 
            <div>
              <p className='text-sm font-semibold text-[#000] capitalize'>Select Image</p>
-             {/* <select className='outline-none border border-gray-300 px-2.5 py-2 font-medium mb-2 rounded-[10px] bg-gray-200' onChange={(e) => setSelectedImage(e.target.value)} defaultValue="">
-               <option value="" disabled>Select image</option>
-               {images.map((img, index) => (
-                  <option key={index} value={img.url}>{img.url}</option>
-               ))}
-               
-             </select> */}
+            
            <select
   className='outline-none border border-gray-300 px-2.5 py-2 font-medium mb-2 rounded-[10px] bg-gray-200'
   onChange={(e) => setSelectedImage(e.target.value)}
@@ -260,6 +263,21 @@ console.log(f, "f hereeee")
              </div>
            )}
          </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
          <div className="flex flex-col gap-2">
            <label className="label-css" htmlFor="productPrice">Product Price</label>

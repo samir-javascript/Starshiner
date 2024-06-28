@@ -13,7 +13,7 @@ const InputSearch = () => {
   const [value,setValue] = useState("")
   const [isOpen,setIsOpen] = useState(false)
   const [isLoading,setIsLoading] = useState(false)
-  const { user, isLoaded } = useUser()
+  const { user  } = useUser()
   const { cartItems } = useAppSelector((state:any) => state?.cart)
   const [suggestions,setSuggestions] = useState<any>([])
   const searchContainerRef = useRef(null)
@@ -115,9 +115,13 @@ console.log(suggestions, "products from input")
             <div className="flex flex-col ">
                 <p className="line-clamp-1 text-[#222] text-[15px] font-normal  ">{item.name} </p>
                 <div className="flex items-center gap-1.5 ">
-{["S","M", "L","XL", "4XL"]. map((size, index: number) => (
-  <p className="text-[#222] text-[15px] font-normal" key={index}>{size} </p>
-  ))}
+                {item?.images && item?.images[0].colors.map((color: any) => (
+                        color.sizes.map(((x:{size:string,_id:string}) => (
+                          <p className="text-[#121212] text-sm font-normal" key={x._id}>{x.size}</p>
+                      )))
+                      ))
+                      }
+  
 </div>
                 <h3 className="font-bold text-[#000] text-[17px] ">{item?.price} £</h3>
             </div>

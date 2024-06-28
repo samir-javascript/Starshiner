@@ -7,7 +7,11 @@ import { auth } from '@clerk/nextjs/server'
 import Link from 'next/link'
 import React from 'react'
 import { IoChevronForwardOutline } from 'react-icons/io5'
-
+export async function generateMetadata({ searchParams}: {searchParams: {q:string}})  {
+  return {
+    title: `StarshinerS | Search results for ${searchParams.q}`,
+  }
+}
 const page = async({searchParams}: {
     searchParams: {
         q:string

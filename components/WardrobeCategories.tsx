@@ -1,5 +1,5 @@
 "use client"
-import { Virtual, Navigation, Pagination, Scrollbar, A11y } from 'swiper/modules';
+import { Navigation, Scrollbar, A11y } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 // Import Swiper styles
@@ -46,7 +46,7 @@ const WardrobeCategories = () => {
         {wardrobeColumn.map((item) => (
             <SwiperSlide key={item.name}>
               <Link href={`/${item.name}`} className='flex flex-col items-center justify-center gap-1.5'>
-                 <img className='rounded-[20px] ' src={item.img} alt={item.name}/>
+                 <img loading='lazy' className='rounded-[20px] ' src={item.img} alt={item.name}/>
                 <p className='font-bold text-black text-base '>{item.name} </p>
               </Link>
           

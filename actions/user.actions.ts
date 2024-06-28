@@ -57,6 +57,7 @@ export async function updateUser(params:UpdateUserParams) {
      }
      await User.findByIdAndUpdate(user._id, userData)
      revalidatePath(path)
+     revalidatePath('/usersList')
   } catch (error) {
      console.log(error, "error while updating user profile")
   }

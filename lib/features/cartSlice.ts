@@ -37,7 +37,7 @@ const cartSlice = createSlice({
   reducers: {
     addToCart: (state, action) => {
       const {...item} = action.payload;
-       console.log(item, "item item from state")
+      
        const existsItem = state.cartItems.find((x)=> x.selectedColor === item.selectedColor && x.selectedSize === item.selectedSize && x._id ===  item._id)
       if(existsItem) {
           existsItem.qty += item.qty;

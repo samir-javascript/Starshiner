@@ -79,8 +79,9 @@ const Details = ({result, currentUser}: {
       price: parsedResult.price,
       qty: qty,
     })
-    router.refresh()
     setOpen(true)
+    router.refresh()
+   
 
   };
 
@@ -151,7 +152,7 @@ const imageToDisplay = filteredImages.length > 0 ? filteredImages[0].url[0] : ''
                   <FaStar color="black" />
                   <FaStar color="black" />
                   <FaStar color="black" />
-                  <p className='text-gray-500 text-sm font-medium'>5.0 (9 votes)</p>
+                  <p className='text-gray-500 text-sm font-medium'>{parsedResult?.rating} ({parsedResult?.numReviews} votes)</p>
                 </div>
               </div>
             </div>
@@ -223,7 +224,7 @@ const imageToDisplay = filteredImages.length > 0 ? filteredImages[0].url[0] : ''
                     disabled={size.stock === 0}
                     className={`${
                       size.stock === 0 ? 'bg-gray-100 line-through select-none cursor-default  ' : ''
-                    } ${selectedSize === size.size ? "!border-2 !border-green-1" : ""} ${size.size.includes("ONE SIZE") ? "w-[200px] " : "w-[80px] "} outline-none border border-gray-300 cursor-pointer hover:border-black-1 rounded-[10px]  flex items-center justify-center px-3 py-3`}
+                    } ${selectedSize === size.size ? "!border-2 !border-green-1" : ""} ${size.size.includes("ONE SIZE") ? "w-[150px] " : "w-[80px] "} outline-none border border-gray-300 cursor-pointer hover:border-black-1 rounded-[10px]  flex items-center justify-center px-3 py-3`}
                   >
                     <p
                       className={`${

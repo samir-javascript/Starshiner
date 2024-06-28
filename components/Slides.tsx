@@ -1,11 +1,6 @@
 "use client"
 import Autoplay from "embla-carousel-autoplay"
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip"
+
 import {
   Carousel,
   CarouselContent,
@@ -17,7 +12,7 @@ import {
 import { useRef } from 'react'
 
 import { authoritySlides } from "@/constants"
-import Link from "next/link"
+
 import Image from "next/image"
 export default function CategoriesSlider() {
    const plugin = useRef(
@@ -44,7 +39,7 @@ export default function CategoriesSlider() {
         {authoritySlides.map((item, index) => (
           <CarouselItem key={index} className="max-sm:basis-1/2 md:basis-1/4 lg:basis-1/5">
              <div className="flex items-center justify-center    gap-2 lg:mx-4 mx-auto">
-               <Image width={35} height={35}  className='  object-contain '
+               <Image  width={35} height={35}  className='  object-contain '
                           src={item.icon} alt={item.name} />
                     <p className="text-[#141415]  font-bold line-clamp-2 uppercase text-[13px]  ">{item.name} </p>
                    

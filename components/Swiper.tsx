@@ -5,7 +5,7 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import SwiperCore, { Navigation, Pagination, Scrollbar, A11y } from 'swiper/modules';
-import Image from 'next/image';
+
 //import Image from 'next/image';
 
 
@@ -29,35 +29,35 @@ const MySwiper = () => {
         onSlideChange={() => console.log('swipe')}
       >
         <SwiperSlide>
-                  <picture className="pc relative md:flex hidden">
-																	<Image priority width={1000} height={1000}   className='rounded-[20px] w-full' src="https://static.starshiners.ro/files/banners/slds/322_24_06_06__05_35_com_desktop.jpg" alt="online fashion store - StarShinerS" />
+                  <picture className="pc  md:flex hidden">
+																	<img loading="lazy"   className='rounded-[20px] w-full' src="https://static.starshiners.ro/files/banners/slds/322_24_06_06__05_35_com_desktop.jpg" alt="online fashion store - StarShinerS" />
 									</picture>
-            <picture className="mobile relative md:hidden block">
-									 										<Image width={1000} height={1000} priority   src="https://static.starshiners.ro/files/banners/slds/322_24_06_06__05_34_com_mobil.jpg" alt="online fashion store - StarShinerS" />
+            <picture className="mobile  md:hidden block">
+									 										<img    src="https://static.starshiners.ro/files/banners/slds/322_24_06_06__05_34_com_mobil.jpg" alt="online fashion store - StarShinerS" />
 									 </picture>
         </SwiperSlide>
         <SwiperSlide>
         <picture className="pc md:flex hidden">
-																		<Image priority width={1000} height={1000}  alt="online fashion store  - StarshinerS" className='rounded-[20px] ' src="https://static.starshiners.ro/files/banners/slds/193_24_05_14__02_54_desktop_1.jpg" />
+																		<img loading="lazy"  alt="online fashion store  - StarshinerS" className='rounded-[20px] ' src="https://static.starshiners.ro/files/banners/slds/193_24_05_14__02_54_desktop_1.jpg" />
 									</picture>
                   <picture className="mobile md:hidden flex">
-																<Image priority width={1000} height={1000}  alt="online fashion store  - StarshinerS"  src="https://static.starshiners.ro/files/banners/slds/193_24_05_14__02_55_hr_mobil.jpg" />
+																<img loading="lazy"  alt="online fashion store  - StarshinerS"  src="https://static.starshiners.ro/files/banners/slds/193_24_05_14__02_55_hr_mobil.jpg" />
 									</picture>
         </SwiperSlide>
         <SwiperSlide>
         <picture className="pc md:flex hidden">
-																		<Image priority width={1000} height={1000}  alt="online fashion store  - StarshinerS" className='rounded-[20px] ' src="https://static.starshiners.ro/files/banners/slds/64_24_05_14__01_23_i_love_denim_desktop.jpg" />
+																		<img loading="lazy"  alt="online fashion store  - StarshinerS" className='rounded-[20px] ' src="https://static.starshiners.ro/files/banners/slds/64_24_05_14__01_23_i_love_denim_desktop.jpg" />
 									</picture>
                   <picture className="mobile md:hidden flex">
-																		<Image priority width={1000} height={1000} alt="online fashion store - StarshinerS"  src="https://static.starshiners.ro/files/banners/slds/64_24_05_14__01_24_i_love_denim_mobil.jpg" />
+																		<img loading="lazy" alt="online fashion store - StarshinerS"  src="https://static.starshiners.ro/files/banners/slds/64_24_05_14__01_24_i_love_denim_mobil.jpg" />
 									</picture>
         </SwiperSlide>
         <SwiperSlide>
         <picture className="pc md:flex hidden">
-																<Image priority width={1000} height={1000} alt="online fashion store - StarshinerS"  className='rounded-[20px] ' src="https://static.starshiners.ro/files/banners/slds/316_24_03_25__02_37_com_office.jpg" />
+																<img loading="lazy" alt="online fashion store - StarshinerS"  className='rounded-[20px] ' src="https://static.starshiners.ro/files/banners/slds/316_24_03_25__02_37_com_office.jpg" />
 									</picture>
                   <picture className="mobile md:hidden flex">
-																		<Image priority width={1000} height={1000}  alt="online fashion store - StarshinerS" src="https://static.starshiners.ro/files/banners/slds/316_24_03_25__02_34_com_office_mobil.jpg" />
+																		<img loading="lazy"  alt="online fashion store - StarshinerS" src="https://static.starshiners.ro/files/banners/slds/316_24_03_25__02_34_com_office_mobil.jpg" />
 									</picture>
         </SwiperSlide>
         {/* Add more slides as needed */}

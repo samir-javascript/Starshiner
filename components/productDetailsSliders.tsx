@@ -6,7 +6,7 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import SwiperCore, { Navigation, Pagination, Scrollbar, A11y } from 'swiper/modules';
 import { useEffect, useState } from 'react';
-import Image from 'next/image';
+
 // flatmap and indexof
 // Import Swiper styles
 interface Size {
@@ -43,12 +43,12 @@ const ProductDetailsSlides = ({ images, selectedColor }: { images: ImageDetails[
         {imagesToDisplay.map((item, i) => (
           <div key={i}>
             {item.url.map((url, urlIndex) => (
-              <Image  
+              <img  
 
               onClick={() => handleThumbnailClick(url)}
                 key={urlIndex}
                 width={100}
-                priority={true}
+                 loading='lazy'
                 height={100}
                 className={`${selectedImage === url ? "opacity-[0.7] " : ""} rounded-tr-[10px] cursor-pointer w-[100px] transition-all duration-300 hover:opacity-[0.8] object-cover rounded-tl-[10px]`}
                 src={url}
@@ -59,12 +59,11 @@ const ProductDetailsSlides = ({ images, selectedColor }: { images: ImageDetails[
         ))}
       </div>
       <div className='md:block hidden w-full'>
-        <Image
+        <img
           className='md:border-2 w-full object-cover border-gray-300 md:rounded-[15px]'
           src={selectedImage}
-          width={1000}
-          height={1000}
-          priority={true}
+         
+         loading='lazy'
           alt={selectedImage}
         />
       </div>
@@ -84,7 +83,7 @@ const ProductDetailsSlides = ({ images, selectedColor }: { images: ImageDetails[
           {imagesToDisplay.flatMap((item) =>
             item.url.map((url, urlIndex) => (
               <SwiperSlide key={urlIndex} className='w-full h-auto'>
-                <Image width={1000} height={1000} priority={true} className='w-full h-auto object-cover' src={url} alt={url} />
+                <img loading='lazy' className='w-full h-auto object-cover' src={url} alt={url} />
               </SwiperSlide>
             ))
           )}

@@ -10,7 +10,7 @@ import 'swiper/css/navigation';
 
 import Link from 'next/link';
 import { ProductTypes } from '@/types';
-import Image from 'next/image';
+
 
 const Recommendation = ({title, items, url, hasBg = false}: {
    title: string;
@@ -59,7 +59,7 @@ const Recommendation = ({title, items, url, hasBg = false}: {
         {items.map((item,i:number) => (
             <SwiperSlide key={i}>
               <Link href={`/product/${item._id}`} className='flex flex-col'>
-                 <Image width={300} height={300} className="object-contain w-full" src={item.images && item?.images[0]?.url[0] || ""} alt={item?.name}/>
+                 <img loading='lazy' width={300} height={300} className="object-contain w-full" src={item.images && item?.images[0]?.url[0] || ""} alt={item?.name}/>
                  <article className='bg-white  p-3 flex flex-col items-center justify-center'>
                       <p className="line-clamp-1 text-black-1 text-sm font-normal ">{item.name} </p>
                       <div  className="flex  items-center gap-1">

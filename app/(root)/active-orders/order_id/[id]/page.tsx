@@ -1,13 +1,17 @@
+import { getOrderById } from '@/actions/product.actions'
+import { notFound } from 'next/navigation'
 import React from 'react'
 
-const page = ({params}: {
+const page = async({params}: {
     params: {
         id: string
     }
 }) => {
+  const order = await getOrderById({id: params.id})
+  if(order == null) return notFound()
   return (
     <div>
-         {params.id}
+         {order.id}
     </div>
   )
 }

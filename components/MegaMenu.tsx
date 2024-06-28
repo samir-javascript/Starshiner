@@ -105,7 +105,7 @@ export default function MegaMenu() {
                     {colorsDropdown.map((item) => (
                       <li className='flex items-center mb-1.5 gap-1' key={item}>
                         <FaChevronLeft color="gray" size={10} />
-                        <Link className='!text-[12px] ' href="">
+                        <Link className='!text-[12px] ' href="/">
                           {item}
                         </Link>
                       </li>

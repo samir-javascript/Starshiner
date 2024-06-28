@@ -140,7 +140,7 @@ console.log(suggestions, "products from input")
          <UserButton  />
          <p className='text-white font-normal text-sm lg:flex hidden '>My account</p>  
     </Link>
-    <Link href="/my-favourites_items" className='flex items-center gap-1.5'>
+    <Link href="/favourites" className='flex items-center gap-1.5'>
          <FaRegHeart color="white" size={22} />
          <p className='text-white font-normal text-sm lg:flex hidden '>Favourites</p>  
     </Link>

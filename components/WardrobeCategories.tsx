@@ -10,6 +10,7 @@ import { useEffect, useState } from 'react';
 
 import { wardrobeColumn } from '@/constants';
 import Link from 'next/link';
+import Image from 'next/image';
 const WardrobeCategories = () => {
   const [isMobile, setIsMobile] = useState(false);
  
@@ -46,7 +47,7 @@ const WardrobeCategories = () => {
         {wardrobeColumn.map((item) => (
             <SwiperSlide key={item.name}>
               <Link href={`/${item.name}`} className='flex flex-col items-center justify-center gap-1.5'>
-                 <img loading='lazy' className='rounded-[20px] ' src={item.img} alt={item.name}/>
+                 <Image width={1000} height={1000}  className='rounded-[20px] ' src={item.img} alt={item.name}/>
                 <p className='font-bold text-black text-base '>{item.name} </p>
               </Link>
           

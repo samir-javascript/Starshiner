@@ -62,7 +62,8 @@ const ProductDetailsSlides = ({ images, selectedColor }: { images: ImageDetails[
         <Image
           className='md:border-2 w-full object-cover border-gray-300 md:rounded-[15px]'
           src={selectedImage}
-          fill
+          width={1000}
+          height={1000}
           priority={true}
           alt={selectedImage}
         />
@@ -83,7 +84,7 @@ const ProductDetailsSlides = ({ images, selectedColor }: { images: ImageDetails[
           {imagesToDisplay.flatMap((item) =>
             item.url.map((url, urlIndex) => (
               <SwiperSlide key={urlIndex} className='w-full h-auto'>
-                <Image fill priority={true} className='w-full h-auto object-cover' src={url} alt={url} />
+                <Image width={1000} height={1000} priority={true} className='w-full h-auto object-cover' src={url} alt={url} />
               </SwiperSlide>
             ))
           )}

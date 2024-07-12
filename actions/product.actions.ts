@@ -48,14 +48,51 @@ export const getProducts =  cache (async(params: {
 //       console.log(error)
 //    }
 // }, ['/', "getArticles", "/all-articles"], {revalidate: 60 * 60 * 24})
+// export const getArticles = cache(async (params: { 
+//    page: number; 
+//    categories?: string[]; 
+//    colors?: string[] 
+// }) => {
+//    await connectToDb();
+//    const pageSize = 65;
+//    const { page, categories, colors } = params;
+//    const skipAmount = pageSize * (page - 1);
+
+//    const filters: any = {};
+
+//    if (categories && categories.length > 0) {
+//        filters.category = { $in: categories };
+//    }
+
+//    if (colors && colors.length > 0) {
+//        filters['images.colors.color'] = { $in: colors };
+//    }
+
+//    try {
+//        const products = await Product.find(filters)
+//            .limit(pageSize)
+//            .skip(skipAmount);
+//        const totalProducts = await Product.countDocuments(filters);
+       
+//        return {
+//            products, 
+//            page, 
+//            pages: Math.ceil(totalProducts / pageSize)
+//        };
+//    } catch (error) {
+//        console.log(error);
+//        return { products: [], page: 1, pages: 1 };
+//    }
+// }, ['/', 'getArticles', '/all-articles'], { revalidate: 60 * 60 * 24 });
 export const getArticles = cache(async (params: { 
    page: number; 
    categories?: string[]; 
-   colors?: string[] 
+   colors?: string[];
+   sort?: string; 
 }) => {
    await connectToDb();
    const pageSize = 65;
-   const { page, categories, colors } = params;
+   const { page, categories, colors, sort } = params;
    const skipAmount = pageSize * (page - 1);
 
    const filters: any = {};
@@ -68,8 +105,16 @@ export const getArticles = cache(async (params: {
        filters['images.colors.color'] = { $in: colors };
    }
 
+   let sortOption: any = {};
+   if (sort === 'asc') {
+       sortOption = { price: 1 };
+   } else if (sort === 'desc') {
+       sortOption = { price: -1 };
+   }
+
    try {
        const products = await Product.find(filters)
+           .sort(sortOption)
            .limit(pageSize)
            .skip(skipAmount);
        const totalProducts = await Product.countDocuments(filters);

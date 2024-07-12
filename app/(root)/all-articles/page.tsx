@@ -6,7 +6,7 @@ import ProductCard from '@/components/ProductCard'
 import { auth } from '@clerk/nextjs/server'
 import Link from 'next/link'
 import React from 'react'
-import { FaSortAmountDown } from 'react-icons/fa'
+
 import { IoChevronForwardOutline, IoFilter } from 'react-icons/io5'
 
 const page = async({searchParams}: {
@@ -14,6 +14,7 @@ const page = async({searchParams}: {
       page: number;
       color: string[];
       category: string[];
+      sort: string;
    }
 }) => {
    const {userId} = auth()
@@ -22,6 +23,7 @@ const page = async({searchParams}: {
       page: searchParams.page || 1,
       categories: searchParams.category || [],
       colors: searchParams.color || [],
+      sort: searchParams.sort || '',
    });
 console.log(searchParams.color, "search params from server")
   return (
@@ -45,7 +47,7 @@ console.log(searchParams.color, "search params from server")
                <h2 className='font-bold text-[#000] text-[18px] '>Spring Dresses</h2>
                <p  className='text-gray-500 font-medium text-sm '>Spring Dresses - see 120 items</p>
                </div>
-              <div className='flex px-3 mt-7 lg:flex-row flex-col w-full gap-4'>
+              <div className='flex lg:items-start px-3 mt-7 lg:flex-row flex-col w-full gap-4'>
                   <div>
                      <FilterColumn />
                      <MobileFilter />

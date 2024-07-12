@@ -20,7 +20,7 @@ const ProductCard = ({isWishlist = false, item, currentUser, isCategory = false}
    item.colors.some((color) => color.color === hoveredColor)  
  );
  
- const imageToDisplay = filteredImages.length > 0 ? filteredImages[0]?.url[0] : '';
+ const imageToDisplay = filteredImages.length > 0 ? filteredImages[0]?.url[0] : parsedResult?.images[0]?.url[0];
   const handleToggleWishlist = async()=> {
    
     try {

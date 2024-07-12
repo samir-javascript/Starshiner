@@ -9,7 +9,7 @@ import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 
 import Link from 'next/link';
-import { ProductTypes } from '@/types';
+import { ImageDetails, ProductTypes } from '@/types';
 
 
 const Recommendation = ({title, items, url, hasBg = false}: {
@@ -21,7 +21,13 @@ const Recommendation = ({title, items, url, hasBg = false}: {
  
   
   const [isMobile, setIsMobile] = useState(false);
+  const [hoveredColor,setHoveredColor] = useState('')
  
+//   const filteredImages = item.images.filter((item:ImageDetails) =>
+//    item.colors.some((color) => color.color === hoveredColor)  
+//  );
+ 
+ //const imageToDisplay = filteredImages.length > 0 ? filteredImages[0]?.url[0] : item?.images[0]?.url[0];
    useEffect(() => {
      const mediaQuery = window.matchMedia('(max-width: 768px)');
      setIsMobile(mediaQuery.matches);
@@ -56,27 +62,51 @@ const Recommendation = ({title, items, url, hasBg = false}: {
         onSwiper={(swiper) => console.log(swiper)}
         onSlideChange={() => console.log('swipe')}
       >
-        {items.map((item,i:number) => (
-            <SwiperSlide key={i}>
-              <Link href={`/product/${item._id}`} className='flex flex-col'>
-                 <img loading='lazy' width={300} height={300} className="object-contain w-full" src={item.images && item?.images[0]?.url[0] || ""} alt={item?.name}/>
-                 <article className='bg-white  p-3 flex flex-col items-center justify-center'>
-                      <p className="line-clamp-1 text-black-1 text-sm font-normal ">{item.name} </p>
-                      <div  className="flex  items-center gap-1">
-                        
-                            {item.images && item.images[0].colors.map((color: any) => (
-                        color.sizes.map(((x:{size:string,_id:string}) => (
-                          <p className="text-[#121212] text-sm font-normal" key={x._id}>{x.size}</p>
-                      )))
-                      ))
-                      }
-                      </div>
-                      <p className="font-bold text-black text-base ">{item.price},99 £ </p>
-                 </article>
-              </Link>
+        {items.map((item,i:number) => {
+          const filteredImages = item.images.filter((item:ImageDetails) =>
+            item.colors.some((color) => color.color === hoveredColor)  
+          );
           
-  </SwiperSlide>
-        ))}
+          const imageToDisplay = filteredImages.length > 0 ? filteredImages[0]?.url[0] : item?.images[0]?.url[0];
+           return (
+            <SwiperSlide key={i}>
+            <Link href={`/product/${item._id}`} className='flex flex-col'>
+               <img loading='lazy' width={300} height={300} className="object-contain w-full" src={item.images && imageToDisplay || ""} alt={item?.name}/>
+               <article className='bg-white  p-3 flex flex-col items-center justify-center'>
+                    <p className="line-clamp-1 text-black-1 text-sm font-normal ">{item.name} </p>
+                    <div  className="flex  items-center gap-1">
+                      
+                          {item.images && item.images[0].colors.map((color: any) => (
+                      color.sizes.map(((x:{size:string,_id:string}) => (
+                        <p className="text-[#121212] text-sm font-normal" key={x._id}>{x.size}</p>
+                    )))
+                    ))
+                    }
+                    </div>
+                    <p className="font-bold text-black text-base ">{item.price},99 £ </p>
+                    <div className="flex items-center mt-1.5 text-center w-full justify-center gap-2">
+      {item.images.flatMap((item: ImageDetails) =>
+                    item.colors.map((color, index: number) => (
+                      <div
+                      key={index}
+                      onMouseEnter={() => setHoveredColor(color.color)}
+                      className=" cursor-pointer shadow-md flex items-center justify-center rounded-full w-[26px] h-[26px] border-2 border-gray-300 p-[1px] "
+                      
+                    >
+                      <div
+                        style={{ backgroundColor: color.color }}
+                        className="w-full h-full rounded-full"
+                      />
+                    </div>
+                    ))
+                  )}
+      </div>
+               </article>
+            </Link>
+        
+</SwiperSlide>
+           )
+        })}
        
        
        

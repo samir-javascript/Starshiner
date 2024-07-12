@@ -130,7 +130,7 @@ const filteredImages = parsedResult.images.filter((item:ImageDetails) =>
   item.colors.some((color) => color.color === hoveredColor)  
 );
 
-const imageToDisplay = filteredImages.length > 0 ? filteredImages[0].url[0] : '';
+const imageToDisplay = filteredImages.length > 0 ? filteredImages[0]?.url[0] : '';
 
 
 
@@ -276,7 +276,7 @@ const imageToDisplay = filteredImages.length > 0 ? filteredImages[0].url[0] : ''
     </div>
 
            <SizesModal selectedSize={selectedSize} setSelectedSize={setSelectedSize} handleClick={handleAddToCart} open={openSizeModal} setOpen={setOpenSizeModal} sizes={sizes} />
-            <AccordionProductDetails name={parsedResult.name} description={parsedResult.description} image={filteredImages[0].url[0] || parsedResult.images[0].url}  />
+            <AccordionProductDetails name={parsedResult.name} description={parsedResult.description} image={selectedColor ? filteredImages[0]?.url[0] || "" : parsedResult.images[0]?.url || ""}  />
           </div>
           <CrossSellModal open={open} setOpen={setOpen} product={product} />
         </div>

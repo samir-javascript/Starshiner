@@ -71,13 +71,13 @@ const ProductCard = ({isWishlist = false, item, currentUser, isCategory = false}
                                    </div>
                                    <p className="font-bold text-black text-base ">{parsedResult.price || '49,99'} £ </p>
                               </Link>
-                              <div className="flex items-center gap-2">
+                              <div className="flex items-center text-center w-full justify-center gap-2">
         {parsedResult.images.flatMap((item: ImageDetails) =>
                       item.colors.map((color, index: number) => (
                         <div
                         key={index}
                         onMouseEnter={() => setHoveredColor(color.color)}
-                        className=" cursor-pointer  flex items-center justify-center rounded-full w-[30px] h-[30px] "
+                        className=" cursor-pointer shadow-md flex items-center justify-center rounded-full w-[22px] h-[22px] border-2 border-gray-300 p-[1px] "
                         
                       >
                         <div

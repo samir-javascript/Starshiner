@@ -11,13 +11,18 @@ import { IoChevronForwardOutline, IoFilter } from 'react-icons/io5'
 
 const page = async({searchParams}: {
    searchParams: {
-      page: number,
-      color: string[]
+      page: number;
+      color: string[];
+      category: string[];
    }
 }) => {
    const {userId} = auth()
    const currentUser = await getCurrentUser({clerkId: userId as string})
-   const result = await getArticles({page: searchParams.page || 1})
+   const result = await getArticles({
+      page: searchParams.page || 1,
+      categories: searchParams.category || [],
+      colors: searchParams.color || [],
+   });
 console.log(searchParams.color, "search params from server")
   return (
     <div className="w-full bg-white lg:py-7">

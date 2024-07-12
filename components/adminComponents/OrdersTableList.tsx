@@ -9,7 +9,7 @@ const OrdersTableList = ({orders}: {orders:string}) => {
     const parsedOrders = JSON.parse(orders)
   return (
     <>
-    <table className='mt-4'>
+           <table className='mt-4'>
                     <thead style={{borderCollapse: "inherit"}} className='bg-light-2'>
                          <tr>
                          <th className='p-2 border'>Order ID</th>
@@ -82,7 +82,7 @@ const OrdersTableList = ({orders}: {orders:string}) => {
                        
                     </tbody>
                  </table>
-</>
+    </>
   )
 }
 

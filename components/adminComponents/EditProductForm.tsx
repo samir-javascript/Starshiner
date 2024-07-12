@@ -1,14 +1,29 @@
 "use client"
-import React, { FormEvent, useRef, useState } from 'react'
+import React, { FormEvent, useEffect, useRef, useState } from 'react'
 import { Button } from '../ui/button'
 import { usePathname, useRouter } from 'next/navigation'
 import { toast } from '../ui/use-toast'
-
-const EditProductForm = () => {
+import { ProductTypes } from '@/types'
+interface Size {
+     size: string;
+     stock: number;
+   }
+  
+   interface Color {
+     color: string;
+     sizes: Size[];
+   }
+  
+   interface ImageDetails {
+     url: string[];
+     colors: Color[];
+   }
+const EditProductForm = ({product}: {product:string}) => {
+     const parsedProduct:ProductTypes = JSON.parse(product)
     const formRef = useRef<HTMLFormElement>(null)
     const [name,setName] = useState<string>('')
     const [description,setDescription] = useState<string>('')
-    const [images,setImages] = useState<any[]>([])
+    const [images,setImages] = useState<ImageDetails[]>([])
     const [price,setPrice] =  useState<number | null>(null)
     const [prevPrice,setPrevPrice] = useState<number | null>(null)
     const [category,setCategory] = useState<string>("")
@@ -23,7 +38,7 @@ const EditProductForm = () => {
              const res = await fetch('/api/products/updateProduct', {
                 method: "PUT",
                 body: JSON.stringify({
-                    
+                    path: pathname,productId: parsedProduct._id,name, category, description,price,prevPrice,images,position
                 })
              })
              if(!res.ok) {
@@ -50,6 +65,18 @@ const EditProductForm = () => {
             console.log(error)
           }
     }
+    useEffect(() => {
+      if(parsedProduct) {
+         setName(parsedProduct.name)
+         setDescription(parsedProduct.description)
+         setCategory(parsedProduct.category)
+         setPrice(parsedProduct.price)
+         setPrevPrice(parsedProduct.prevPrice)
+         setPosition(parsedProduct.position)
+         setIsNew(parsedProduct.isNewProduct)
+         setImages(parsedProduct.images)
+      }
+    }, [parsedProduct])
   return (
     <form ref={formRef} onSubmit={handleSubmit} className="flex flex-col gap-3 max-w-[700px] ">
                   <div className='flex flex-col gap-2'>
@@ -79,6 +106,19 @@ const EditProductForm = () => {
                   <div className='flex flex-col gap-2'>
                        <label htmlFor="PrevPrice">is New Product</label>
                        <input value="" type="checkbox" onChange={(e) => {}}  name="prevPrice" />
+                  </div>
+                  <div className='flex flex-col gap-2'>
+                       <label htmlFor="PrevPrice">Images</label>
+                       <div className='flex items-center gap-2'>
+                            {images.map((item) => (
+                                item.url.map((URL,i)=> (
+                                   <img className='w-[75px] h-[75px] rounded-[10px] object-contain ' key={i} src={URL} alt={URL} />
+                                ))
+                            ))}
+                       </div>
+                       <div>
+                           
+                       </div>
                   </div>
                   <Button className='bg-primary-1 rounded-[10px] px-3 py-2 w-full ' type="submit">Update Product</Button>
              </form>

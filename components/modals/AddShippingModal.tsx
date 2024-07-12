@@ -91,7 +91,7 @@ const AddShippingModal = ({open,setOpen,_id,type}: {
     setLoading(false)
    }
   }
- console.log(checked, "ccherf")
+
   return (
     <Dialog  open={open} onOpenChange={() => setOpen(false)} >
     

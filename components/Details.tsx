@@ -126,8 +126,8 @@ const handleToggleWishlist = async () => {
   }
 };
 
-const filteredImages = parsedResult.images.filter((item:any) =>
-  item.colors.some((color:any) => color.color === hoveredColor)
+const filteredImages = parsedResult.images.filter((item:ImageDetails) =>
+  item.colors.some((color) => color.color === hoveredColor)  
 );
 
 const imageToDisplay = filteredImages.length > 0 ? filteredImages[0].url[0] : '';
@@ -186,8 +186,8 @@ const imageToDisplay = filteredImages.length > 0 ? filteredImages[0].url[0] : ''
       <div>
         <h3 className='font-normal text-base mb-2 '>COLOR: <span>{selectedColor} </span></h3>
         <div className="flex items-center gap-2">
-        {parsedResult.images.flatMap((item: any) =>
-                      item.colors.map((color: any, index: number) => (
+        {parsedResult.images.flatMap((item: ImageDetails) =>
+                      item.colors.map((color, index: number) => (
                         <Tooltip  style="dark" content={<div  className='border-3 border-black-1 tooltip-dark '>
                             <img className="w-[90px] object-contain " src={imageToDisplay} alt="product picture" />
                         </div>} placement="bottom" >
@@ -276,7 +276,7 @@ const imageToDisplay = filteredImages.length > 0 ? filteredImages[0].url[0] : ''
     </div>
 
            <SizesModal selectedSize={selectedSize} setSelectedSize={setSelectedSize} handleClick={handleAddToCart} open={openSizeModal} setOpen={setOpenSizeModal} sizes={sizes} />
-            <AccordionProductDetails name={parsedResult.name} description={parsedResult.description} image={parsedResult.images[0].url}  />
+            <AccordionProductDetails name={parsedResult.name} description={parsedResult.description} image={filteredImages[0].url[0] || parsedResult.images[0].url}  />
           </div>
           <CrossSellModal open={open} setOpen={setOpen} product={product} />
         </div>

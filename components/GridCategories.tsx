@@ -13,7 +13,7 @@ const GridCategories = () => {
                 {homeCategories.map((item => (
                      <Link href={`/browse/${item.name}`} key={item.id}
                       className={`flex flex-col gap-2.5 group transition-all duration-500 items-center justify-center ${item.id === "4" ? "row-span-2" : ""}`}>
-                     <Image width={1000} height={1000} className="rounded-[20px] transition-all duration-500 group-hover:scale-[1.02] "
+                     <img loading='lazy' className="rounded-[20px] transition-all duration-500 group-hover:scale-[1.02] "
                       src={item.img} alt={item.name} />
                       <p className='font-bold text-black text-base '>{item.name} </p>
                  </Link> 

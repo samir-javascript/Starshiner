@@ -70,7 +70,7 @@ const MobileNav = () => {
               <div className="flex items-center gap-3">
                   <MdMenu onClick={() => setOpen(true)} color="white" size={35} />
                   <Link href="/">
-                      <Image alt="starshiners"  width={170} height={90} src="https://stcnt.starshiners.ro/img/logo-StarShinerS-2.svg" />
+                      <Image priority={true} alt="starshiners"  width={170} height={90} src="https://stcnt.starshiners.ro/img/logo-StarShinerS-2.svg" />
                   </Link>
               </div>
               <div className='flex items-center gap-2'>

@@ -26,6 +26,7 @@ const CartItems = () => {
               selectedSize: selectedProduct.selectedSize,
           }));
           setOpen(false);
+          // toast here
       }
   };
     const handleDecreaseQty = (item:ProductProps) => {
@@ -50,8 +51,7 @@ const CartItems = () => {
   //        console.log(error)
   //     }
   // }
-  console.log(productId, "product ID")
-  const formRef = useRef<HTMLFormElement>(null)
+ 
   
   return (
     <>

@@ -4,6 +4,7 @@ export interface DeleteUserParams {
     clerkId: string;
 }
 
+
 export interface OrderItem {
     _id: string;
     shippingAddress: {
@@ -86,7 +87,7 @@ interface Size {
     sizes: Size[];
   }
  
-  interface ImageDetails {
+ export interface ImageDetails {
     url: string[];
     colors: Color[];
   }

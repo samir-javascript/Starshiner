@@ -65,10 +65,10 @@ export async function updateUser(params:UpdateUserParams) {
 
 
 export const getCurrentUser =  async(params:{clerkId:string})=> {
- 
+  const  { clerkId } = params;
    try {
       await connectToDb()
-      const user = await User.findOne({clerkId: params.clerkId})
+      const user = await User.findOne({clerkId})
       if(!user) {
          throw new Error('User not found')
       }
@@ -134,7 +134,22 @@ export const getMyOrders = cache (async(params: {
   }
 }, ["/active-orders", "/ordersList", "getMyOrders"], {revalidate: 1000 * 60 * 60 * 24}) 
 
-
+export const getOrderById = async(params:{
+   orderId:string
+}) => {
+   try {
+       const order = await OrderModel.findById(params.orderId)
+       .populate("userId")
+     .populate('orderItems.product')
+     .exec()
+     if(!order) {
+        throw new Error('Order not found')
+     }
+      return order
+   } catch (error) {
+      console.log(error, `error getting order by ID: ${params.orderId}`)
+   }
+}
 // with pagination;
 export const getAllUsers = cache( async(params: {
    page: number

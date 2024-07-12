@@ -38,7 +38,7 @@ const ProductCard = ({isWishlist = false, item, currentUser, isCategory = false}
          <Link href={`/product/${parsedResult._id}`}>
          <img className='w-full'
          src={parsedResult.images[0].url[0] || "https://photos-de.starshiners.ro/110390/709822-372x558-lo.jpg"}
-          alt={""}/>
+          alt={parsedResult?.name || ""}/>
          </Link>
          
          {isWishlist  &&  <div onClick={handleToggleWishlist} className='absolute cursor-pointer top-0 p-3 right-0'>

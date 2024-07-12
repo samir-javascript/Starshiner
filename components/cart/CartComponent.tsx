@@ -24,7 +24,7 @@ const CartComponent = ({ currentUser }: { currentUser: string; }) => {
 
     if (!cartItems) return null;
 
-    console.log(paymentMethod, "payment method");
+  
     return (
         <>
             {cartItems?.length > 0 && (
@@ -39,7 +39,7 @@ const CartComponent = ({ currentUser }: { currentUser: string; }) => {
             {cartItems?.length > 0 ? (
                 <div className='w-full max-lg:px-2 max-w-[1000px] py-7 mx-auto flex lg:flex-row flex-col gap-5 '>
                     <div className='flex-1 flex flex-col gap-3 w-full'>
-                        <Accordion type="single" collapsible>
+                        <Accordion  type="single" collapsible>
                             <CartItems />
                         </Accordion>
                         <div className='bg-white shadow-md flex flex-col gap-2 rounded-[17px] p-5 '>

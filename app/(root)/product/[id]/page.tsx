@@ -5,7 +5,7 @@ import Details from '@/components/Details';
 import Rating from '@/components/Rating';
 import Recommendation from '@/components/Recommendation';
 
-import { recommendedProducts } from '@/constants';
+
 import { ReviewProps } from '@/types';
 import { auth } from '@clerk/nextjs/server';
 import type { Metadata } from 'next';
@@ -67,7 +67,7 @@ const Page = async({params}:props) => {
      <div className='max-w-[1200px] max-lg:px-3 mx-auto mt-7 '>
           <div className='flex md:max-w-[700px] w-full flex-col gap-3'>
              <h3 className="text-[#000] font-bold text-[20px]  ">Customers Reviews for this Product</h3>
-              <div>
+              <>
                   {result?.reviews.length > 0 ? result?.reviews.map((review:ReviewProps) => (
                       <div className={`border-b border-gray-200 py-3 max-w-[600px] `} key={review?._id}>
                            <div className='flex items-center gap-2'>
@@ -93,10 +93,10 @@ const Page = async({params}:props) => {
                       </div>
                   )): (
                      <div>
-                         <p>this product has no reviews yet . be the first</p>
+                         <p className="font-medium mt-2 text-[17px] text-[#000] leading-[1.7] ">this Product has no reviews yet . be the first</p>
                      </div>
                   )}
-              </div>
+              </>
           </div>
      </div>
     </div>

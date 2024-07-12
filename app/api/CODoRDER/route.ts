@@ -1,4 +1,4 @@
-
+// use nodemailer as an email sender instead of resend;
 import ConfirmationEmail from "@/components/emails/ConfirmationEmail";
 import Product from "@/schemas/productModel";
 import OrderModel from "@/schemas/orderModel";
@@ -33,7 +33,6 @@ export async function POST(req:Request) {
               totalAmount: totalAmount,
               userId: currentUser._id,
               paymentMethode: "cash on delivery", 
-              paidAt: Date.now(),
               shippingAmount: shippingAmount,
               shippingAddress: shippingAddress,
 

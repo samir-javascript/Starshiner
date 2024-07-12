@@ -4,25 +4,13 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
-import SwiperCore, { Navigation, Pagination, Scrollbar, A11y } from 'swiper/modules';
+import { Navigation, Pagination, Scrollbar, A11y } from 'swiper/modules';
 import { useEffect, useState } from 'react';
+import { ImageDetails } from '@/types';
 
 // flatmap and indexof
 // Import Swiper styles
-interface Size {
-  size: string;
-  stock: number;
-}
 
-interface Color {
-  color: string;
-  sizes: Size[];
-}
-
-interface ImageDetails {
-  url: string[];
-  colors: Color[];
-}
 
 const ProductDetailsSlides = ({ images, selectedColor }: { images: ImageDetails[], selectedColor: string }) => {
   const filteredImages = images.filter((item) =>

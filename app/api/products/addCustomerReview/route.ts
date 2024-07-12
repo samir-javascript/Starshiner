@@ -11,23 +11,23 @@ export async function POST(req:Request) {
     try {
         await connectToDb()
         if(!isValidObjectId(productId)) {
-            throw new Error('Invalid request!')
+            throw new Error('Invalid request PRODUCT ID IS NOT VALID!')
         }
         const user = await User.findById(userId)
         if(!user) {
-            throw new Error('Invaid request!')
+            throw new Error('Invaid request USER ID IS NOT VALID!!')
         }
         const product = await Product.findById(productId)
         const review = {
             name: user.username || user.name,
-            comment: comment,
+            comment,
             rating,
             user: user._id,
-            title: title
+            title
         }
         product.reviews.push(review)
         product.numReviews = product.reviews.length
-        product.rating = product.reviews.reduce((acc:any,item:any)=> acc + item.rating, 0) / product.reviews.length;
+        product.rating = product.reviews.reduce((acc:number,item:any)=> acc + item.rating, 0) / product.reviews.length;
         await product.save()
         revalidatePath(`/product/${productId}`)
         return NextResponse.json({message: "product review has been added"})

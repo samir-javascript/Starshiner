@@ -70,7 +70,7 @@ const CartCheckout = () => {
                
             }
             // toast
-             // clear cart
+           
              router.replace('/success/COD')
              dispatch(clearCart())
              

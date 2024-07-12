@@ -4,14 +4,14 @@ import { NextResponse } from "next/server";
 import { revalidatePath } from "next/cache";
 import { isValidObjectId } from "mongoose";
 import User from "@/schemas/userModel";
-
+// push and splice methods and indexof
 export async function POST(req:Request) {
     const { userId, productId } = await req.json()
     if(!isValidObjectId(productId)) {
-        throw new Error('Invalid request!')
+        throw new Error('Invalid request PRODUCT ID IS NOT VALID!')
     }
     if(!userId)  {
-        throw new Error('Invalid request!')
+        throw new Error('Invalid request USER ID IS NOT VALID!')
     }
     try {
         await connectToDb()

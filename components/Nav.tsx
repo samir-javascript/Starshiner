@@ -12,7 +12,7 @@ const Nav = () => {
     <nav className="bg-primary-1 px-2 flex max-md:hidden w-full h-[60px] ">
         <div className='w-full max-w-[1200px] mx-auto h-full gap-7 flex items-center justify-between '>
           <Link href="/">
-             <Image alt="starshiners"  width={200} height={90} src="https://stcnt.starshiners.ro/img/logo-StarShinerS-2.svg" />
+             <Image priority alt="starshiners"  width={200} height={90} src="https://stcnt.starshiners.ro/img/logo-StarShinerS-2.svg" />
           </Link>
            
             <InputSearch />

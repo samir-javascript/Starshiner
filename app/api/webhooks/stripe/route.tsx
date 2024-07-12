@@ -1,4 +1,4 @@
-
+// use nodemailer as it doesn't require domaine verification;
 
 import ConfirmationEmail from "@/components/emails/ConfirmationEmail";
 import Product from "@/schemas/productModel";
@@ -89,7 +89,7 @@ export const POST = async (req: NextRequest) => {
         return NextResponse.json({ error: "Cart not found" }, { status: 404 });
       }
 
-      console.log('Cart data:', cart);
+     
 
       // Create an order record in the database
       const order = new OrderModel({

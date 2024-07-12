@@ -1,7 +1,7 @@
 import mongoose from "mongoose"
 export const connectToDb = async() => {
     try {
-        await mongoose.connect(process.env.MONGODB_URL!, {
+        await mongoose.connect(process.env.MONGODB_URL as string, {
             dbName: "starshiners_app"
         })
         console.log("mongo db has been connected successfuly")

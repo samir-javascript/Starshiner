@@ -8,7 +8,9 @@ import ShippingCartModal from '../modals/ShippingCartModal';
 import { useState } from 'react';
 import EditShipping from '../EditShipping';
 
-const CartShipping = ({ currentUser }: { currentUser: any }) => {
+const CartShipping = ({ currentUser }: { currentUser: {
+    _id: string
+} }) => {
  
     const [open, setOpen] = useState(false);
    

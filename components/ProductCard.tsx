@@ -1,9 +1,9 @@
 "use client"
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import React from 'react'
+import React, { useState } from 'react'
 import { FaHeart, FaRegHeart, FaTimes } from 'react-icons/fa'
-
+import { ImageDetails } from '@/types';
 const ProductCard = ({isWishlist = false, item, currentUser, isCategory = false}: {
    item: string;
    currentUser?: string;
@@ -11,8 +11,16 @@ const ProductCard = ({isWishlist = false, item, currentUser, isCategory = false}
    isWishlist?: boolean
 }) => {
   const parsedUser = JSON.parse(currentUser as string)
+
   const parsedResult = JSON.parse(item)
   const router = useRouter()
+  const [hoveredColor,setHoveredColor] = useState('')
+ 
+  const filteredImages = parsedResult.images.filter((item:ImageDetails) =>
+   item.colors.some((color) => color.color === hoveredColor)  
+ );
+ 
+ const imageToDisplay = filteredImages.length > 0 ? filteredImages[0]?.url[0] : '';
   const handleToggleWishlist = async()=> {
    
     try {
@@ -37,7 +45,7 @@ const ProductCard = ({isWishlist = false, item, currentUser, isCategory = false}
         <div>
          <Link href={`/product/${parsedResult._id}`}>
          <img className='w-full'
-         src={parsedResult.images[0].url[0] || "https://photos-de.starshiners.ro/110390/709822-372x558-lo.jpg"}
+         src={imageToDisplay || ""}
           alt={parsedResult?.name || ""}/>
          </Link>
          
@@ -63,6 +71,23 @@ const ProductCard = ({isWishlist = false, item, currentUser, isCategory = false}
                                    </div>
                                    <p className="font-bold text-black text-base ">{parsedResult.price || '49,99'} £ </p>
                               </Link>
+                              <div className="flex items-center gap-2">
+        {parsedResult.images.flatMap((item: ImageDetails) =>
+                      item.colors.map((color, index: number) => (
+                        <div
+                        key={index}
+                        onMouseEnter={() => setHoveredColor(color.color)}
+                        className=" cursor-pointer  flex items-center justify-center rounded-full w-[30px] h-[30px] "
+                        
+                      >
+                        <div
+                          style={{ backgroundColor: color.color }}
+                          className="w-full h-full rounded-full"
+                        />
+                      </div>
+                      ))
+                    )}
+        </div>
                            </div>
   )
 }

@@ -40,7 +40,7 @@ const page = async() => {
                  
               </div>
               <div className='flex flex-col gap-5'>
-                  {orders?.map((order) => (
+                  {orders?.length! > 0 ? orders?.map((order) => (
   <div key={order._id} className='p-5 bg-white shadow-md rounded-[17px] flex flex-col w-full  '>
                     <div className='flex mb-3 items-center gap-2'>
  <img className='w-[18px] h-[18px] ' src="https://stcnt.starshiners.ro/img/email-v6/icon-success-3x.jpg"
@@ -84,7 +84,12 @@ const page = async() => {
 </Link>
 
 </div>
-                  ))}
+                  )): (
+                     <div className='p-5 bg-white shadow-md md:rounded-[17px] flex items-center gap-3 w-full '>
+                          <h3>Delivered orders</h3>
+                           <p>you don't have any orders</p>
+                     </div>
+                  )}
               </div>
                
             </div>

@@ -14,7 +14,7 @@ export default function MegaMenu() {
 // <button onClick={() => switchOptimisticLike()}>{optimisticLike ? 'Unlike' : 'Like'}</button>
   
   return (
-    <Mega className='w-full !relative z-[999] max-md:!py-0 !pt-0 border-b border-gray-300'>
+    <Mega className='w-full !relative !z-[999] max-md:!py-0 !pt-0 border-b border-gray-300'>
       <div className="hidden sm:!flex max-w-[1000px]  !flex-wrap items-center justify-between lg:px-[4rem] md:space-x-8">
         <Navbar.Toggle />
         <Navbar.Collapse className='!flex items-center flex-wrap w-full'>
@@ -25,11 +25,11 @@ export default function MegaMenu() {
           </Link>
           <Navbar.Link className='!py-0 flex-shrink-0'>
             <Mega.Dropdown toggle={
-              <p className="uppercase z-[999] hover:!text-primary-1 hover:underline transition-all duration-300 rounded-lg text-sm font-semibold text-gray-800 focus:outline-none">
+              <p className="uppercase !z-[999] hover:!text-primary-1 hover:underline transition-all duration-300 rounded-lg text-sm font-semibold text-gray-800 focus:outline-none">
                 Dresses
               </p>
             }>
-              <ul className="grid z-[9999] !mt-0 grid-cols-4">
+              <ul className="grid !z-[999] !mt-0 grid-cols-4">
                 <article className="space-y-4 p-4">
                   <h2 className='text-[#000] font-bold text-[18px] '>Types</h2>
                   <ul>

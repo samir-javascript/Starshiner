@@ -66,6 +66,7 @@ export async function updateUser(params:UpdateUserParams) {
 
 export const getCurrentUser =  async(params:{clerkId:string})=> {
   const  { clerkId } = params;
+  if(!clerkId) return;
    try {
       await connectToDb()
       const user = await User.findOne({clerkId})

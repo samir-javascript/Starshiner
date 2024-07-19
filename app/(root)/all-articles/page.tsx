@@ -14,6 +14,7 @@ const page = async({searchParams}: {
       page: number;
       color: string[];
       category: string[];
+      sizes: string[];
       sort: string;
    }
 }) => {
@@ -22,11 +23,12 @@ const page = async({searchParams}: {
    const result = await getArticles({
       page: searchParams.page || 1,
       categories: searchParams.category || [],
+      sizes: searchParams.sizes || [],
       colors: searchParams.color || [],
       sort: searchParams.sort || '',
    });
    
-console.log(searchParams.color, "search params from server")
+
   return (
     <div className="w-full bg-white lg:py-7">
         <div className='lg:max-w-[1200px] w-full mx-auto  lg:px-3 flex-col flex'>

@@ -44,7 +44,7 @@ const FilterColumn = () => {
   useEffect(() => {
     const paramsString = generateSearchParams(checkedColors, checkedCategories, sortOrder, checkedSizes);
     setSearchParams(paramsString);
-  }, [checkedColors, checkedCategories, sortOrder]);
+  }, [checkedColors, checkedCategories, sortOrder,checkedSizes]);
 
   const handleColorChange = (color: string) => {
     if (checkedColors.includes(color)) {

@@ -13,7 +13,7 @@ const ProfileTabs = () => {
     const pathname = usePathname()
     const user = useUser()
   return (
-    <div className='border lg:block hidden border-gray-300 rounded-[10px]  w-[300px] '>
+    <div className='border md:block hidden border-gray-300 rounded-[10px]  w-[300px] '>
                   <div className='bg-gray-1 p-5 flex rounded-tr-[10px] rounded-tl-[10px] flex-col gap-3 border-b border-gray-300 '>
                       <h2 className='text-black font-semibold text-[18px] '>My account</h2>
                       <div className='flex items-center gap-2'>

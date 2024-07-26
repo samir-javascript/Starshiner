@@ -23,6 +23,9 @@
     .label-css {
        @apply text-sm text-[#000] font-semibold
     }
+    .p-css {
+        @apply text-sm text-gray-500 font-medium
+    }
 
     
   }

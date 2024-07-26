@@ -35,7 +35,7 @@ const MobileProfileTabs = () => {
     ]
     
     return (
-        <div className='w-full lg:hidden scrollbar-hide flex items-center gap-4 overflow-x-scroll'>
+        <div className='w-full md:hidden scrollbar-hide flex items-center gap-4 overflow-x-scroll'>
             {tabs.map((item) => (
                 <Link className='flex px-3 flex-col gap-2 items-center' href={item.url} key={item.name}>
                     <div className='border-2 border-gray-400 rounded-full flex items-center justify-center w-[80px] h-[80px] p-[2px]'>

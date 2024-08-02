@@ -7,6 +7,14 @@ export interface DeleteUserParams {
 
 export interface OrderItem {
     _id: string;
+    orderItems: [{
+         name: string;
+         price: number;
+         filteredImages: any;
+         qty: number;
+         _id: string;
+         
+     }];
     shippingAddress: {
         city: string
         country: string
@@ -14,7 +22,6 @@ export interface OrderItem {
         firstName: string
         lastName: string
         address: string
-       
         phoneNumber: string
     }
     userId: {
@@ -22,6 +29,7 @@ export interface OrderItem {
         username:string
     }
     totalAmount: number;
+    shippingAmount: number;
     deliveryStatus: string
     paymentMethode: string
    isPaid: boolean

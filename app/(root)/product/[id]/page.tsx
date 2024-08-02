@@ -36,7 +36,7 @@ const Page = async({params}:props) => {
   const result = await getProductById({productId: params.id})
   if(result == null) return notFound()
     const {userId} = auth()
-  const currentUser = await getCurrentUser({clerkId: userId as string})
+   const currentUser = await getCurrentUser({clerkId: userId as string})
   return (
     
     <div  className='w-full bg-white  py-4 h-full'>

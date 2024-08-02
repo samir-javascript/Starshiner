@@ -1,18 +1,33 @@
 import {  getOrderById } from '@/actions/user.actions'
 import MobileProfileTabs from '@/components/MobileProfileTabs'
 import ProfileTabs from '@/components/ProfileTabs'
+import { OrderItem } from '@/types'
 import Link from 'next/link'
 import React from 'react'
 import {  FaChevronLeft } from 'react-icons/fa'
 
+export async function generateMetadata({ params }: {params: {id:string}}) {
+    const order: OrderItem = await getOrderById({orderId: params.id})
+      return {
+        title: `StarshinerS | ${order.orderItems[0].name}`,
+        description: `Starshiners women online store | N°${order._id}`,
+      }
+    }
 
 const page = async({params}: {
    params: {
      id: string
    }
 }) => {
+    // magnet
+    // bzatm
+    // 9or2an
+    // les bracles (ktaba)
+    // porte de cle 7did
+    // bli4at
 
-    const order = await getOrderById({orderId: params.id})
+
+    const order: OrderItem = await getOrderById({orderId: params.id})
    
   return (
     <section className="bg-white py-3 h-full w-full" >
@@ -27,7 +42,7 @@ const page = async({params}: {
                   </Link>
                  
               </div>
-             <h2 className='font-bold text-[#000] lg:text-[30px] text-[22px]  '>Commande N°{params.id}
+             <h2 className='font-bold text-[#000] lg:text-[30px] text-[22px]  '>Commande N°{order._id}
              </h2>
              <div className="flex flex-col  gap-3 ">
                  <div className="flex items-center h-[45px] justify-between rounded-[10px]  w-full ">
@@ -38,7 +53,7 @@ const page = async({params}: {
 
                      
                  </div>
-                 {order.orderItems.map((x:any) => (
+                 {order.orderItems.map((x) => (
  <div key={x._id} className="flex w-full gap-3 items-start !border-b pb-3  ">
  <img className="w-[70px] rounded-[5px] object-cover " src={x.filteredImages[0].url[0]} alt={x.name} />
  <div className="flex flex-1 flex-col ">
@@ -49,7 +64,7 @@ const page = async({params}: {
      <div className="flex items-center gap-1">
 <p className='text-black-1 text-sm font-normal'>Order status: </p>
 <div className='bg-gray-200 rounded-[5px] animate-pulse px-3 '>
-<p className="text-sm text-[#555] font-medium  ">{x.deliveryStatus} </p>
+<p className="text-sm text-[#555] font-medium  ">{order.deliveryStatus} </p>
 </div>
 </div>
 <h2 className="font-bold text-[#000] text-[20px] ">{x.price} Dh</h2>
@@ -62,17 +77,17 @@ const page = async({params}: {
                   <div className='border-b flex flex-col border-gray-200 pb-3'>
                   <article className='flex items-center justify-between'>
                           <p className='text-black-1 font-bold text-sm'>Sous total produits</p>
-                          <p className='text-gray-500 font-medium text-sm '>82,58 Dh</p>
+                          <p className='text-gray-500 font-medium text-sm '>{order.totalAmount} Dh</p>
                      </article>
                      <article className='flex items-center justify-between'>
                           <p className='text-gray-500 font-medium text-sm'>Frais de livraison
                           </p>
-                          <p className='text-gray-500 font-medium text-sm'>16,00 Dh</p>
+                          <p className='text-gray-500 font-medium text-sm'>{order.shippingAmount} Dh</p>
                      </article>
                   </div>
                      <div className='flex items-center pt-3 justify-between'>
                          <p className='text-[#00afaa] font-bold text-[18px] '>TOTAL</p>
-                         <p className='text-[#00afaa] font-bold text-[18px] '>160,98 Dh</p>
+                         <p className='text-[#00afaa] font-bold text-[18px] '>{order.totalAmount} Dh</p>
                      </div>
                 </div>
                 <React.Fragment>
@@ -81,10 +96,10 @@ const page = async({params}: {
                        <article className='flex flex-col gap-1'>
                            <h2 className='text-black-1 font-bold text-sm'>Adresse de livraison</h2>
                            <div className='flex flex-col'>
-                                <p className='p-css'>Mr. Soufiane Hmamou</p>
-                                <p className='p-css'>Meknès , rue de Imam boussayri</p>
-                                <p className='p-css'>MEKNES, 50999 Maroc</p>
-                                <a className='text-[#00afaa] font-medium text-sm '  href="tel:+212609547692">+212609547692</a>
+                                <p className='p-css'>Mr. {order.shippingAddress.firstName} {order.shippingAddress.lastName} </p>
+                                <p className='p-css'>Meknès , {order.shippingAddress.address} </p>
+                                <p className='p-css'>MEKNES, {order.shippingAddress.zipCode} {order.shippingAddress.country} Maroc</p>
+                                <a className='text-[#00afaa] font-medium text-sm '  href="tel:+212609547692">+212{order.shippingAddress.phoneNumber} </a>
                            </div>
                        </article>
                        <article className='flex flex-col gap-1'>
@@ -97,17 +112,19 @@ const page = async({params}: {
                        <article className='flex flex-col gap-1'>
                            <h2 className='text-black-1 font-bold text-sm'>Adresse de facturation</h2>
                            <div className='flex flex-col'>
-                                <p className='p-css'>Mr. Soufiane Hmamou</p>
-                                <p className='p-css'>Meknès , rue de Imam boussayri</p>
-                                <p className='p-css'>MEKNES, 50999 Maroc</p>
-                                <a className='text-sm text-[#00afaa] font-medium '  href="tel:+212609547692">+212609547692</a>
+                                <p className='p-css'>Mr. {order.shippingAddress.firstName} {order.shippingAddress.lastName} </p>
+                                <p className='p-css'>Meknès , {order.shippingAddress.address} </p>
+                                <p className='p-css'>MEKNES, {order.shippingAddress.zipCode} {order.shippingAddress.country} Maroc</p>
+                                <a className='text-[#00afaa] font-medium text-sm '  href="tel:+212609547692">+212{order.shippingAddress.phoneNumber} </a>
                            </div>
                        </article>
                        <article className='flex flex-col gap-1'>
                            <h2 className='text-black-1 font-bold text-sm'>Informations de paiement</h2>
                            <div className='flex flex-col'>
                                
-                                <p className='p-css'>Paiement par carte bancaire</p>
+                                <p className='p-css'>
+                                     {order.paymentMethode}
+                                </p>
                                
                            </div>
                        </article>

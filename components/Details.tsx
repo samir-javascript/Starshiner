@@ -44,7 +44,7 @@ const Details = ({result, currentUser}: {
   const [openSizeModal,setOpenSizeModal] = useState(false)
   const dispatch = useAppDispatch()
    const parsedResult = JSON.parse(result)
-   const parsedUser = currentUser && JSON.parse(currentUser)
+   const parsedUser = currentUser !== undefined && JSON.parse(currentUser)
    const [hoveredColor,setHoveredColor] = useState('')
    const [selectedColor, setSelectedColor] = useState(parsedResult.images[0].colors[0].color);
    const [selectedSize,setSelectedSize] = useState('')

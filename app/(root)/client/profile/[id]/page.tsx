@@ -3,7 +3,7 @@ import MobileProfileTabs from "@/components/MobileProfileTabs";
 import ProfileTabs from "@/components/ProfileTabs"
 import ProfileTop from "@/components/ProfileTop";
 import UserProfileAccordions from "@/components/UserProfileAccordions";
-
+import { auth } from "@clerk/nextjs/server";
 import Link from "next/link";
 
 const page = async({params}: {
@@ -11,8 +11,11 @@ const page = async({params}: {
     id: string
   }
 }) => {
-  if(!params.id) return
-   const currentUser = await getCurrentUser({clerkId:params.id!})
+  const  user  = auth()
+  
+ 
+  if(!user.userId) return
+   const currentUser = await getCurrentUser({clerkId:user.userId})
    const shippingAddresses = await getMyShippingAddreses({userId:currentUser?._id})
 
   return (

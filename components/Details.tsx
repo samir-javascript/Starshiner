@@ -45,15 +45,15 @@ const Details = ({result, currentUser}: {
   const dispatch = useAppDispatch()
    const parsedResult = JSON.parse(result)
   // const parsedUser = currentUser !== undefined && JSON.parse(currentUser) 
-  let parsedUser: any;
+  let parsedUser = null;
 
-if (currentUser !== undefined) {
-  try {
-    parsedUser = JSON.parse(currentUser);
-  } catch (error) {
-    console.error('Error parsing currentUser:', error);
+  if (currentUser !== undefined && currentUser !== 'undefined') {
+    try {
+      parsedUser = JSON.parse(currentUser);
+    } catch (error) {
+      console.error('Error parsing currentUser:', error);
+    }
   }
-}
 
    const [hoveredColor,setHoveredColor] = useState('')
    const [selectedColor, setSelectedColor] = useState(parsedResult.images[0].colors[0].color);
